@@ -1,2 +1,3 @@
 /.venv
 /app/.env
+/app/core/__pycache__
