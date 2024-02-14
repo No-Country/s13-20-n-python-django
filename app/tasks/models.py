@@ -28,3 +28,11 @@ class File(models.Model):
     file = models.ImageField(blank=True)
 
 
+class Comment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
+    task = models.ForeignKey(Task, on_delete=models.SET_NULL, blank=True)
+    content = models.CharField(max_length=255, black=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.user.username
