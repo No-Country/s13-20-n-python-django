@@ -21,3 +21,10 @@ class Task(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class File(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, blank=True)
+    file = models.ImageField(blank=True)
+
+
