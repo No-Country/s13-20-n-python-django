@@ -2,6 +2,9 @@ from django.db import models
 from django.utils.translation import gettext_noop
 from accounts.models import User
 
+class Project(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    name = models.CharField(max_length=255)
 
 class Task(models.Model):
     class Priority(models.IntegerChoices):
