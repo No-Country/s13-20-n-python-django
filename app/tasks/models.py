@@ -51,8 +51,8 @@ class MilestoneTask(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
-    task = models.ForeignKey(Task, on_delete=models.SET_NULL, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, blank=True)
     content = models.CharField(max_length=255, black=True)
     created_time = models.DateTimeField(auto_now_add=True)
 
