@@ -29,10 +29,10 @@ class Task(models.Model):
         URGENT = 4, gettext_noop("URGENT")
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    # list = models.ForeignKey(List, on_delete=models.SET_NULL, null=True)
+    list = models.ForeignKey(List, on_delete=models.CASCADE, null=True)
     order = models.IntegerField(defauld=1)
-    name = models.CharField(max_length=100, blank=True)
-    description = models.CharField(max_length=255, black=True)
+    name = models.CharField(max_length=255, blank=True)
+    description = models.TextField(max_length=255, black=True)
     created_time = models.DateTimeField(auto_now_add=True)
     expired_time = models.DateTimeField()
     priority = models.IntegerField(choices=Priority.choices, default=1)
