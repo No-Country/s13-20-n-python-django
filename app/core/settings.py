@@ -36,15 +36,39 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+# Applications core of Django
+BASE_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "task",
 ]
+
+# Local applications
+LOCAL_APPS = [
+    "task",
+    "accounts",
+]
+
+# Third persons applications
+THIRD_APPS = [
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "rest_framework_simplejwt.token_blacklist",
+    "django_filters",
+    "drf_spectacular",
+    "django_extensions",
+    "corsheaders",
+    "storages",
+    "whitenoise.runserver_nostatic",
+]
+
+
+INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
+
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
