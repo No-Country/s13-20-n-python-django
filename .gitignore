@@ -1,5 +1,8 @@
 .venv
 /backend/tasks/migrations
+/backend/tasks/__pycache__
+/backend/accounts/migrations
+/backend/accounts/__pycache__
 /backend/.env
 /backend/core/__pycache__
 /backend/db.sqlite3
