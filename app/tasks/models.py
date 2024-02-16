@@ -14,11 +14,6 @@ class Board(models.Model):
     description = models.TextField(max_length=255, black=True)
 
 
-class Milestone(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    complete = models.BooleanField(default=False)
-
-
 class List(models.Model):
     board = models.ForeignKey(Board, on_delete=models.CASCADE)
     title = models.CharField(max_length=255, blank=True)
@@ -48,6 +43,14 @@ class Task(models.Model):
 class File(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE, blank=True)
     file = models.ImageField(blank=True)
+
+
+class Milestone(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    complete = models.BooleanField(default=False)
+    tasks = models.ManyToManyField(
+        Task, through="MilestoneTask", through_fields=("milestone", "task")
+    )
 
 
 class MilestoneTask(models.Model):
