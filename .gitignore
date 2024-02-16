@@ -1,4 +1,6 @@
-/.venv
+.venv
+/app/tasks/migrations
 /app/.env
 /app/core/__pycache__
 /app/db.sqlite3
+
