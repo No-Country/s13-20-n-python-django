@@ -10,6 +10,7 @@ python = "^3.11"
 Django = "^4.2.10"
 pillow = "^10.2.0"
 python-dotenv = "^1.0.1"
+djangorestframework = "^3.14.0"
 
 
 [build-system]
