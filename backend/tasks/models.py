@@ -11,7 +11,7 @@ class Project(models.Model):
 class Board(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, blank=True)
-    description = models.TextField(max_length=255, black=True)
+    description = models.TextField(max_length=255, blank=True)
 
 
 class List(models.Model):
@@ -29,9 +29,9 @@ class Task(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     list = models.ForeignKey(List, on_delete=models.CASCADE, null=True)
-    order = models.IntegerField(defauld=1)
+    order = models.IntegerField(default=1)
     name = models.CharField(max_length=255, blank=True)
-    description = models.TextField(max_length=255, black=True)
+    description = models.TextField(max_length=255, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
     expired_time = models.DateTimeField()
     priority = models.IntegerField(choices=Priority.choices, default=1)
@@ -59,9 +59,9 @@ class MilestoneTask(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, blank=True)
-    content = models.CharField(max_length=255, black=True)
+    content = models.CharField(max_length=255, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
