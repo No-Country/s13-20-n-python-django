@@ -1,6 +1,6 @@
 from rest_framework.routers import DefaultRouter
-from accounts.api.viewsets import ProfileModelViewSet
+from accounts.api.viewsets import UserModelViewSet
 
 routers = DefaultRouter()
-routers.register("profiles", ProfileModelViewSet, basename="profile")
+routers.register("", UserModelViewSet, basename="user")
 urlpatterns = routers.urls

@@ -1,10 +1,27 @@
+import uuid
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser
+from abstracts.models import AbstractModel
+from django.contrib.auth.models import PermissionsMixin
+from .managers import CustomUserManager
 
-class Profile(models.Model):
-    user=models.models.OneToOneField("user", on_delete=models.CASCADE)
-    imageurl=models.TextField(max_length=255, blank=True)
+class User(AbstractBaseUser, AbstractModel, PermissionsMixin):
     
+    first_name = models.CharField(max_length=50, null=True, blank=True)
+    last_name = models.CharField(max_length=50, null=True, blank=True)
+    username = models.CharField(max_length=50, null=True, blank=True)
+    email = models.EmailField(unique=True)
+    is_staff = models.BooleanField(default=False, null=True, blank=True)
+    is_superuser = models.BooleanField(default=False)
+    last_login = models.DateTimeField(null=True, blank=True)
+    image_url=models.CharField(max_length=255, null=True, blank=True)
+    
+    objects = CustomUserManager()
+    
+    USERNAME_FIELD = "email"
+    REQUIRED_FIELDS = ["password"]
+    
+
     class Meta:
-        Verbose_name = "Perfil"
-        Verbose_name_plural = "Perfiles"
+        verbose_name = "Usuario"
+        verbose_name_plural = "Usuarios" 

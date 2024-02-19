@@ -48,7 +48,7 @@ BASE_APPS = [
 
 # Local applications
 LOCAL_APPS = [
-    "task",
+    #"tasks",
     "accounts",
 ]
 
@@ -56,19 +56,11 @@ LOCAL_APPS = [
 THIRD_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
-    "rest_framework_simplejwt.token_blacklist",
-    "django_filters",
     "drf_spectacular",
-    "django_extensions",
     "corsheaders",
-    "storages",
-    "whitenoise.runserver_nostatic",
 ]
 
-
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
-
-
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -139,9 +131,9 @@ AUTH_USER_MODEL = "accounts.User"
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es-ar"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Buenos_Aires"
 
 USE_I18N = True
 
@@ -158,6 +150,28 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# rest_framwork settings
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# OpenApi with Spectacular info  
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Clon trello',
+    'DESCRIPTION': 'Your project description',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
+# Simple jwt settings
+from datetime import timedelta
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+}
 # Email settings
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
