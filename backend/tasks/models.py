@@ -4,7 +4,9 @@ from accounts.models import User
 
 
 class Project(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name="user_project", null=True)
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="user_project", null=True
+    )
     name = models.CharField(max_length=255)
 
 
@@ -34,7 +36,9 @@ class Task(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="user_task", null=True
     )
-    list = models.ForeignKey(List, on_delete=models.CASCADE, related_name="list_task",null=True)
+    list = models.ForeignKey(
+        List, on_delete=models.CASCADE, related_name="list_task", null=True
+    )
     order = models.IntegerField(default=1)
     name = models.CharField(max_length=255, blank=True)
     description = models.TextField(max_length=255, blank=True)
@@ -47,7 +51,9 @@ class Task(models.Model):
 
 
 class File(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name="task_file"blank=True)
+    task = models.ForeignKey(
+        Task, on_delete=models.CASCADE, related_name="task_file", blank=True
+    )
     file = models.ImageField(blank=True)
 
 

@@ -10,56 +10,49 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ["user", "name"]
 
 
-class BoardSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Board
-        fields = "__all__"
-
-    pass
-
-
-class ListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = List
-        fields = "__all__"
-
-    pass
-
-
 class TaskSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
 
     class Meta:
         model = Task
-        fields = "__all__"
+        fields = ["user", "order", "name", "description", "expired_time", "priority"]
 
-    pass
+
+class ListSerializer(serializers.ModelSerializer):
+    tasks = TaskSerializer(source="list_task", many=True)
+
+    class Meta:
+        model = List
+        fields = ["title", "order", "tasks"]
+
+
+class BoardSerializer(serializers.ModelSerializer):
+    lists = ListSerializer(source="board_list", many=True)
+
+    class Meta:
+        model = Board
+        fields = ["name", "description", "lists"]
 
 
 class FileSerializer(serializers.ModelSerializer):
+    task = serializers.ReadOnlyField(many=False)
+
     class Meta:
         model = File
-        fields = "__all__"
-
-    pass
+        fields = ["task", "file"]
 
 
-class MilestoneSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Milestone
-        fields = "__all__"
-
-    pass
+# class MilestoneSerializer(serializers.ModelSerializer):
+#    class Meta:
+#        model = Milestone
+#        fields = "__all__"
 
 
 class MilestoneTaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MilestoneTask
-        fields = "__all__"
-
-    pass
+        fields = ["task", "milstone"]
 
 
 class CommentSerializer(serializers.ModelSerializer):
