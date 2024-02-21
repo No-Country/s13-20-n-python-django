@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from datetime import timedelta
 import os
 from pathlib import Path
 
@@ -48,7 +49,7 @@ BASE_APPS = [
 
 # Local applications
 LOCAL_APPS = [
-    #"tasks",
+    "tasks",
     "accounts",
 ]
 
@@ -126,7 +127,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-AUTH_USER_MODEL = "accounts.User"
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -181,4 +181,4 @@ EMAIL_USE_TLS = True if os.getenv("EMAIL_USE_TLS") == "True" else False
 EMAIL_USE_SSL = True if os.getenv("EMAIL_USE_SSL") == "True" else False
 EMAIL_TIMEOUT = (
     None if os.getenv("EMAIL_TIMEOUT") == "None" else int(os.getenv("EMAIL_TIMEOUT"))
-)  # this will fail if anything but None or an integer is submitted. oh well
+)
