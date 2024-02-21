@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, Board, List, Task, File, Milestone, MilestoneTask, Comment
+from .models import Project, Board, List, Task, File, MilestoneTask, Comment
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -10,12 +10,43 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ["user", "name"]
 
 
-class TaskSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
 
     class Meta:
+        model = Comment
+        fields = ["user", "content", "created_time"]
+
+
+class FileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = File
+        fields = ["file"]
+
+
+class TaskSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source="user.username")
+    file = FileSerializer(source="task_file", many=False)
+    comment = serializers.SerializerMetaclass(read_only=True)
+
+    class Meta:
         model = Task
-        fields = ["user", "order", "name", "description", "expired_time", "priority"]
+        fields = [
+            "user",
+            "order",
+            "name",
+            "description",
+            "expired_time",
+            "priority",
+            "file",
+            "comment",
+        ]
+
+    def get_comment(self, obj):
+        comment = obj.task_comment.all()
+        serializer = CommentSerializer(comment, many=True)
+        return serializer.data
 
 
 class ListSerializer(serializers.ModelSerializer):
@@ -34,30 +65,8 @@ class BoardSerializer(serializers.ModelSerializer):
         fields = ["name", "description", "lists"]
 
 
-class FileSerializer(serializers.ModelSerializer):
-    task = serializers.ReadOnlyField(many=False)
-
-    class Meta:
-        model = File
-        fields = ["task", "file"]
-
-
-# class MilestoneSerializer(serializers.ModelSerializer):
-#    class Meta:
-#        model = Milestone
-#        fields = "__all__"
-
-
 class MilestoneTaskSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MilestoneTask
         fields = ["task", "milstone"]
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source="user.username")
-
-    class Meta:
-        model = Comment
-        fields = ["user", "content", "created_time"]
