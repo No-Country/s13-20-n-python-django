@@ -59,7 +59,6 @@ THIRD_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "corsheaders",
-    "accounts",
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
