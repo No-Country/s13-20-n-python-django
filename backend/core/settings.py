@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -49,7 +49,7 @@ BASE_APPS = [
 
 # Local applications
 LOCAL_APPS = [
-    #"tasks",
+    "tasks",
     "accounts",
 ]
 
@@ -59,6 +59,7 @@ THIRD_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "corsheaders",
+    "accounts",
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
@@ -160,16 +161,17 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
-# OpenApi with Spectacular info  
+# OpenApi with Spectacular info
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Clon trello',
-    'DESCRIPTION': 'Your project description',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    "TITLE": "Clon trello",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
     # OTHER SETTINGS
 }
 # Simple jwt settings
 from datetime import timedelta
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
@@ -181,6 +183,3 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_PORT = int(os.getenv("EMAIL_HOST_PORT", 25))
 EMAIL_USE_TLS = True if os.getenv("EMAIL_USE_TLS") == "True" else False
 EMAIL_USE_SSL = True if os.getenv("EMAIL_USE_SSL") == "True" else False
-EMAIL_TIMEOUT = (
-    None if os.getenv("EMAIL_TIMEOUT") == "None" else int(os.getenv("EMAIL_TIMEOUT"))
-)

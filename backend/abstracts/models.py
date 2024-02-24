@@ -1,5 +1,7 @@
-from django.db import models
 import uuid
+
+from django.db import models
+
 
 class AbstractModel(models.Model):
     id = models.UUIDField(
@@ -8,7 +10,7 @@ class AbstractModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     is_active = models.BooleanField(default=True)
-    
+
     def soft_delete(self):
         self.is_active = False
         self.save()
