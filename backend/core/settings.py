@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -49,7 +49,7 @@ BASE_APPS = [
 
 # Local applications
 LOCAL_APPS = [
-    #"tasks",
+    "tasks",
     "accounts",
 ]
 
@@ -59,6 +59,7 @@ THIRD_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "corsheaders",
+    "accounts",
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
@@ -181,6 +182,4 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_PORT = int(os.getenv("EMAIL_HOST_PORT", 25))
 EMAIL_USE_TLS = True if os.getenv("EMAIL_USE_TLS") == "True" else False
 EMAIL_USE_SSL = True if os.getenv("EMAIL_USE_SSL") == "True" else False
-EMAIL_TIMEOUT = (
-    None if os.getenv("EMAIL_TIMEOUT") == "None" else int(os.getenv("EMAIL_TIMEOUT"))
-)
+

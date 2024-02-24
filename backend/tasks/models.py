@@ -4,14 +4,18 @@ from accounts.models import User
 
 
 class Project(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="user_project", null=True
+    )
     name = models.CharField(max_length=255)
 
 
 class Board(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="project_board"
+    )
     name = models.CharField(max_length=255, blank=True)
-    description = models.TextField(max_length=255, black=True)
+    description = models.TextField(max_length=255, blank=True)
 
 
 <<<<<<< HEAD:app/tasks/models.py
@@ -23,7 +27,9 @@ class Milestone(models.Model):
 =======
 >>>>>>> origin/main:backend/tasks/models.py
 class List(models.Model):
-    board = models.ForeignKey(Board, on_delete=models.CASCADE)
+    board = models.ForeignKey(
+        Board, on_delete=models.CASCADE, related_name="board_list"
+    )
     title = models.CharField(max_length=255, blank=True)
     order = models.IntegerField()
 
@@ -35,11 +41,15 @@ class Task(models.Model):
         DELEGATE = 3, gettext_noop("DELEGATE")
         URGENT = 4, gettext_noop("URGENT")
 
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    list = models.ForeignKey(List, on_delete=models.CASCADE, null=True)
-    order = models.IntegerField(defauld=1)
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="user_task", null=True
+    )
+    list = models.ForeignKey(
+        List, on_delete=models.CASCADE, related_name="list_task", null=True
+    )
+    order = models.IntegerField(default=1)
     name = models.CharField(max_length=255, blank=True)
-    description = models.TextField(max_length=255, black=True)
+    description = models.TextField(max_length=255, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
     expired_time = models.DateTimeField()
     priority = models.IntegerField(choices=Priority.choices, default=1)
@@ -49,17 +59,24 @@ class Task(models.Model):
 
 
 class File(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, blank=True)
+    task = models.ForeignKey(
+        Task, on_delete=models.CASCADE, related_name="task_file", blank=True
+    )
     file = models.ImageField(blank=True)
 
 
 <<<<<<< HEAD:app/tasks/models.py
 =======
 class Milestone(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="project_milestone"
+    )
     complete = models.BooleanField(default=False)
     tasks = models.ManyToManyField(
-        Task, through="MilestoneTask", through_fields=("milestone", "task")
+        Task,
+        through="MilestoneTask",
+        related_name="task_milestone",
+        through_fields=("milestone", "task"),
     )
 
 
@@ -70,9 +87,13 @@ class MilestoneTask(models.Model):
 
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, blank=True)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, blank=True)
-    content = models.CharField(max_length=255, black=True)
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="user_comment", null=True
+    )
+    task = models.ForeignKey(
+        Task, on_delete=models.CASCADE, related_name="task_comment", blank=True
+    )
+    content = models.CharField(max_length=255, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
