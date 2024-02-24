@@ -1,6 +1,6 @@
+from accounts.models import User
 from django.db import models
 from django.utils.translation import gettext_noop
-from accounts.models import User
 
 
 class Project(models.Model):
@@ -16,6 +16,11 @@ class Board(models.Model):
     )
     name = models.CharField(max_length=255, blank=True)
     description = models.TextField(max_length=255, blank=True)
+
+
+class Milestone(models.Model):
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
+    complete = models.BooleanField(default=False)
 
 
 class List(models.Model):
@@ -68,11 +73,6 @@ class Milestone(models.Model):
         related_name="task_milestone",
         through_fields=("milestone", "task"),
     )
-
-
-class MilestoneTask(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True)
-    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE, null=True)
 
 
 class Comment(models.Model):

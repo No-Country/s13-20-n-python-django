@@ -1,3 +1,15 @@
+### Django ###
+*.log
+*.pot
+*.pyc
+migrations/
+__pycache__/
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media
+# Environments
+.env
 .venv
 /backend/tasks/migrations
 /backend/tasks/__pycache__
@@ -7,3 +19,7 @@
 /backend/core/__pycache__
 /backend/db.sqlite3
 
+
+/backend/abstracts/__pycache__
+/backend/accounts/api/__pycache__
+/backend/accounts/migrations/__pycache__
