@@ -20,3 +20,6 @@ media
 /backend/db.sqlite3
 
 
+/backend/abstracts/__pycache__
+/backend/accounts/api/__pycache__
+/backend/accounts/migrations/__pycache__

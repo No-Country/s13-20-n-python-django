@@ -1,6 +1,6 @@
+from accounts.models import User
 from django.db import models
 from django.utils.translation import gettext_noop
-from accounts.models import User
 
 
 class Project(models.Model):
@@ -18,14 +18,11 @@ class Board(models.Model):
     description = models.TextField(max_length=255, blank=True)
 
 
-<<<<<<< HEAD:app/tasks/models.py
 class Milestone(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     complete = models.BooleanField(default=False)
 
 
-=======
->>>>>>> origin/main:backend/tasks/models.py
 class List(models.Model):
     board = models.ForeignKey(
         Board, on_delete=models.CASCADE, related_name="board_list"
@@ -65,8 +62,6 @@ class File(models.Model):
     file = models.ImageField(blank=True)
 
 
-<<<<<<< HEAD:app/tasks/models.py
-=======
 class Milestone(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="project_milestone"
@@ -78,12 +73,6 @@ class Milestone(models.Model):
         related_name="task_milestone",
         through_fields=("milestone", "task"),
     )
-
-
->>>>>>> origin/main:backend/tasks/models.py
-class MilestoneTask(models.Model):
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True)
-    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE, null=True)
 
 
 class Comment(models.Model):
