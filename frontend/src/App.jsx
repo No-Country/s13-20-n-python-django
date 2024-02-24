@@ -1,35 +1,61 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import SharedLayout from "./views/sharedLayout/SharedLayout";
+import Projects from "./views/projects/Projects";
+
+import Home from "./views/home/Home";
+import Board from "./views/board/Board";
+import Boards from "./views/boards/Boards";
+import Account from "./views/account/Account";
+import Milestones from "./views/milestones/Milestones";
+import Milestone from "./views/milestone/Milestone";
+import Project from "./views/project/Project";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <SharedLayout />,
+      errorElement: <p>error here, refactor this into own element later</p>,
+      children: [
+        {
+          index: true,
+          element: <Home />,
+        },
+        {
+          path: "account/",
+          element: <Account />,
+          // we might want to nest another one for login, register and maybe management
+        },
+        {
+          path: "projects/",
+          element: <Projects />,
+        },
+        {
+          path: "projects/:projectId",
+          element: <Project />,
+        },
+        {
+          path: "projects/boards/",
+          element: <Boards />,
+        },
+        {
+          path: "projects/boards/:boardId",
+          element: <Board />,
+          // we might want children here for tasks, lists and comments or handle it in the Board component
+        },
+        {
+          path: "projects/milestones/",
+          element: <Milestones />,
+        },
+        {
+          path: "projects/milestones/:MilestoneId",
+          element: <Milestone />,
+        },
+      ],
+    },
+  ]);
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;
