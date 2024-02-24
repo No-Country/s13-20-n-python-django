@@ -8,6 +8,7 @@ import Boards from "./views/boards/Boards";
 import Account from "./views/account/Account";
 import Milestones from "./views/milestones/Milestones";
 import Milestone from "./views/milestone/Milestone";
+import Project from "./views/project/Project";
 
 function App() {
   const router = createBrowserRouter([
@@ -29,22 +30,26 @@ function App() {
           path: "projects/",
           element: <Projects />,
         },
-            {
+        {
+          path: "projects/:projectId",
+          element: <Project />,
+        },
+        {
           path: "projects/boards/",
-              element: <Boards />,
-            },
-            {
+          element: <Boards />,
+        },
+        {
           path: "projects/boards/:boardId",
-              element: <Board />,
-              // we might want children here for tasks, lists and comments or handle it in the Board component
-            },
-            {
+          element: <Board />,
+          // we might want children here for tasks, lists and comments or handle it in the Board component
+        },
+        {
           path: "projects/milestones/",
-              element: <Milestones />,
-            },
-            {
+          element: <Milestones />,
+        },
+        {
           path: "projects/milestones/:MilestoneId",
-              element: <Milestone />,
+          element: <Milestone />,
         },
       ],
     },
