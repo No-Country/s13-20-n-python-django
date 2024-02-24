@@ -18,11 +18,6 @@ class Board(models.Model):
     description = models.TextField(max_length=255, blank=True)
 
 
-class Milestone(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    complete = models.BooleanField(default=False)
-
-
 class List(models.Model):
     board = models.ForeignKey(
         Board, on_delete=models.CASCADE, related_name="board_list"
@@ -69,9 +64,7 @@ class Milestone(models.Model):
     complete = models.BooleanField(default=False)
     tasks = models.ManyToManyField(
         Task,
-        through="MilestoneTask",
         related_name="task_milestone",
-        through_fields=("milestone", "task"),
     )
 
 
