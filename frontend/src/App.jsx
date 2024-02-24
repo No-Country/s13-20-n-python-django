@@ -28,25 +28,23 @@ function App() {
         {
           path: "projects/",
           element: <Projects />,
-          children: [
+        },
             {
-              path: "boards/",
+          path: "projects/boards/",
               element: <Boards />,
             },
             {
-              path: "boards/:boardId",
+          path: "projects/boards/:boardId",
               element: <Board />,
               // we might want children here for tasks, lists and comments or handle it in the Board component
             },
             {
-              path: "milestones/",
+          path: "projects/milestones/",
               element: <Milestones />,
             },
             {
-              path: "milestones/:MilestoneId",
+          path: "projects/milestones/:MilestoneId",
               element: <Milestone />,
-            },
-          ],
         },
       ],
     },
