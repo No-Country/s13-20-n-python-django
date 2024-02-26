@@ -17,12 +17,6 @@ class Board(models.Model):
     name = models.CharField(max_length=255, blank=True)
     description = models.TextField(max_length=255, blank=True)
 
-
-class Milestone(models.Model):
-    project = models.ForeignKey(Project, on_delete=models.CASCADE)
-    complete = models.BooleanField(default=False)
-
-
 class List(models.Model):
     board = models.ForeignKey(
         Board, on_delete=models.CASCADE, related_name="board_list"
@@ -74,6 +68,15 @@ class Milestone(models.Model):
         through_fields=("milestone", "task"),
     )
 
+class MilestoneTask(models.Model):
+    class Rol(models.TextChoices):
+        ADMIN = "A"
+        COLABORATOR = "C"
+
+    milestone = models.ForeignKey(Milestone, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True)
+    rol= models.CharField(max_length=1, choices=Rol.choices, default="C")
 
 class Comment(models.Model):
     user = models.ForeignKey(

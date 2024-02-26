@@ -49,8 +49,8 @@ BASE_APPS = [
 
 # Local applications
 LOCAL_APPS = [
-    "tasks",
     "accounts",
+    "tasks",
 ]
 
 # Third persons applications
@@ -59,7 +59,6 @@ THIRD_APPS = [
     "rest_framework_simplejwt",
     "drf_spectacular",
     "corsheaders",
-    "accounts",
 ]
 
 INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS

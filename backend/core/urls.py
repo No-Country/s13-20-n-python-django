@@ -28,7 +28,8 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api-jwt/token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("api-jwt/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
-    path("api-user/", include("accounts.api.routers")),
+    path("api-user/", include("accounts.api.routers"), name="user"),
+    path("api-task/", include("tasks.routers"), name="tasks"),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
     path(
         "api/schema/swagger-ui/",

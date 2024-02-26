@@ -28,7 +28,7 @@ class FileSerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
     file = FileSerializer(source="task_file", many=False)
-    comment = serializers.SerializerMetaclass(read_only=True)
+    #comment = serializers.SerializerMetaclass(read_only=True)
 
     class Meta:
         model = Task
@@ -63,6 +63,12 @@ class BoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields = ["name", "description", "lists"]
+
+class BoardCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Board
+        fields = ["project", "name", "description"]
 
 
 class MilestoneTaskSerializer(serializers.ModelSerializer):
