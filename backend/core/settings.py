@@ -10,8 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-from datetime import timedelta
 import os
+from datetime import timedelta
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -37,19 +37,31 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
-INSTALLED_APPS = [
+# Applications core of Django
+BASE_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-    "task",
-
-    "rest_framework",
-
 ]
+
+# Local applications
+LOCAL_APPS = [
+    "tasks",
+    "accounts",
+]
+
+# Third persons applications
+THIRD_APPS = [
+    "rest_framework",
+    "rest_framework_simplejwt",
+    "drf_spectacular",
+    "corsheaders",
+]
+
+INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -119,9 +131,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "es-ar"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Buenos_Aires"
 
 USE_I18N = True
 
@@ -140,6 +152,29 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
 
+# rest_framwork settings
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+# OpenApi with Spectacular info
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Clon trello",
+    "DESCRIPTION": "Your project description",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    # OTHER SETTINGS
+}
+# Simple jwt settings
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=5),
+}
 # Email settings
 EMAIL_HOST = os.getenv("EMAIL_HOST")
 EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
@@ -147,6 +182,3 @@ EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
 EMAIL_HOST_PORT = int(os.getenv("EMAIL_HOST_PORT", 25))
 EMAIL_USE_TLS = True if os.getenv("EMAIL_USE_TLS") == "True" else False
 EMAIL_USE_SSL = True if os.getenv("EMAIL_USE_SSL") == "True" else False
-EMAIL_TIMEOUT = (
-    None if os.getenv("EMAIL_TIMEOUT") == "None" else int(os.getenv("EMAIL_TIMEOUT"))
-)  # this will fail if anything but None or an integer is submitted. oh well
