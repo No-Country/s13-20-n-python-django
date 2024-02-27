@@ -6,7 +6,7 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (
       state,
-      { payload: { refresh_token, token, username } }
+      { payload: { refresh_token, token, username } },
     ) => {
       state.refresh_token = refresh_token;
       state.token = token;
