@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice.js";
 
 // For what should go inside userData check the documentation
-const extendedUserApiSlice = apiSlice.injectEndpoints({
+const extendedAccountApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
       query: () => "api-user/",
@@ -40,4 +40,4 @@ export const {
   useCreateNewUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
-} = extendedUserApiSlice;
+} = extendedAccountApiSlice;
