@@ -1,7 +1,7 @@
 from accounts.models import User
 from django.db import models
 from django.utils.translation import gettext_noop
-
+from django.utils import timezone
 
 class Project(models.Model):
     user = models.ForeignKey(
@@ -14,16 +14,24 @@ class Board(models.Model):
     project = models.ForeignKey(
         Project, on_delete=models.CASCADE, related_name="project_board"
     )
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="user_board", null=True
+    )
     name = models.CharField(max_length=255, blank=True)
     description = models.TextField(max_length=255, blank=True)
 
 
-class List(models.Model):
+class ListTask(models.Model):
     board = models.ForeignKey(
-        Board, on_delete=models.CASCADE, related_name="board_list"
+        Board, on_delete=models.CASCADE, related_name="board_project", null=True
     )
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user_tasks", null=True
+    )
+
     title = models.CharField(max_length=255, blank=True)
-    order = models.IntegerField()
+    createdAt = models.DateTimeField(default=timezone.now)
+    updatedAt = models.DateTimeField(default=timezone.now)
 
 
 class Task(models.Model):
@@ -36,8 +44,11 @@ class Task(models.Model):
     user = models.ForeignKey(
         User, on_delete=models.SET_NULL, related_name="user_task", null=True
     )
+    assigned_user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="assigned_tasks", null=True
+    )
     list = models.ForeignKey(
-        List, on_delete=models.CASCADE, related_name="list_task", null=True
+        ListTask, on_delete=models.CASCADE, related_name="list_task", null=True
     )
     order = models.IntegerField(default=1)
     name = models.CharField(max_length=255, blank=True)
@@ -45,17 +56,12 @@ class Task(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     expired_time = models.DateTimeField()
     priority = models.IntegerField(choices=Priority.choices, default=1)
-
+    file = models.ImageField(blank=True)
     def __str__(self):
         return self.name
 
 
-class File(models.Model):
-    task = models.ForeignKey(
-        Task, on_delete=models.CASCADE, related_name="task_file", blank=True
-    )
-    file = models.ImageField(blank=True)
-
+ 
 
 class Milestone(models.Model):
     project = models.ForeignKey(

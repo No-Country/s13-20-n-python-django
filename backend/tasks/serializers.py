@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, Board, List, Task, File, MilestoneTask, Comment
+from .models import Project, ListTask, Task, Comment,Board
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -18,17 +18,18 @@ class CommentSerializer(serializers.ModelSerializer):
         fields = ["user", "content", "created_time"]
 
 
-class FileSerializer(serializers.ModelSerializer):
+# class FileSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = File
-        fields = ["file"]
+#     class Meta:
+#         model = File
+#         fields = ["file"]
 
 
 class TaskSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
-    file = FileSerializer(source="task_file", many=False)
-    comment = serializers.SerializerMetaclass(read_only=True)
+    
+    # file = FileSerializer(source="task_file", many=False)
+    # comment = serializers.SerializerMetaclass(read_only=True)
 
     class Meta:
         model = Task
@@ -41,6 +42,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "priority",
             "file",
             "comment",
+            "assigned_user"
         ]
 
     def get_comment(self, obj):
@@ -50,23 +52,25 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class ListSerializer(serializers.ModelSerializer):
-    tasks = TaskSerializer(source="list_task", many=True)
+    board =  serializers.ReadOnlyField(source="board.name")   
+    user = serializers.ReadOnlyField(source="user.username")
 
     class Meta:
-        model = List
-        fields = ["title", "order", "tasks"]
+        model = ListTask
+        fields = ["title", "board", "user"]
 
 
 class BoardSerializer(serializers.ModelSerializer):
-    lists = ListSerializer(source="board_list", many=True)
-
+    # lists = ListSerializer(source="board_list", many=True)
+    project = serializers.ReadOnlyField(source="project.name")
+    user = serializers.ReadOnlyField(source="user.username")
     class Meta:
         model = Board
-        fields = ["name", "description", "lists"]
+        fields = ["name","user","project", "description"]
 
 
-class MilestoneTaskSerializer(serializers.ModelSerializer):
+# class MilestoneTaskSerializer(serializers.ModelSerializer):
 
-    class Meta:
-        model = MilestoneTask
-        fields = ["task", "milstone"]
+#     class Meta:
+#         model = MilestoneTask
+#         fields = ["task", "milstone"]

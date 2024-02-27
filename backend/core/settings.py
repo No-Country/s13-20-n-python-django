@@ -49,8 +49,8 @@ BASE_APPS = [
 
 # Local applications
 LOCAL_APPS = [
-    "tasks",
     "accounts",
+    "tasks",
 ]
 
 # Third persons applications
