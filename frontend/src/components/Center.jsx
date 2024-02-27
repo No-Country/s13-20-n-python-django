@@ -5,9 +5,8 @@ import BoardsList from "./BoardsList";
 
 function Center() {
   return (
-    <div className="flex h-[80vh]">
+    <div>
       <Sidebar />
-      {/* <Board /> */}
       <BoardsList />
     </div>
   );
