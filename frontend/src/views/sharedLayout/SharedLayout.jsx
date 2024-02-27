@@ -7,7 +7,9 @@ const SharedLayout = () => {
   return (
     <>
       <Navbar />
-      <Outlet />
+      <div className="flex h-[80vh]">
+        <Outlet />
+      </div>
       <Footer />
     </>
   );
