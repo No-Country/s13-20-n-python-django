@@ -8,6 +8,9 @@ class Project(models.Model):
         User, on_delete=models.SET_NULL, related_name="user_project", null=True
     )
     name = models.CharField(max_length=255)
+    
+    def __str__(self) -> str:
+         return self.name
 
 
 class Board(models.Model):
@@ -17,12 +20,18 @@ class Board(models.Model):
     name = models.CharField(max_length=255, blank=True)
     description = models.TextField(max_length=255, blank=True)
 
+    def __str__(self) -> str:
+         return self.name
+
 class List(models.Model):
     board = models.ForeignKey(
         Board, on_delete=models.CASCADE, related_name="board_list"
     )
     title = models.CharField(max_length=255, blank=True)
     order = models.IntegerField()
+
+    def __str__(self) -> str:
+         return self.title
 
 
 class Task(models.Model):
