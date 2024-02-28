@@ -1,14 +1,13 @@
 from accounts.api.serializers import (
     UserListSerializer,
-    UserSerializer,
+    UserCreateSerializer,
     UserUpdateSerializer,
 )
-from accounts.models import User
-from django.contrib.auth.hashers import make_password
+
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
-from rest_framework.permissions import AllowAny, IsAuthenticated
+
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
 
@@ -16,7 +15,7 @@ from .permissions import CreateUserPermission
 
 
 class UserModelViewSet(GenericViewSet):
-    serializer_class = UserSerializer
+    serializer_class = UserCreateSerializer
     list_serializer_class = UserListSerializer
     queryset = serializer_class.Meta.model.objects.filter(is_active=True).order_by(
         "last_name"
@@ -28,21 +27,7 @@ class UserModelViewSet(GenericViewSet):
         """
         Create an user
         """
-
-        data = request.data
-        user_data = {
-            "first_name": data.get("first_name"),
-            "last_name": data.get("last_name"),
-            "username": data.get("username"),
-            "email": data.get("email"),
-            "password": make_password(data.get("password")),
-            "is_active": data.get("is_active"),
-            "is_staff": data.get("is_staff"),
-            "is_superuser": data.get("is_superuser"),
-            "image_url": data.get("image_url"),
-        }
-
-        user_serializer = self.serializer_class(data=user_data)
+        user_serializer = self.serializer_class(data=request.data)
         if user_serializer.is_valid():
             user_serializer.save()
 
