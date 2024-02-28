@@ -10,25 +10,31 @@ class TokenObtainSerializer(TokenObtainPairSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ["username", "email", "password"]
+        read_only_fields = [
+            "is_active",
+            "created",
+            "update",
+        ]
 
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "email", "created", "is_active")
+        fields = ["first_name", "last_name", "username", "email"]
+        read_only_fields = [
+            "created",
+            "is_active",
+            "update",
+        ]
 
 
 class UserUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = (
-            "first_name",
-            "last_name",
-            "username",
-            "email",
+        fields = ["first_name", "last_name", "username", "email", "image_url"]
+        read_only_fields = [
+            "created",
             "is_active",
-            "is_staff",
-            "is_superuser",
-            "image_url",
-        )
+            "update",
+        ]
