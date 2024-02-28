@@ -17,6 +17,23 @@ class UserSerializer(serializers.ModelSerializer):
             "update",
         ]
 
+class UserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email", "password", "image_url"]
+        extra_kwargs = {"password": {"write_only": True}}
+        read_only_fields = [
+            "is_active",
+            "created",
+            "update",
+        ]
+
+    def create(self, validated_data):
+        user = User(**validated_data)
+        user.set_password(validated_data["password"])
+        user.save()
+        return user
+
 
 class UserListSerializer(serializers.ModelSerializer):
     class Meta:
