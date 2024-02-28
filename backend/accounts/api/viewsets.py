@@ -48,13 +48,13 @@ class UserModelViewSet(GenericViewSet):
 
             return Response(
                 {
-                    "message": "El usuario se creo correctamente!",
+                    "message": "The user was created successfully!",
                 },
                 status=status.HTTP_201_CREATED,
             )
         return Response(
             {
-                "message": "Hay errores en el registro!",
+                "message": "There are errors in the registry!",
                 "errors": user_serializer.errors,
             },
             status=status.HTTP_400_BAD_REQUEST,
@@ -90,12 +90,12 @@ class UserModelViewSet(GenericViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(
-                {"message": "Usuario actualizado correctamente!"},
+                {"message": "User updated successfully!"},
                 status=status.HTTP_200_OK,
             )
         return Response(
             {
-                "message": "Hay errores en la actualización!",
+                "message": "There are errors in the update!",
                 "error": serializer.errors,
             },
             status=status.HTTP_400_BAD_REQUEST,
@@ -111,9 +111,9 @@ class UserModelViewSet(GenericViewSet):
         )
         if user:
             return Response(
-                {"message": "Usuario eliminado correctamente"},
+                {"message": "User successfully deleted"},
                 status=status.HTTP_200_OK,
             )
         return Response(
-            {"message": "El usuario no existe"}, status=status.HTTP_404_NOT_FOUND
+            {"message": "Username does not exist"}, status=status.HTTP_404_NOT_FOUND
         )
