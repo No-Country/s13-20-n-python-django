@@ -2,12 +2,6 @@ from rest_framework import serializers
 from .models import Project, ListTask, Task, Comment,Board
 
 
-class ProjectSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source="user.username")
-
-    class Meta:
-        model = Project
-        fields = ["user", "name"]
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -40,8 +34,8 @@ class TaskSerializer(serializers.ModelSerializer):
             "description",
             "expired_time",
             "priority",
-            "file",
-            "comment",
+          
+
             "assigned_user"
         ]
 
@@ -52,25 +46,35 @@ class TaskSerializer(serializers.ModelSerializer):
 
 
 class ListSerializer(serializers.ModelSerializer):
+    tasks = TaskSerializer(many=True, read_only=True)
     board =  serializers.ReadOnlyField(source="board.name")   
     user = serializers.ReadOnlyField(source="user.username")
 
     class Meta:
         model = ListTask
-        fields = ["title", "board", "user"]
-
+        fields = ["title", "board", "user","tasks"]
+    def get_tasks(self, obj):
+        tasks = obj.tasks.all()
+        return TaskSerializer(tasks, many=True).data
 
 class BoardSerializer(serializers.ModelSerializer):
-    # lists = ListSerializer(source="board_list", many=True)
+ 
     project = serializers.ReadOnlyField(source="project.name")
     user = serializers.ReadOnlyField(source="user.username")
     class Meta:
         model = Board
         fields = ["name","user","project", "description"]
+        
 
 
-# class MilestoneTaskSerializer(serializers.ModelSerializer):
 
-#     class Meta:
-#         model = MilestoneTask
-#         fields = ["task", "milstone"]
+class ProjectSerializer(serializers.ModelSerializer):
+    boards = BoardSerializer(many=True, read_only=True)
+    user = serializers.ReadOnlyField(source="user.username")
+
+    class Meta:
+        model = Project
+        fields = ["user", "name", "boards"]
+    def get_boards(self, obj):
+        boards = obj.boards.all()
+        return BoardSerializer(boards, many=True).data 

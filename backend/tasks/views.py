@@ -2,8 +2,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Project,ListTask,Board
-from .serializers import ProjectSerializer,ListSerializer,BoardSerializer
+from .models import Project,ListTask,Board,Task
+from .serializers import ProjectSerializer,ListSerializer,BoardSerializer,TaskSerializer
  
 from rest_framework.decorators import permission_classes
 
@@ -32,7 +32,7 @@ class ProjectDetail(viewsets.ModelViewSet):
     def listOne(self, request, pk):
  
         try:
-            project = Project.objects.get(pk=pk)
+            project = Project.objects.get(pk = pk)
         except Project.DoesNotExist:
             return Response({"error": "Projecto no encontrado"}, status=status.HTTP_404_NOT_FOUND)
         serializer = ProjectSerializer(project)
@@ -130,3 +130,35 @@ class ListProject(viewsets.ModelViewSet):
         serializer = ListSerializer(new_list)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     
+@permission_classes([IsAuthenticated])
+
+class TaskProject(viewsets.ModelViewSet):
+    def listAll(self, request, pk):
+        list = ListTask.objects.filter(id = pk)
+        if not list.exists():
+            return Response({'error': 'no hay ninguna lista asociada a ese board'}, status=status.HTTP_404_NOT_FOUND)
+
+        task = Task.objects.filter(list_id=pk)
+
+        if not task.exists():
+            return Response({'error': 'El identificador no pertenece a ninguna tarea'}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = TaskSerializer(task, many=True)
+        return Response(serializer.data)
+    
+    def createOne(self, request, pk):
+ 
+        list = ListTask.objects.filter(id = pk)
+        if not list.exists():
+            return Response({'error': 'no hay ninguna lista asociada a ese board'}, status=status.HTTP_404_NOT_FOUND)
+
+        data = request.data
+        serializer = TaskSerializer(data=data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+ 
+        task = Task(list_id=pk,user_id=request.user.id, **serializer.validated_data)
+        task.save()
+
+        serializer = TaskSerializer(task)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
