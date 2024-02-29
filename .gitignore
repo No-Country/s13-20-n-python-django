@@ -18,6 +18,7 @@ media
 /backend/accounts/__pycache__
  
 /backend/env/
+/backend/venv/
 /backend/core/__pycache__
 /backend/db.sqlite3
 

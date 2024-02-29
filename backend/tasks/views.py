@@ -4,20 +4,26 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Project,ListTask,Board,Task
 from .serializers import ProjectSerializer,ListSerializer,BoardSerializer,TaskSerializer
- 
+from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import permission_classes
 
 @permission_classes([IsAuthenticated])
 
 class ProjectList(viewsets.ModelViewSet):
- 
-    def listAll(self, request):
+    @extend_schema(description="Lista todos los proyecto", summary="Projects",
+                   request=ProjectSerializer, responses={200 : ProjectSerializer},
+                   )
+    def list(self, request):
        
         projects = Project.objects.all()
         serializer = ProjectSerializer(projects, many=True)
         return Response(serializer.data)
  
-    def createOne(self, request):
+    @extend_schema(description="Crea un nuevo proyecto", summary="Projects",
+                   request=ProjectSerializer, responses={201 : ProjectSerializer},
+                   )
+    def create(self, request):
+
     
         serializer = ProjectSerializer(data=request.data)
         
@@ -29,7 +35,10 @@ class ProjectList(viewsets.ModelViewSet):
 
 @permission_classes([IsAuthenticated])
 class ProjectDetail(viewsets.ModelViewSet):
-    def listOne(self, request, pk):
+    @extend_schema(description="Lista el detalle de un proyecto", summary="Projects",
+                   request=ProjectSerializer, responses={200 : ProjectSerializer},
+                   )
+    def retrieve(self, request, pk):
  
         try:
             project = Project.objects.get(pk = pk)
@@ -38,8 +47,10 @@ class ProjectDetail(viewsets.ModelViewSet):
         serializer = ProjectSerializer(project)
         return Response(serializer.data)
    
-
-    def updateOne(self, request, pk):
+    @extend_schema(description="Actualiza un proyecto", summary="Projects",
+                   request=ProjectSerializer, responses={200 : ProjectSerializer},
+                   )
+    def update(self, request, pk):
         try:
             project = Project.objects.get(pk=pk)
         except Project.DoesNotExist:
@@ -53,8 +64,10 @@ class ProjectDetail(viewsets.ModelViewSet):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         return Response({"error":"Solo el dueño del proyecto puede actualizar este recurso"}, status=status.HTTP_400_BAD_REQUEST)
  
-
-    def deleteOne(self, request, pk):
+    @extend_schema(description="Eliminar un proyecto", summary="Projects",
+                   request=ProjectSerializer, responses={204 : ProjectSerializer},
+                   )
+    def destroy(self, request, pk):
         try:
             project = Project.objects.get(pk=pk)
         except Project.DoesNotExist:
@@ -68,7 +81,10 @@ class ProjectDetail(viewsets.ModelViewSet):
 @permission_classes([IsAuthenticated])
 
 class BoardProject(viewsets.ModelViewSet):
-    def listAll(self, request, pk):
+    @extend_schema(description="Lista todos los boards de un proyecto necesitas mandarle el id del proyecto al que pertece el board", summary="Boards",
+                   request=BoardSerializer, responses={200 : BoardSerializer},
+                   )
+    def list(self, request, pk):
     
         project = Project.objects.filter(id = pk)
 
@@ -80,8 +96,11 @@ class BoardProject(viewsets.ModelViewSet):
    
         serializer = BoardSerializer(board, many=True)
         return Response(serializer.data)
- 
-    def createOne(self, request, pk):
+    
+    @extend_schema(description="Crea un nuevo board necesitas mandar el id del proyecto al que pertece el board", summary="Boards",
+                   request=BoardSerializer, responses={201 : BoardSerializer},
+                   )
+    def create(self, request,pk):
         project = Project.objects.filter(id = pk)
 
         if not project.exists():
@@ -101,8 +120,10 @@ class BoardProject(viewsets.ModelViewSet):
 @permission_classes([IsAuthenticated])
 
 class ListProject(viewsets.ModelViewSet):
-    
-    def listAll(self, request, pk):
+    @extend_schema(description="Lista todas las listas necesitas mandarle el id del board al que pertece la lista", summary="Lists",
+                   request=ListSerializer, responses={200 : ListSerializer},
+                   )
+    def list(self, request, pk):
         board = Board.objects.filter(id = pk)
         if not board.exists():
             return Response({'error': 'Aun no existe un board para ese proyecto'}, status=status.HTTP_404_NOT_FOUND)
@@ -114,8 +135,10 @@ class ListProject(viewsets.ModelViewSet):
 
         serializer = ListSerializer(lists, many=True)
         return Response(serializer.data)
- 
-    def createOne(self, request, pk):
+    @extend_schema(description="Crea una nueva lista necesitas mandar el id del board al que pertece la lista", summary="Lists",
+                   request=ListSerializer, responses={201 : ListSerializer},
+                   )
+    def create(self, request,pk):
  
         board = Board.objects.filter(id = pk)
 
@@ -133,7 +156,10 @@ class ListProject(viewsets.ModelViewSet):
 @permission_classes([IsAuthenticated])
 
 class TaskProject(viewsets.ModelViewSet):
-    def listAll(self, request, pk):
+    @extend_schema(description="Lista todas las tareas necesitas mandarle el id de la lista al que pertece la tarea", summary="Tasks",
+                   request=TaskSerializer, responses={200 : TaskSerializer},
+                   )
+    def list(self, request, pk):
         list = ListTask.objects.filter(id = pk)
         if not list.exists():
             return Response({'error': 'no hay ninguna lista asociada a ese board'}, status=status.HTTP_404_NOT_FOUND)
@@ -146,7 +172,10 @@ class TaskProject(viewsets.ModelViewSet):
         serializer = TaskSerializer(task, many=True)
         return Response(serializer.data)
     
-    def createOne(self, request, pk):
+    @extend_schema(description="Crea una nueva tarea necesitas mandar el id de la lista al que pertece la tarea", summary="Lists",
+                   request=TaskSerializer, responses={201 : TaskSerializer},
+                   )
+    def create(self, request,pk):
  
         list = ListTask.objects.filter(id = pk)
         if not list.exists():
