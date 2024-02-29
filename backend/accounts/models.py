@@ -1,8 +1,7 @@
-import uuid
-
 from abstracts.models import AbstractModel
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.db import models
+from django.contrib.auth.hashers import make_password, check_password
 
 from .managers import CustomUserManager
 
@@ -14,11 +13,16 @@ class User(AbstractBaseUser, AbstractModel, PermissionsMixin):
     username = models.CharField(max_length=50, null=True, blank=True)
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False, null=True, blank=True)
-    is_superuser = models.BooleanField(default=False)
-    last_login = models.DateTimeField(null=True, blank=True)
+    is_superuser = models.BooleanField(default=False, null=True, blank=True)
     image_url = models.CharField(max_length=255, null=True, blank=True)
 
     objects = CustomUserManager()
+
+    def set_password(self, raw_password):
+        self.password = make_password(raw_password)
+
+    def check_password(self, raw_password):
+        return check_password(raw_password, self.password)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["password"]
