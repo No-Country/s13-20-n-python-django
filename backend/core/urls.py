@@ -28,7 +28,7 @@ from accounts.views import Login
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/login/", Login.as_view(), name="login"),
+    path("api/token/", Login.as_view(), name="login"),
     path("api/token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("api/", include("accounts.api.routers")),
     path("api/schema/", SpectacularAPIView.as_view(), name="schema"),
