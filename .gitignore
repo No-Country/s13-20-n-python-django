@@ -26,3 +26,4 @@ venv
 /backend/abstracts/__pycache__
 /backend/accounts/api/__pycache__
 /backend/accounts/migrations/__pycache__
+/backend/accounts/migrations/0001_initial.py
