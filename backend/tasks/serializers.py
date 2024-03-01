@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, ListTask, Task, Comment, Board
+from .models import Project, List, Task, Comment, Board
 from accounts.models import User
 from django.contrib.auth import get_user_model
 
@@ -49,7 +49,7 @@ class ListSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
 
     class Meta:
-        model = ListTask
+        model = List
         fields = ["title", "board", "user", "tasks"]
 
     def get_tasks(self, obj):
@@ -74,18 +74,3 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ["name", "owner", "member", "project_board"]
         read_only_fields = ["owner"]
-
-
-# class UserProjectRoleSerializer(serializers.Serializer):
-#     email = serializers.EmailField()
-#     role = serializers.ChoiceField(choices=ProjectMember.ROLE_CHOICES)
-
-#     def validate(self, attrs):
-#         email = attrs['email']
-#         user = User.objects.filter(email=email).first()
-
-#         if user is None:
-#             raise serializers.ValidationError('Usuario no encontrado')
-
-#         attrs['user'] = user  # Add validated user object to serialized data
-#         return attrs

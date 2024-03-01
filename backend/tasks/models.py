@@ -26,7 +26,7 @@ class Board(models.Model):
     description = models.TextField(max_length=255, blank=True)
 
 
-class ListTask(models.Model):
+class List(models.Model):
     board = models.ForeignKey(
         Board, on_delete=models.CASCADE, related_name="board_project", null=True
     )
@@ -53,7 +53,7 @@ class Task(models.Model):
         User, on_delete=models.SET_NULL, related_name="assigned_tasks", null=True
     )
     list = models.ForeignKey(
-        ListTask, on_delete=models.CASCADE, related_name="list_task", null=True
+        List, on_delete=models.CASCADE, related_name="list_task", null=True
     )
     order = models.IntegerField(default=0)
     name = models.CharField(max_length=255, blank=True)

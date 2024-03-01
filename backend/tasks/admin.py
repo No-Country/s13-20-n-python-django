@@ -3,7 +3,7 @@ from .models import *
 
 admin.site.register(Project)
 admin.site.register(Board)
-admin.site.register(ListTask)
+admin.site.register(List)
 admin.site.register(Task)
 # admin.site.register(File)
 admin.site.register(Milestone)
