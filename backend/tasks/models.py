@@ -6,10 +6,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_noop
 import os
 class Project(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.SET_NULL, related_name="user_project", null=True
-    )
- 
     name = models.CharField(max_length=255)
 
 
@@ -63,18 +59,30 @@ class Task(models.Model):
     def __str__(self):
         return self.name
     def save(self, *args, **kwargs):
-        # Check if the Task instance is newly created
+ 
         if self.pk is None:
-            # Get the maximum order value from existing tasks in the same list
             max_order = Task.objects.filter(list=self.list).aggregate(models.Max('order'))['order__max'] or 0
 
-            # Set the order for this new task to be one greater than the maximum
+           
             self.order = max_order + 1
 
         super().save(*args, **kwargs)
 
+class ProjectMember(models.Model):
+    project = models.ForeignKey(
+        Project, on_delete=models.CASCADE, related_name="project_member"
+    )
+    user = models.ForeignKey(
+        User, on_delete=models.SET_NULL, related_name="user_project", null=True
+    )
+    ROLE_CHOICES = (
+        ('owner', 'Owner'),
+        ('member', 'Member'),
+    )
+    
+    role = models.CharField(max_length=50, choices=ROLE_CHOICES)  # Access class-level ROLE_CHOICES
 
- 
+
 
 class Milestone(models.Model):
     project = models.ForeignKey(

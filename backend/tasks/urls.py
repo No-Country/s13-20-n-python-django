@@ -4,7 +4,7 @@ from .views import ProjectList, ProjectDetail,ListProject,BoardProject,TaskProje
 urlpatterns = [
     path('projects/', ProjectList.as_view({'get': 'list', 'post': 'create'}), name='project-list'),   
     # para filtrar actualizar y borrar un proyecto necesitas mandar en el url el id del proyecto
-    path('projects/<int:pk>/', ProjectDetail.as_view({'get': 'retrieve', 'put': 'update','delete':'destroy'}), name='project-detail'),  
+    path('projects/<int:pk>/', ProjectDetail.as_view({'get': 'retrieve', 'put': 'update','delete':'destroy','post':'create'}), name='project-detail'),  
     # para listar todoas las boards o crear una nueva board necesitas mandarle
     # el id del proyecto al cual quieres o pertece la board
     path('board/<int:pk>/', BoardProject.as_view({'get': 'list', 'post': 'create'}), name='board-task'),  

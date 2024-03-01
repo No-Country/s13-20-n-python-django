@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Project, ListTask, Task, Comment,Board
-
-
+from .models import Project, ListTask, Task, Comment,Board,ProjectMember
+from accounts.models import User
+from django.contrib.auth import get_user_model
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -69,12 +69,22 @@ class BoardSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    boards = BoardSerializer(many=True, read_only=True)
-    user = serializers.ReadOnlyField(source="user.username")
-
+ 
     class Meta:
         model = Project
-        fields = ["user", "name", "boards"]
-    def get_boards(self, obj):
-        boards = obj.boards.all()
-        return BoardSerializer(boards, many=True).data 
+        fields = [ "name"]
+ 
+    
+class UserProjectRoleSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    role = serializers.ChoiceField(choices=ProjectMember.ROLE_CHOICES)
+
+    def validate(self, attrs):
+        email = attrs['email']
+        user = User.objects.filter(email=email).first()
+
+        if user is None:
+            raise serializers.ValidationError('Usuario no encontrado')
+
+        attrs['user'] = user  # Add validated user object to serialized data
+        return attrs
