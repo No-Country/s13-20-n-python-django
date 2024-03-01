@@ -54,7 +54,7 @@ class SummarizedBoardSerializer(serializers.ModelSerializer):
         fields = ["name"]
 
 
-class ProjectSerializer(serializers.ModelSerializer):
+class DetailedProjectSerializer(serializers.ModelSerializer):
     project_board = SummarizedBoardSerializer(
         many=True
     )  # tiene que ser el related_name si se trata de una relacion inversa
@@ -63,6 +63,13 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = ["name", "owner", "member", "project_board"]
         read_only_fields = ["owner"]
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Project
+        fields = ["name", "owner", "member"]
 
 
 # Serializer de board para operaciones CRUD menos la de detail
@@ -95,5 +102,6 @@ class DetailBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields = ["name", "project", "user", "description", "list_set"]
+
 
 # Los serializer no se encargan del filtrado. Eso es trabajo de los querysets. Si los querysets usan al objeto del usuario es mejor filtrar en el front.
