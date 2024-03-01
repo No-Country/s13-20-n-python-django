@@ -5,8 +5,14 @@ from django.utils import timezone
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_noop
 import os
+
+
 class Project(models.Model):
     name = models.CharField(max_length=255)
+    owner = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="project_owner_set"
+    )
+    member = models.ManyToManyField(User, related_name="project_member_set")
 
 
 class Board(models.Model):
@@ -55,33 +61,23 @@ class Task(models.Model):
     created_time = models.DateTimeField(auto_now_add=True)
     expired_time = models.DateTimeField()
     priority = models.IntegerField(choices=Priority.choices, default=1)
- 
+
     def __str__(self):
         return self.name
-    def save(self, *args, **kwargs):
- 
-        if self.pk is None:
-            max_order = Task.objects.filter(list=self.list).aggregate(models.Max('order'))['order__max'] or 0
 
-           
+    def save(self, *args, **kwargs):
+
+        if self.pk is None:
+            max_order = (
+                Task.objects.filter(list=self.list).aggregate(models.Max("order"))[
+                    "order__max"
+                ]
+                or 0
+            )
+
             self.order = max_order + 1
 
         super().save(*args, **kwargs)
-
-class ProjectMember(models.Model):
-    project = models.ForeignKey(
-        Project, on_delete=models.CASCADE, related_name="project_member"
-    )
-    user = models.ForeignKey(
-        User, on_delete=models.SET_NULL, related_name="user_project", null=True
-    )
-    ROLE_CHOICES = (
-        ('owner', 'Owner'),
-        ('member', 'Member'),
-    )
-    
-    role = models.CharField(max_length=50, choices=ROLE_CHOICES)  # Access class-level ROLE_CHOICES
-
 
 
 class Milestone(models.Model):
@@ -107,28 +103,28 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.user.username
-    
-    
+
+
 def validate_file_extension(value):
- 
-    allowed_extensions = ('.pdf', '.docx', '.xlsx', '.txt', '.zip')
+
+    allowed_extensions = (".pdf", ".docx", ".xlsx", ".txt", ".zip")
     extension = os.path.splitext(value.name)[1].lower()
     if extension not in allowed_extensions:
         raise ValidationError(
             gettext_noop(
-                'Solo los archivos con las siguientes extensiones estan permitidos: {}'
-            ).format(', '.join(allowed_extensions))
+                "Solo los archivos con las siguientes extensiones estan permitidos: {}"
+            ).format(", ".join(allowed_extensions))
         )
+
 
 class File(models.Model):
     task = models.ForeignKey(
         Task, on_delete=models.CASCADE, related_name="task_file", blank=True
     )
-    file = models.FileField(upload_to='files/', validators=[validate_file_extension])
+    file = models.FileField(upload_to="files/", validators=[validate_file_extension])
 
     def clean(self):
- 
+
         super().clean()
- 
-        
+
         return self

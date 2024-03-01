@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, ListTask, Task, Comment,Board,ProjectMember
+from .models import Project, ListTask, Task, Comment, Board
 from accounts.models import User
 from django.contrib.auth import get_user_model
 
@@ -21,7 +21,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source="user.username")
-    
+
     # file = FileSerializer(source="task_file", many=False)
     # comment = serializers.SerializerMetaclass(read_only=True)
 
@@ -34,9 +34,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "description",
             "expired_time",
             "priority",
-          
-
-            "assigned_user"
+            "assigned_user",
         ]
 
     def get_comment(self, obj):
@@ -47,44 +45,44 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
-    board =  serializers.ReadOnlyField(source="board.name")   
+    board = serializers.ReadOnlyField(source="board.name")
     user = serializers.ReadOnlyField(source="user.username")
 
     class Meta:
         model = ListTask
-        fields = ["title", "board", "user","tasks"]
+        fields = ["title", "board", "user", "tasks"]
+
     def get_tasks(self, obj):
         tasks = obj.tasks.all()
         return TaskSerializer(tasks, many=True).data
 
+
 class BoardSerializer(serializers.ModelSerializer):
- 
-    project = serializers.ReadOnlyField(source="project.name")
-    user = serializers.ReadOnlyField(source="user.username")
+
     class Meta:
         model = Board
-        fields = ["name","user","project", "description"]
-        
-
+        fields = ["name", "description"]
 
 
 class ProjectSerializer(serializers.ModelSerializer):
- 
+    owner = serializers.ReadOnlyField()
+    board = BoardSerializer()
+
     class Meta:
         model = Project
-        fields = [ "name"]
- 
-    
-class UserProjectRoleSerializer(serializers.Serializer):
-    email = serializers.EmailField()
-    role = serializers.ChoiceField(choices=ProjectMember.ROLE_CHOICES)
+        fields = ["name", "owner", "member", "board"]
 
-    def validate(self, attrs):
-        email = attrs['email']
-        user = User.objects.filter(email=email).first()
 
-        if user is None:
-            raise serializers.ValidationError('Usuario no encontrado')
+# class UserProjectRoleSerializer(serializers.Serializer):
+#     email = serializers.EmailField()
+#     role = serializers.ChoiceField(choices=ProjectMember.ROLE_CHOICES)
 
-        attrs['user'] = user  # Add validated user object to serialized data
-        return attrs
+#     def validate(self, attrs):
+#         email = attrs['email']
+#         user = User.objects.filter(email=email).first()
+
+#         if user is None:
+#             raise serializers.ValidationError('Usuario no encontrado')
+
+#         attrs['user'] = user  # Add validated user object to serialized data
+#         return attrs
