@@ -9,6 +9,8 @@ import Account from "./views/account/Account";
 import Milestones from "./views/milestones/Milestones";
 import Milestone from "./views/milestone/Milestone";
 import Project from "./views/project/Project";
+import Login from "./views/login/Login";
+import Register from "./views/register/Register";
 
 function App() {
   const router = createBrowserRouter([
@@ -24,6 +26,16 @@ function App() {
         {
           path: "account/",
           element: <Account />,
+          // we might want to nest another one for login, register and maybe management
+        },
+        {
+          path: "account/login/",
+          element: <Login />,
+          // we might want to nest another one for login, register and maybe management
+        },
+        {
+          path: "account/register/",
+          element: <Register />,
           // we might want to nest another one for login, register and maybe management
         },
         {
