@@ -1,9 +1,14 @@
 from rest_framework.permissions import IsAuthenticated
 
 from .mixins import FilterByUserMixin
-from .permissions import BoardUserIsProjectOwnerOrReadOnly, IsOwnerOrReadOnly
+from .permissions import (
+    BoardUserIsProjectOwnerOrReadOnly,
+    IsOwnerOrReadOnly,
+    ListUserIsProjectMemberOrReadOnly,
+)
 from .models import Project, List, Board, Task
 from .serializers import (
+    ListSerializer,
     ProjectSerializer,
     DetailProjectSerializer,
     BoardSerializer,
@@ -85,60 +90,29 @@ class BoardDeleteView(DestroyAPIView):
     permission_classes = [IsAuthenticated, BoardUserIsProjectOwnerOrReadOnly]
 
 
-# @permission_classes([IsAuthenticated])
-# class BoardProject(viewsets.ModelViewSet):
-#     @extend_schema(
-#         description="Lista todos los boards de un proyecto necesitas mandarle el id del proyecto al que pertece el board",
-#         summary="Boards",
-#         request=BoardSerializer,
-#         responses={200: BoardSerializer},
-#     )
-#     def list(self, request, pk):
+class ListCreateView(CreateAPIView):
+    queryset = List.objects.all()
+    serializer_class = ListSerializer
+    permission_classes = [IsAuthenticated, ListUserIsProjectMemberOrReadOnly]
 
-#         project = Project.objects.filter(id=pk)
 
-#         if not project.exists():
-#             return Response(
-#                 {"error": "El identificador no pertenece a ningun proyecto"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
-#         board = Board.objects.filter(project_id=pk)
-#         if not board.exists():
-#             return Response(
-#                 {"error": "Aun no existe un board para ese proyecto"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
+class ListDeleteView(DestroyAPIView):
+    queryset = List.objects.prefetch_related("board__project")
+    serializer_class = ListSerializer
+    permission_classes = [IsAuthenticated, ListUserIsProjectMemberOrReadOnly]
 
-#         serializer = BoardSerializer(board, many=True)
-#         return Response(serializer.data)
 
-#     @extend_schema(
-#         description="Crea un nuevo board necesitas mandar el id del proyecto al que pertece el board",
-#         summary="Boards",
-#         request=BoardSerializer,
-#         responses={201: BoardSerializer},
-#     )
-#     def create(self, request, pk):
-#         project = Project.objects.filter(id=pk)
+class ListUpdateView(UpdateAPIView):
+    queryset = List.objects.prefetch_related("board__project")
+    serializer_class = ListSerializer
+    permission_classes = [IsAuthenticated, ListUserIsProjectMemberOrReadOnly]
 
-#         if not project.exists():
-#             return Response(
-#                 {"error": "El identificador no pertenece a ningun proyecto"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
 
-#         data = request.data
-#         serializer = BoardSerializer(data=data)
-#         if not serializer.is_valid():
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         new_list = Board(
-#             project_id=pk, user_id=project[0].user_id, **serializer.validated_data
-#         )
-
-#         new_list.save()
-
-#         serializer = BoardSerializer(new_list)
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
+class ListRetrieveView(RetrieveAPIView):
+    # unlikely to be used
+    queryset = List.objects.prefetch_related("board__project")
+    serializer_class = ListSerializer
+    permission_classes = [IsAuthenticated, ListUserIsProjectMemberOrReadOnly]
 
 
 # @permission_classes([IsAuthenticated])
