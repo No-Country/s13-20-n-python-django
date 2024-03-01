@@ -64,6 +64,17 @@ class ProjectSerializer(serializers.ModelSerializer):
         fields = ["name", "owner", "member", "project_board"]
         read_only_fields = ["owner"]
 
+
+# Serializer de board para operaciones CRUD menos la de detail
+class BoardSerializer(serializers.ModelSerializer):
+    # La view se encarga del filtro por dueño con `self.request.user`. Asumimos que estamos trabajando con data limpia. Alternativamente podemos sobreescribir el __init__ y pasarle el objecto de la view al serializer para que se encargue de la logica.
+    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+
+    class Meta:
+        model = Board
+        fields = ["name", "project", "user", "description"]
+
+
 class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
     board = serializers.ReadOnlyField(source="board.name")
