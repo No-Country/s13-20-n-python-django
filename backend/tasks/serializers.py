@@ -36,6 +36,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "priority",
             "assigned_user",
         ]
+        ordering = ["order"]
 
     def get_comment(self, obj):
         comment = obj.task_comment.all()
