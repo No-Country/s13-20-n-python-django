@@ -26,17 +26,14 @@ function App() {
         {
           path: "account/",
           element: <Account />,
-          // we might want to nest another one for login, register and maybe management
         },
         {
           path: "account/login/",
           element: <Login />,
-          // we might want to nest another one for login, register and maybe management
         },
         {
           path: "account/register/",
           element: <Register />,
-          // we might want to nest another one for login, register and maybe management
         },
         {
           path: "projects/",
