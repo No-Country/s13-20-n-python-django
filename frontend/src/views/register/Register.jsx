@@ -50,7 +50,6 @@ const Register = () => {
           .unwrap()
           .then((tokenData) => {
             setCredentials(tokenData);
-            console.log(tokenData);
             // useNavigate here
           });
         console.log("token created");
