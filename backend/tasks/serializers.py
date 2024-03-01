@@ -83,26 +83,15 @@ class ListSerializer(serializers.ModelSerializer):
     class Meta:
         model = List
         fields = ["title", "board", "user", "tasks"]
-
-    def get_tasks(self, obj):
-        tasks = obj.tasks.all()
-        return TaskSerializer(tasks, many=True).data
+        # ordering = ["order"] # si se añade orden a las listas
 
 
-class BoardSerializer(serializers.ModelSerializer):
-    project = serializers.StringRelatedField(many=True)
+# Serializer de board para GET de detail
+class DetailBoardSerializer(serializers.ModelSerializer):
+    # La view se encarga del filtro por dueño con `self.request.user`. Asumimos que estamos trabajando con data limpia. Alternativamente podemos sobreescribir el __init__ y pasarle el objecto de la view al serializer para que se encargue de la logica.
+    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    list_set = ListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Board
-        fields = ["name", "description", "project"]
-
-
-class ProjectSerializer(serializers.ModelSerializer):
-    project_board = BoardSerializer(
-        many=True
-    )  # tiene que ser el related_name si se trata de una relacion inversa
-
-    class Meta:
-        model = Project
-        fields = ["name", "owner", "member", "project_board"]
-        read_only_fields = ["owner"]
+        fields = ["name", "project", "user", "description", "list_set"]
