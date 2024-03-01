@@ -1,18 +1,11 @@
-from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework import status
 
-from .mixins import FilterByUserMixin, IsOwnerOrReadOnly
+from .mixins import FilterByUserMixin
+from .permissions import IsOwnerOrReadOnly
 from .models import Project, List, Board, Task
 from .serializers import (
     ProjectSerializer,
-    ListSerializer,
-    SummarizedBoardSerializer,
-    TaskSerializer,
 )
-from drf_spectacular.utils import extend_schema
-from rest_framework.decorators import permission_classes
 from rest_framework.generics import (
     ListAPIView,
     CreateAPIView,
