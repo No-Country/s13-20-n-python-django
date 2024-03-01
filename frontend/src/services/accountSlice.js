@@ -4,23 +4,23 @@ import { apiSlice } from "./apiSlice.js";
 const extendedAccountApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUsers: builder.query({
-      query: () => "api-user/",
+      query: () => "user/",
     }),
     getUser: builder.query({
       query: (id) => ({
-        url: `api-user/${id}/`,
+        url: `user/${id}/`,
       }),
     }),
     createNewUser: builder.mutation({
       query: (userData) => ({
-        url: "api-user/",
+        url: "user/",
         method: "POST",
         body: userData,
       }),
     }),
     updateUser: builder.mutation({
       query: (userData) => ({
-        url: `/user/${userData.id}/`,
+        url: `user/${userData.id}/`,
         method: "PUT",
         body: userData,
       }),

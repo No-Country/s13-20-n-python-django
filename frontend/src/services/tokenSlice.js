@@ -11,10 +11,8 @@ const extendedTokenApiSlice = apiSlice.injectEndpoints({
     }),
     refreshToken: builder.mutation({
       query: (refresh_token) => {
-        console.log(refresh_token);
-
         return {
-          url: "/token/refresh/",
+          url: "token/refresh/",
           method: "POST",
           body: refresh_token,
         };
