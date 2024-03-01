@@ -38,6 +38,7 @@ class TaskSerializer(serializers.ModelSerializer):
         ]
         ordering = ["order"]
 
+    # para los comentarios es mejor usar otro serializer en otro endpoint
     def get_comment(self, obj):
         comment = obj.task_comment.all()
         serializer = CommentSerializer(comment, many=True)
