@@ -21,6 +21,7 @@ class UserModelViewSet(GenericViewSet):
         "last_name"
     )
     permission_classes = [CreateUserPermission]
+    lookup_field = "username"
 
     @extend_schema(description="Crea un usuario", summary="Users")
     def create(self, request):
