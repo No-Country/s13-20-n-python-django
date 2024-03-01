@@ -5,6 +5,7 @@ from .permissions import (
     BoardUserIsProjectOwnerOrReadOnly,
     IsOwnerOrReadOnly,
     ListUserIsProjectMemberOrReadOnly,
+    TaskUserIsProjectMemberOrReadOnly,
 )
 from .models import Project, List, Board, Task
 from .serializers import (
@@ -13,6 +14,7 @@ from .serializers import (
     DetailProjectSerializer,
     BoardSerializer,
     DetailBoardSerializer,
+    TaskSerializer,
 )
 from rest_framework.generics import (
     ListAPIView,
@@ -116,6 +118,32 @@ class ListRetrieveView(RetrieveAPIView):
     queryset = List.objects.prefetch_related("board__project")
     serializer_class = ListSerializer
     permission_classes = [IsAuthenticated, ListUserIsProjectMemberOrReadOnly]
+
+
+class TaskRetrieveView(RetrieveAPIView):
+    queryset = Task.objects.prefetch_related("list__board__project")
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated, TaskUserIsProjectMemberOrReadOnly]
+
+
+class TaskCreateView(CreateAPIView):
+    queryset = Task.objects.prefetch_related("list__board__project")
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated, TaskUserIsProjectMemberOrReadOnly]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+class TaskUpdateView(UpdateAPIView):
+    queryset = Task.objects.prefetch_related("list__board__project")
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated, TaskUserIsProjectMemberOrReadOnly]
+
+
+class TaskDeleteView(DestroyAPIView):
+    queryset = Task.objects.prefetch_related("list__board__project")
+    serializer_class = TaskSerializer
+    permission_classes = [IsAuthenticated, TaskUserIsProjectMemberOrReadOnly]
 
 
 # @permission_classes([IsAuthenticated])
