@@ -1,7 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
 
 from .mixins import FilterByUserMixin
-from .permissions import IsOwnerOrReadOnly
+from .permissions import BoardUserIsProjectOwnerOrReadOnly, IsOwnerOrReadOnly
 from .models import Project, List, Board, Task
 from .serializers import (
     ProjectSerializer,
@@ -65,24 +65,24 @@ class BoardListView(ListAPIView):
 
 
 class BoardCreateView(CreateAPIView):
-    queryset = Board.objects.all()
+    queryset = Board.objects.select_related("project")
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, BoardUserIsProjectOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
 
 class BoardUpdateView(UpdateAPIView):
-    queryset = Board.objects.all()
+    queryset = Board.objects.select_related("project")
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, BoardUserIsProjectOwnerOrReadOnly]
 
 
 class BoardDeleteView(DestroyAPIView):
-    queryset = Board.objects.all()
+    queryset = Board.objects.select_related("project")
     serializer_class = BoardSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, BoardUserIsProjectOwnerOrReadOnly]
 
 
 # @permission_classes([IsAuthenticated])
