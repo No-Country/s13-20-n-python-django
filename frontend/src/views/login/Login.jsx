@@ -76,7 +76,8 @@ const Login = () => {
                   <div className="mt-6 flex flex-col gap-y-4">
                     <button
                       type="submit"
-                      className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg">
+                      className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
+                    >
                       Sign in
                     </button>
                   </div>
@@ -86,7 +87,8 @@ const Login = () => {
                     </p>
                     <button
                       onClick={() => navigate("/account/register/")}
-                      className="ml-2 font-medium text-base text-violet-500">
+                      className="ml-2 font-medium text-base text-violet-500"
+                    >
                       Sign up
                     </button>
                   </div>
@@ -96,7 +98,8 @@ const Login = () => {
             <div className="hidden relative w-1/2 lg:flex items-center justify-center">
               <div
                 className="hero h-full"
-                style={{ backgroundImage: `url(${background})` }}>
+                style={{ backgroundImage: `url(${background})` }}
+              >
                 <div className="hero-overlay"></div>
                 <div className="hero-content text-center text-neutral-content">
                   <div className="max-w-md">
