@@ -28,7 +28,7 @@ class Board(models.Model):
 
 class List(models.Model):
     board = models.ForeignKey(
-        Board, on_delete=models.CASCADE, related_name="board_project", null=True
+        Board, on_delete=models.CASCADE, related_name="list_set", null=True
     )
     user = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="user_tasks", null=True
