@@ -4,7 +4,7 @@ export const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
     // Change to production url later
-    baseUrl: "http://localhost:8000/",
+    baseUrl: "http://localhost:8000/api/",
   }),
   prepareHeaders: (headers, { getState }) => {
     const token = getState().auth.token;
