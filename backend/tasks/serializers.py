@@ -67,8 +67,8 @@ class DetailProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ["name", "owner", "member", "project_board"]
-        read_only_fields = ["owner", "name", "member", "project_board"]
+        fields = ["name", "owner", "member", "project_board", "id"]
+        read_only_fields = ["owner", "name", "member", "project_board", "id"]
 
 
 class ProjectSerializer(serializers.ModelSerializer):
@@ -81,7 +81,8 @@ class ProjectSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Project
-        fields = ["name", "owner", "member"]
+        fields = ["name", "owner", "member", "id"]
+        read_only_fields = ["id"]
 
 
 # Serializer de board para operaciones CRUD menos la de detail
