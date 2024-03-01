@@ -95,6 +95,9 @@ class ListCreateView(CreateAPIView):
     serializer_class = ListSerializer
     permission_classes = [IsAuthenticated, ListUserIsProjectMemberOrReadOnly]
 
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 class ListDeleteView(DestroyAPIView):
     queryset = List.objects.prefetch_related("board__project")
