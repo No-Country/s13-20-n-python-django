@@ -2,6 +2,8 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
+
+from .mixins import FilterByUserMixin
 from .models import Project, List, Board, Task
 from .serializers import (
     ProjectSerializer,
@@ -47,12 +49,10 @@ from accounts.models import User
 #         return Response(serializer.data)
 
 
-class ProjectListCreate(ListCreateAPIView):
+class ProjectListCreate(FilterByUserMixin, ListCreateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-
-    def get_queryset(self):
-        return super().get_queryset().filter(owner=self.request.user)
+    user_field = "owner"
 
 
 # @permission_classes([IsAuthenticated])
