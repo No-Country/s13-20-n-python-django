@@ -73,6 +73,7 @@ class ProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ["name", "owner", "member", "project_board"]
+        read_only_fields = ["owner"]
 
 
 # class UserProjectRoleSerializer(serializers.Serializer):
