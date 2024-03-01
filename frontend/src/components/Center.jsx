@@ -1,16 +1,15 @@
-import React from 'react'
-import Sidebar from './Sidebar'
-import Board from './Board'
-import BoardsList from './BoardsList'
+import React from "react";
+import Sidebar from "./Sidebar";
+import Board from "./Board";
+import BoardsList from "./BoardsList";
 
 function Center() {
-    return (
-        <div className='flex h-[80vh]'>
-            <Sidebar />
-            {/* <Board /> */}
-            <BoardsList />
-        </div>
-    )
+  return (
+    <div>
+      <Sidebar />
+      <BoardsList />
+    </div>
+  );
 }
 
-export default Center
+export default Center;
