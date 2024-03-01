@@ -178,7 +178,6 @@ const Register = () => {
             // The url must contain http
           />
         </label>
-        {}
         {(isErrorToken || isErrorUser) && (
           <div>There was an error. Try again.</div>
         )}
