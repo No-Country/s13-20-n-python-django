@@ -7,7 +7,7 @@ const authSlice = createSlice({
     setCredentials: (state, action) => {
       console.log(action.payload);
       state.refresh = action.payload.refresh;
-      state.access = action.payload.acess;
+      state.access = action.payload.access;
     },
   },
 });

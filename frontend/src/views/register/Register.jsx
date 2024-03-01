@@ -5,6 +5,7 @@ import { useCreateTokenMutation } from "../../services/tokenSlice";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useCreateNewUserMutation } from "../../services/accountSlice";
 import { setCredentials } from "../../features/auth/authSlice";
+
 const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
