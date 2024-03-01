@@ -66,8 +66,9 @@ class BoardSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    # owner = serializers.ReadOnlyField(source="user.username")
-    project_board = BoardSerializer(many=True)
+    project_board = BoardSerializer(
+        many=True
+    )  # tiene que ser el related_name si se trata de una relacion inversa
 
     class Meta:
         model = Project
