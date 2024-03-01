@@ -1,5 +1,9 @@
 from django.urls import path
 from .views import (
+    ListCreateView,
+    ListDeleteView,
+    ListRetrieveView,
+    ListUpdateView,
     ProjectCreateView,
     ProjectDeleteView,
     ProjectListView,
@@ -23,4 +27,8 @@ urlpatterns = [
     path("boards/update/<id>", BoardUpdateView.as_view(), name="board-update"),
     path("boards/create/<id>", BoardCreateView.as_view(), name="board-update"),
     path("boards/delete/<id>", BoardDeleteView.as_view(), name="board-destroy"),
+    path("lists/<id>", ListRetrieveView.as_view(), name="list-retrieve"),
+    path("lists/update/<id>", ListUpdateView.as_view(), name="list-update"),
+    path("lists/create/<id>", ListCreateView.as_view(), name="list-create"),
+    path("lists/delete/<id>", ListDeleteView.as_view(), name="list-delete"),
 ]
