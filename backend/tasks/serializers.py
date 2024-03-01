@@ -58,19 +58,20 @@ class ListSerializer(serializers.ModelSerializer):
 
 
 class BoardSerializer(serializers.ModelSerializer):
+    project = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Board
-        fields = ["name", "description"]
+        fields = ["name", "description", "project"]
 
 
 class ProjectSerializer(serializers.ModelSerializer):
-    owner = serializers.ReadOnlyField()
-    board = BoardSerializer()
+    # owner = serializers.ReadOnlyField(source="user.username")
+    project_board = BoardSerializer(many=True)
 
     class Meta:
         model = Project
-        fields = ["name", "owner", "member", "board"]
+        fields = ["name", "owner", "member", "project_board"]
 
 
 # class UserProjectRoleSerializer(serializers.Serializer):
