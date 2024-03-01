@@ -14,6 +14,10 @@ from .views import (
     BoardListView,
     BoardUpdateView,
     BoardRetrieveView,
+    TaskCreateView,
+    TaskDeleteView,
+    TaskRetrieveView,
+    TaskUpdateView,
 )
 
 urlpatterns = [
@@ -31,4 +35,8 @@ urlpatterns = [
     path("lists/update/<id>", ListUpdateView.as_view(), name="list-update"),
     path("lists/create/<id>", ListCreateView.as_view(), name="list-create"),
     path("lists/delete/<id>", ListDeleteView.as_view(), name="list-delete"),
+    path("tasks/<id>", TaskRetrieveView.as_view(), name="task-retrieve"),
+    path("tasks/update/<id>", TaskUpdateView.as_view(), name="task-update"),
+    path("tasks/create/<id>", TaskCreateView.as_view(), name="task-create"),
+    path("tasks/delete/<id>", TaskDeleteView.as_view(), name="task-delete"),
 ]
