@@ -4,7 +4,10 @@ from .mixins import FilterByUserMixin
 from .permissions import IsOwnerOrReadOnly
 from .models import Project, List, Board, Task
 from .serializers import (
-    ProjectSerializer, DetailProjectSerializer, BoardSerializer, DetailBoardSerializer
+    ProjectSerializer,
+    DetailProjectSerializer,
+    BoardSerializer,
+    DetailBoardSerializer,
 )
 from rest_framework.generics import (
     ListAPIView,
@@ -49,6 +52,37 @@ class ProjectUpdateView(UpdateAPIView):
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
     user_field = "owner"
 
+
+class DetailedBoardView(RetrieveAPIView):
+    queryset = Board.objects.all()
+    serializer_class = DetailBoardSerializer
+
+
+class BoardListView(ListAPIView):
+    # Este endpoint no se va a usar, los projectos ya traen todos los boards
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+
+
+class BoardCreateView(CreateAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+    permission_classes = [IsAuthenticated]
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
+
+class BoardUpdateView(UpdateAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class BoardDeleteView(DestroyAPIView):
+    queryset = Board.objects.all()
+    serializer_class = BoardSerializer
+    permission_classes = [IsAuthenticated]
 
 # @permission_classes([IsAuthenticated])
 # class BoardProject(viewsets.ModelViewSet):
