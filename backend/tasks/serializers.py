@@ -89,9 +89,11 @@ class ListSerializer(serializers.ModelSerializer):
 # Serializer de board para GET de detail
 class DetailBoardSerializer(serializers.ModelSerializer):
     # La view se encarga del filtro por dueño con `self.request.user`. Asumimos que estamos trabajando con data limpia. Alternativamente podemos sobreescribir el __init__ y pasarle el objecto de la view al serializer para que se encargue de la logica.
-    project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    project = serializers.PrimaryKeyRelatedField(read_only=True)
     list_set = ListSerializer(many=True, read_only=True)
 
     class Meta:
         model = Board
         fields = ["name", "project", "user", "description", "list_set"]
+
+# Los serializer no se encargan del filtrado. Eso es trabajo de los querysets. Si los querysets usan al objeto del usuario es mejor filtrar en el front.
