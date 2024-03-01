@@ -10,7 +10,7 @@ class User(AbstractBaseUser, AbstractModel, PermissionsMixin):
 
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
-    username = models.CharField(max_length=50, null=True, blank=True)
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False, null=True, blank=True)
     is_superuser = models.BooleanField(default=False, null=True, blank=True)
@@ -25,7 +25,10 @@ class User(AbstractBaseUser, AbstractModel, PermissionsMixin):
         return check_password(raw_password, self.password)
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["password"]
+    REQUIRED_FIELDS = [
+        "password",
+        "username",
+    ]
 
     class Meta:
         verbose_name = "Usuario"
