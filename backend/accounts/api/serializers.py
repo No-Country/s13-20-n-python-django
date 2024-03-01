@@ -7,20 +7,17 @@ class TokenObtainSerializer(TokenObtainPairSerializer):
     pass
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ["username", "email", "password"]
-        read_only_fields = [
-            "is_active",
-            "created",
-            "update",
-        ]
-
 class UserCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["first_name", "last_name", "email", "password", "image_url"]
+        fields = [
+            "first_name",
+            "last_name",
+            "username",
+            "email",
+            "password",
+            "image_url",
+        ]
         extra_kwargs = {"password": {"write_only": True}}
         read_only_fields = [
             "is_active",
