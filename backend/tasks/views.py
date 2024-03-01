@@ -27,6 +27,9 @@ class ProjectCreateView(CreateAPIView):
     serializer_class = ProjectSerializer
     permission_classes = [IsAuthenticated]
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class ProjectDeleteView(DestroyAPIView):
     queryset = Project.objects.all()
