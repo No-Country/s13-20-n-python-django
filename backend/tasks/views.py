@@ -121,6 +121,7 @@ class ListRetrieveView(RetrieveAPIView):
 
 
 class TaskRetrieveView(RetrieveAPIView):
+    # Unlikely to be used, unless TaskSerializer is changed to have less data
     queryset = Task.objects.prefetch_related("list__board__project")
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated, TaskUserIsProjectMemberOrReadOnly]
@@ -134,6 +135,7 @@ class TaskCreateView(CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
+
 class TaskUpdateView(UpdateAPIView):
     queryset = Task.objects.prefetch_related("list__board__project")
     serializer_class = TaskSerializer
@@ -144,108 +146,3 @@ class TaskDeleteView(DestroyAPIView):
     queryset = Task.objects.prefetch_related("list__board__project")
     serializer_class = TaskSerializer
     permission_classes = [IsAuthenticated, TaskUserIsProjectMemberOrReadOnly]
-
-
-# @permission_classes([IsAuthenticated])
-# class ListProject(viewsets.ModelViewSet):
-#     @extend_schema(
-#         description="Lista todas las listas necesitas mandarle el id del board al que pertece la lista",
-#         summary="Lists",
-#         request=ListSerializer,
-#         responses={200: ListSerializer},
-#     )
-#     def list(self, request, pk):
-#         board = Board.objects.filter(id=pk)
-#         if not board.exists():
-#             return Response(
-#                 {"error": "Aun no existe un board para ese proyecto"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
-
-#         lists = ListTask.objects.filter(board_id=pk)
-
-#         if not lists.exists():
-#             return Response(
-#                 {"error": "El identificador no pertenece a ningun board"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
-
-#         serializer = ListSerializer(lists, many=True)
-#         return Response(serializer.data)
-
-#     @extend_schema(
-#         description="Crea una nueva lista necesitas mandar el id del board al que pertece la lista",
-#         summary="Lists",
-#         request=ListSerializer,
-#         responses={201: ListSerializer},
-#     )
-#     def create(self, request, pk):
-
-#         board = Board.objects.filter(id=pk)
-
-#         data = request.data
-#         serializer = ListSerializer(data=data)
-#         if not serializer.is_valid():
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#         new_list = ListTask(
-#             board_id=pk, user_id=board[0].user_id, **serializer.validated_data
-#         )
-#         new_list.save()
-
-#         serializer = ListSerializer(new_list)
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-
-# @permission_classes([IsAuthenticated])
-# class TaskProject(viewsets.ModelViewSet):
-#     @extend_schema(
-#         description="Lista todas las tareas necesitas mandarle el id de la lista al que pertece la tarea",
-#         summary="Tasks",
-#         request=TaskSerializer,
-#         responses={200: TaskSerializer},
-#     )
-#     def list(self, request, pk):
-#         list = ListTask.objects.filter(id=pk)
-#         if not list.exists():
-#             return Response(
-#                 {"error": "no hay ninguna lista asociada a ese board"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
-
-#         task = Task.objects.filter(list_id=pk)
-
-#         if not task.exists():
-#             return Response(
-#                 {"error": "El identificador no pertenece a ninguna tarea"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
-
-#         serializer = TaskSerializer(task, many=True)
-#         return Response(serializer.data)
-
-#     @extend_schema(
-#         description="Crea una nueva tarea necesitas mandar el id de la lista al que pertece la tarea",
-#         summary="Lists",
-#         request=TaskSerializer,
-#         responses={201: TaskSerializer},
-#     )
-#     def create(self, request, pk):
-
-#         list = ListTask.objects.filter(id=pk)
-#         if not list.exists():
-#             return Response(
-#                 {"error": "no hay ninguna lista asociada a ese board"},
-#                 status=status.HTTP_404_NOT_FOUND,
-#             )
-
-#         data = request.data
-#         serializer = TaskSerializer(data=data)
-#         if not serializer.is_valid():
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#         task = Task(list_id=pk, user_id=request.user.id, **serializer.validated_data)
-#         task.save()
-
-#         serializer = TaskSerializer(task)
-#         return Response(serializer.data, status=status.HTTP_201_CREATED)
