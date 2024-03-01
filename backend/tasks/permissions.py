@@ -29,3 +29,33 @@ class BoardUserIsProjectOwnerOrReadOnly(permissions.BasePermission):
 
         # Write permissions are only allowed to the owner of the blog.
         return obj.project.owner == request.user
+
+
+class ListUserIsProjectMemberOrReadOnly(permissions.BasePermission):
+    """
+    This permission checks if the request user is a member of the of the project for lists. `user_field` defaults to "user"
+    """
+
+    user_field = "user"
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Write permissions are only allowed to the owner of the blog.
+        return obj.board.project.member == request.user
+
+
+class TaskUserIsProjectMemberOrReadOnly(permissions.BasePermission):
+    """
+    This permission checks if the request user is a member of the of the project for tasks. `user_field` defaults to "user"
+    """
+
+    user_field = "user"
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        # Write permissions are only allowed to the owner of the blog.
+        return obj.list.board.project.member == request.user
