@@ -1,3 +1,4 @@
+from django.db.models import query
 from rest_framework import serializers
 from .models import Project, List, Task, Comment, Board
 from accounts.models import User
@@ -59,6 +60,10 @@ class DetailedProjectSerializer(serializers.ModelSerializer):
     project_board = SummarizedBoardSerializer(
         many=True
     )  # tiene que ser el related_name si se trata de una relacion inversa
+    owner = serializers.SlugRelatedField(read_only=True, slug_field="username")
+    member = serializers.SlugRelatedField(
+        read_only=True, slug_field="username", many=True
+    )
 
     class Meta:
         model = Project
@@ -67,6 +72,12 @@ class DetailedProjectSerializer(serializers.ModelSerializer):
 
 
 class ProjectSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username"
+    )
+    member = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username", many=True
+    )
 
     class Meta:
         model = Project
