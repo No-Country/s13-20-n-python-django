@@ -10,7 +10,8 @@ const Account = () => {
         <btn
           onClick={() => {
             navigate("/account/login/");
-          }}>
+          }}
+        >
           Here
         </btn>
       </p>
@@ -19,7 +20,8 @@ const Account = () => {
         <btn
           onClick={() => {
             navigate("/account/register/");
-          }}>
+          }}
+        >
           Sign Up
         </btn>
       </p>
