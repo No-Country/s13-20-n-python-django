@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework import status
 
-from .mixins import FilterByUserMixin
+from .mixins import FilterByUserMixin, IsOwnerOrReadOnly
 from .models import Project, List, Board, Task
 from .serializers import (
     ProjectSerializer,
@@ -13,153 +13,45 @@ from .serializers import (
 )
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import permission_classes
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import (
+    ListAPIView,
+    CreateAPIView,
+    DestroyAPIView,
+    RetrieveAPIView,
+    UpdateAPIView,
+)
 from accounts.models import User
 
 
-# @permission_classes([IsAuthenticated])
-
-# class ProjectList(viewsets.ModelViewSet):
-
-#     @extend_schema(description="Crea un nuevo proyecto", summary="Projects",
-#                    request=ProjectSerializer, responses={201 : ProjectSerializer},
-#        )
-
-#     def create(self, request):
-#         serializer = ProjectSerializer(data=request.data)
-
-#         if serializer.is_valid():
-#             project = serializer.save()
-#             ProjectMember.objects.create(
-#                 project=project,
-#                 user=request.user,
-#                 role='owner'
-#             )
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#     @extend_schema(description="Lista todos los proyecto", summary="Projects",
-#                    request=ProjectSerializer, responses={200 : ProjectSerializer},
-#                    )
-#     def list(self, request):
-
-#         project_ids = ProjectMember.objects.filter(user=request.user).values_list('project_id', flat=True)
-#         projects = Project.objects.filter(id__in=project_ids)
-#         serializer = ProjectSerializer(projects, many=True)
-#         return Response(serializer.data)
-
-
-class ProjectListCreate(FilterByUserMixin, ListCreateAPIView):
+class ProjectListView(FilterByUserMixin, ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     user_field = "owner"
 
 
-# @permission_classes([IsAuthenticated])
-# class ProjectDetail(viewsets.ModelViewSet):
+class ProjectCreateView(CreateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
 
-#     @extend_schema(
-#         description="Lista el detalle de un proyecto",
-#         summary="Projects",
-#         request=ProjectSerializer,
-#         responses={200: ProjectSerializer},
-#     )
-#     def retrieve(self, request, pk):
 
-#         try:
-#             project = Project.objects.get(pk=pk)
-#         except Project.DoesNotExist:
-#             return Response(
-#                 {"error": "Projecto no encontrado"}, status=status.HTTP_404_NOT_FOUND
-#             )
-#         serializer = ProjectSerializer(project)
-#         return Response(serializer.data)
+class ProjectDeleteView(DestroyAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    user_field = "owner"
 
-#     @extend_schema(
-#         description="Actualiza un proyecto",
-#         summary="Projects",
-#         request=ProjectSerializer,
-#         responses={200: ProjectSerializer},
-#     )
-#     def update(self, request, pk):
 
-#         try:
-#             project = Project.objects.get(pk=pk)
-#         except Project.DoesNotExist:
-#             return Response(
-#                 {"error": "Projecto no encontrado"}, status=status.HTTP_404_NOT_FOUND
-#             )
+class ProjectRetrieveView(RetrieveAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
 
-#         if project.user == request.user:
-#             serializer = ProjectSerializer(project, data=request.data)
-#             if serializer.is_valid():
-#                 serializer.save()
-#                 return Response(serializer.data)
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         return Response(
-#             {"error": "Solo el dueño del proyecto puede actualizar este recurso"},
-#             status=status.HTTP_400_BAD_REQUEST,
-#         )
 
-#     @extend_schema(
-#         description="Eliminar un proyecto",
-#         summary="Projects",
-#         request=ProjectSerializer,
-#         responses={204: ProjectSerializer},
-#     )
-#     def destroy(self, request, pk):
-#         try:
-#             project = Project.objects.get(pk=pk)
-#         except Project.DoesNotExist:
-#             return Response(
-#                 {"error": "Project not found"}, status=status.HTTP_404_NOT_FOUND
-#             )
-#         if project.user == request.user:
-#             project.delete()
-#             return Response(
-#                 {"message": "El proyecto ha sido borrado exitosamente"},
-#                 status=status.HTTP_204_NO_CONTENT,
-#             )
-#         return Response(
-#             {"error": "Solo el dueño del proyecto puede eliminar este recurso"},
-#             status=status.HTTP_400_BAD_REQUEST,
-#         )
-
-#     @extend_schema(
-#         description="Asigna un usuario al proyecto",
-#         summary="Projects",
-#         request=ProjectSerializer,
-#         responses={201: ProjectSerializer},
-#     )
-#     def create(self, request, pk):
-#         try:
-#             project = Project.objects.get(pk=pk)
-#             serializer = UserProjectRoleSerializer(data=request.data)
-
-#             if serializer.is_valid():
-#                 email = serializer.validated_data["email"]
-#                 user = User.objects.filter(
-#                     email=email
-#                 ).first()  # Buscar usuario por correo electrónico
-#                 if user is None:
-#                     return Response(
-#                         {"message": "Usuario no encontrado"},
-#                         status=status.HTTP_404_NOT_FOUND,
-#                     )
-#                 member, created = ProjectMember.objects.get_or_create(
-#                     project=project, user=user
-#                 )
-#                 member.role = serializer.validated_data["role"]
-#                 member.save()
-#                 return Response(
-#                     {"message": "Usuario asignado exitosamente"},
-#                     status=status.HTTP_201_CREATED,
-#                 )
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#         except Project.DoesNotExist:
-#             return Response(
-#                 {"message": "Proyecto no encontrado"}, status=status.HTTP_404_NOT_FOUND
-#             )
+class ProjectUpdateView(UpdateAPIView):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    user_field = "owner"
 
 
 # @permission_classes([IsAuthenticated])
