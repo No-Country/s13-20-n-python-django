@@ -6,7 +6,7 @@ from .models import Project, List, Board, Task
 from .serializers import (
     ProjectSerializer,
     ListSerializer,
-    BoardSerializer,
+    SummarizedBoardSerializer,
     TaskSerializer,
 )
 from drf_spectacular.utils import extend_schema

@@ -43,6 +43,25 @@ class TaskSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
+# Used only for project
+class SummarizedBoardSerializer(serializers.ModelSerializer):
+    # project = serializers.StringRelatedField(many=True)
+
+    class Meta:
+        model = Board
+        fields = ["name"]
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    project_board = SummarizedBoardSerializer(
+        many=True
+    )  # tiene que ser el related_name si se trata de una relacion inversa
+
+    class Meta:
+        model = Project
+        fields = ["name", "owner", "member", "project_board"]
+        read_only_fields = ["owner"]
+
 class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
     board = serializers.ReadOnlyField(source="board.name")
