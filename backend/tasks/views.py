@@ -53,7 +53,7 @@ class ProjectUpdateView(UpdateAPIView):
     user_field = "owner"
 
 
-class DetailedBoardView(RetrieveAPIView):
+class BoardRetrieveView(RetrieveAPIView):
     queryset = Board.objects.all()
     serializer_class = DetailBoardSerializer
 
@@ -83,6 +83,7 @@ class BoardDeleteView(DestroyAPIView):
     queryset = Board.objects.all()
     serializer_class = BoardSerializer
     permission_classes = [IsAuthenticated]
+
 
 # @permission_classes([IsAuthenticated])
 # class BoardProject(viewsets.ModelViewSet):
