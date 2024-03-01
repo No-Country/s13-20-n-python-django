@@ -26,14 +26,15 @@ class Login(TokenObtainPairView):
                         "refresh": login_serializer.validated_data.get("refresh"),
                         "access": login_serializer.validated_data.get("access"),
                         "message": "Successful login",
+                        "username": user.username,
                     },
                     status=status.HTTP_200_OK,
                 )
             return Response(
-                {"error": "Incorrect password or username"},
+                {"error": "Incorrect password or email"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
         return Response(
-            {"error": "Incorrect password or username"},
+            {"error": "Incorrect password or email"},
             status=status.HTTP_400_BAD_REQUEST,
         )
