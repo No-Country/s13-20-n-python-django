@@ -52,6 +52,7 @@ class SummarizedBoardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Board
         fields = ["name"]
+        read_only_fields = ["name"]
 
 
 class DetailedProjectSerializer(serializers.ModelSerializer):
@@ -62,7 +63,7 @@ class DetailedProjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Project
         fields = ["name", "owner", "member", "project_board"]
-        read_only_fields = ["owner"]
+        read_only_fields = ["owner", "name", "member", "project_board"]
 
 
 class ProjectSerializer(serializers.ModelSerializer):
