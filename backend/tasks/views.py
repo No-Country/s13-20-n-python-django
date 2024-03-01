@@ -4,7 +4,7 @@ from .mixins import FilterByUserMixin
 from .permissions import IsOwnerOrReadOnly
 from .models import Project, List, Board, Task
 from .serializers import (
-    ProjectSerializer,
+    ProjectSerializer, DetailProjectSerializer, BoardSerializer, DetailBoardSerializer
 )
 from rest_framework.generics import (
     ListAPIView,
