@@ -56,7 +56,7 @@ class SummarizedBoardSerializer(serializers.ModelSerializer):
         read_only_fields = ["name"]
 
 
-class DetailedProjectSerializer(serializers.ModelSerializer):
+class DetailProjectSerializer(serializers.ModelSerializer):
     project_board = SummarizedBoardSerializer(
         many=True
     )  # tiene que ser el related_name si se trata de una relacion inversa
