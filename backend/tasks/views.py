@@ -40,7 +40,7 @@ class ProjectDeleteView(DestroyAPIView):
 
 class ProjectRetrieveView(RetrieveAPIView):
     queryset = Project.objects.all()
-    serializer_class = ProjectSerializer
+    serializer_class = DetailProjectSerializer
 
 
 class ProjectUpdateView(UpdateAPIView):
