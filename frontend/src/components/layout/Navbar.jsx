@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import logo from '../assets/logo.png'
-import profile from '../assets/profile.png'
-import iconDown from '../assets/icon-chevron-down.svg'
-import HeaderDropdown from './HeaderDropdown'
+import logo from '../../assets/logo.png'
+import profile from '../../assets/profile.png'
+import iconDown from '../../assets/icon-chevron-down.svg'
+import HeaderDropdown from '../HeaderDropdown'
 
 function Navbar({ }) {
 

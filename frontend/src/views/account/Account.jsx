@@ -1,7 +1,11 @@
-import React from "react";
+import Form from "../../components/account/Form";
 
 const Account = () => {
-  return <div>Account</div>;
+  return(
+    <>
+      <Form />
+    </>
+  )
 };
 
 export default Account;

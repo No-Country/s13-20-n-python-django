@@ -1,5 +1,4 @@
 import React from 'react'
-import BoardItem from './BoardItem';
 
 function BoardsList() {
     return (
