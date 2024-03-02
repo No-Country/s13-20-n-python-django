@@ -43,13 +43,13 @@ const Login = () => {
         <form className="flex w-full" onSubmit={handleSubmit}>
           <div className="w-full flex items-center justify-center lg:w-1/2">
             <div className="w-11/12 max-w-[700px] px-8 py-6 rounded-3xl border-0 border-gray-100">
-              <h1 className="text-3xl font-semibold">Welcome Back!</h1>
-              <p className="font-medium text-lg text-gray-500 mt-4">
+              <h1 className="text-3xl text-primary font-semibold">Welcome Back!</h1>
+              <p className="font-medium text-lg text-secondary">
                 Please enter you details.
               </p>
               <div className="mt-6">
                 <div className="flex flex-col">
-                  <label className="font-medium">Email</label>
+                  <label className="text-primary font-medium">Email</label>
                   <input
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -58,7 +58,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="flex flex-col mt-4">
-                  <label className="font-medium">Password</label>
+                  <label className="text-primary font-medium">Password</label>
                   <input
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -68,7 +68,7 @@ const Login = () => {
                   />
                 </div>
                 <div className="mt-6 flex justify-center items-center">
-                  <button className="font-medium text-base text-violet-500">
+                  <button className="font-medium text-base text-primary">
                     Forgot password
                     {/* not implemented for now */}
                   </button>
@@ -76,7 +76,7 @@ const Login = () => {
                 <div className="mt-6 flex flex-col gap-y-4">
                   <button
                     type="submit"
-                    className="active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01]  ease-in-out transform py-4 bg-violet-500 rounded-xl text-white font-bold text-lg"
+                    className="btn btn-primary active:scale-[.98] active:duration-75 transition-all hover:scale-[1.01] ease-in-out transform py-4"
                   >
                     Sign in
                   </button>
@@ -87,20 +87,20 @@ const Login = () => {
                   </p>
                   <button
                     onClick={() => navigate("/account/register/")}
-                    className="ml-2 font-medium text-base text-violet-500"
+                    className="ml-2 font-medium text-base text-primary"
                   >
                     Sign up
                   </button>
                 </div>
                 {isError && (
-                  <div className="flex justify-center">
+                  <div className="flex justify-center text-error">
                     There was an error. Try again.
                   </div>
                 )}
               </div>
             </div>
           </div>
-            <div className="hidden relative w-1/2 lg:flex items-center justify-center">
+          <div className="hidden relative w-1/2 lg:flex items-center justify-center">
             <Welcome />
           </div>
 

@@ -66,47 +66,46 @@ const Register = () => {
     <>
       <form className="flex w-full" onSubmit={handleSubmit}>
         <div className="w-full flex flex-col items-center justify-center">
-          <h1 className="text-3xl font-semibold">Register</h1>
+          <h1 className="text-3xl text-primary font-semibold">Register</h1>
 
           <div className="flex flex-row align-top gap-6 w-11/12 max-w-[700px] px-8 py-6 rounded-3xl border-0 border-gray-100">
 
             <div className="flex flex-col mt-4 w-1/2">
               {/* Email */}
               <div className="flex flex-col">
-                <label htmlFor="email" className="font-medium">Email</label>
+                <label htmlFor="email" className="text-primary font-medium">Email</label>
                 <input
                   name="email"
                   type="email"
                   value={email}
                   required
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border-2 border-gray-100 rounded-xl p-2 mt-1 bg-transparent"
+                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
                   placeholder="Enter your email"
                 />
               </div>
               {/* Password */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="password" className="font-medium">Password</label>
+                <label htmlFor="password" className="text-primary font-medium">Password</label>
                 <input
                   name="password"
-                  type="password"
                   value={password}
                   minLength={14}
                   required
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full border-2 border-gray-100 rounded-xl p-2 mt-1 bg-transparent"
+                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
                   placeholder="Enter a password"
                   type={"password"}
                 />
               </div>
               {/* First name */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="firstName" className="font-medium">First Name</label>
+                <label htmlFor="firstName" className="text-primary font-medium">First Name</label>
                 <input
                   name="first-name"
                   type="text"
                   placeholder="First Name"
-                  className="w-full border-2 border-gray-100 rounded-xl p-2 mt-1 bg-transparent"
+                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
                   value={firstName}
                   // minLength={14}
                   onChange={(e) => setFirstName(e.target.value)}
@@ -116,12 +115,12 @@ const Register = () => {
             <div className="flex flex-col mt-4 w-1/2">
               {/* Last name */}
               <div className="flex flex-col">
-                <label htmlFor="second-name" className="font-medium">Last Name</label>
+                <label htmlFor="second-name" className="text-primary font-medium">Last Name</label>
                 <input
                   name="second-name"
                   type="text"
                   placeholder="Last Name"
-                  className="w-full border-2 border-gray-100 rounded-xl p-2 mt-1 bg-transparent"
+                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
                   value={secondName}
                   // minLength={14}
                   onChange={(e) => setSecondName(e.target.value)}
@@ -129,12 +128,12 @@ const Register = () => {
               </div>
               {/* Username */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="username" className="font-medium">Username</label>
+                <label htmlFor="username" className="text-primary font-medium">Username</label>
                 <input
                   name="username"
                   type="text"
                   placeholder="Username"
-                  className="w-full border-2 border-gray-100 rounded-xl p-2 mt-1 bg-transparent"
+                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
                   value={username}
                   // minLength={14}
                   onChange={(e) => setUsername(e.target.value)}
@@ -142,12 +141,12 @@ const Register = () => {
               </div>
               {/* Image URL */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="image-url" className="font-medium">Image URL</label>
+                <label htmlFor="image-url" className="text-primary font-medium">Image URL</label>
                 <input
                   name="image-url"
                   type="url"
                   placeholder="URL for profile image"
-                  className="w-full border-2 border-gray-100 rounded-xl p-2 mt-1 bg-transparent"
+                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
                   value={imageUrl}
                   // minLength={14}
                   onChange={(e) => setImageUrl(e.target.value)}
@@ -158,7 +157,7 @@ const Register = () => {
           {(isErrorToken || isErrorUser) && (
             <div>There was an error. Try again.</div>
           )}
-          <button type="submit" className="btn">
+          <button type="submit" className="btn btn-primary">
             Submit
           </button>
         </div>
