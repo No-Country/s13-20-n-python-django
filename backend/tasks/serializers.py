@@ -56,8 +56,8 @@ class SummarizedBoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Board
-        fields = ["name"]
-        read_only_fields = ["name"]
+        fields = ["name", "id"]
+        read_only_fields = ["name", "name"]
 
 
 class DetailProjectSerializer(serializers.ModelSerializer):
