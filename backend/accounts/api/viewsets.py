@@ -58,20 +58,20 @@ class UserModelViewSet(GenericViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     @extend_schema(description="Obtiene el detalle de un usuario", summary="Users")
-    def retrieve(self, request, pk=None):
+    def retrieve(self, request, username=None):
         """
         Get a detail of user
         """
-        user = get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        user = get_object_or_404(self.serializer_class.Meta.model, username=username)
         serializer = self.serializer_class(user)
         return Response(serializer.data)
 
     @extend_schema(description="Actualiza un usuario", summary="Users")
-    def update(self, request, pk=None):
+    def update(self, request, username=None):
         """
         Update an user
         """
-        user = get_object_or_404(self.serializer_class.Meta.model, pk=pk)
+        user = get_object_or_404(self.serializer_class.Meta.model, username=username)
         serializer = UserUpdateSerializer(user, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -88,11 +88,11 @@ class UserModelViewSet(GenericViewSet):
         )
 
     @extend_schema(description="Elimina un usuario de manera logica", summary="Users")
-    def destroy(self, request, pk=None):
+    def destroy(self, request, username=None):
         """
         Delete an user in logical mode
         """
-        user = self.serializer_class.Meta.model.objects.filter(id=pk).update(
+        user = self.serializer_class.Meta.model.objects.filter(username=username).update(
             is_active=False
         )
         if user:
