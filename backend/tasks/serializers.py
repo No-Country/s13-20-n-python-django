@@ -6,7 +6,9 @@ from django.contrib.auth import get_user_model
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source="user.username")
+    user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username"
+    )
 
     class Meta:
         model = Comment
@@ -21,7 +23,9 @@ class CommentSerializer(serializers.ModelSerializer):
 
 
 class TaskSerializer(serializers.ModelSerializer):
-    user = serializers.ReadOnlyField(source="user.username")
+    user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username"
+    )
 
     # file = FileSerializer(source="task_file", many=False)
     # comment = serializers.SerializerMetaclass(read_only=True)
@@ -89,6 +93,9 @@ class ProjectSerializer(serializers.ModelSerializer):
 class BoardSerializer(serializers.ModelSerializer):
     # La view se encarga del filtro por dueño con `self.request.user`. Asumimos que estamos trabajando con data limpia. Alternativamente podemos sobreescribir el __init__ y pasarle el objecto de la view al serializer para que se encargue de la logica.
     project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
+    user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username"
+    )
 
     class Meta:
         model = Board
@@ -98,7 +105,9 @@ class BoardSerializer(serializers.ModelSerializer):
 class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
     board = serializers.ReadOnlyField(source="board.name")
-    user = serializers.ReadOnlyField(source="user.username")
+    user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username"
+    )
 
     class Meta:
         model = List
@@ -111,6 +120,9 @@ class DetailBoardSerializer(serializers.ModelSerializer):
     # La view se encarga del filtro por dueño con `self.request.user`. Asumimos que estamos trabajando con data limpia. Alternativamente podemos sobreescribir el __init__ y pasarle el objecto de la view al serializer para que se encargue de la logica.
     project = serializers.PrimaryKeyRelatedField(read_only=True)
     list_set = ListSerializer(many=True, read_only=True)
+    user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username"
+    )
 
     class Meta:
         model = Board
