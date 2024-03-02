@@ -29,14 +29,14 @@ urlpatterns = [
     path("boards/", BoardListView.as_view(), name="board-list"),  # won't be used
     path("boards/<pk>", BoardRetrieveView.as_view(), name="board-retrieve"),
     path("boards/update/<pk>", BoardUpdateView.as_view(), name="board-update"),
-    path("boards/create/<pk>", BoardCreateView.as_view(), name="board-update"),
+    path("boards/create/", BoardCreateView.as_view(), name="board-update"),
     path("boards/delete/<pk>", BoardDeleteView.as_view(), name="board-destroy"),
     path("lists/<pk>", ListRetrieveView.as_view(), name="list-retrieve"),
     path("lists/update/<pk>", ListUpdateView.as_view(), name="list-update"),
-    path("lists/create/<pk>", ListCreateView.as_view(), name="list-create"),
+    path("lists/create/", ListCreateView.as_view(), name="list-create"),
     path("lists/delete/<pk>", ListDeleteView.as_view(), name="list-delete"),
     path("tasks/<pk>", TaskRetrieveView.as_view(), name="task-retrieve"),
     path("tasks/update/<pk>", TaskUpdateView.as_view(), name="task-update"),
-    path("tasks/create/<pk>", TaskCreateView.as_view(), name="task-create"),
+    path("tasks/create/", TaskCreateView.as_view(), name="task-create"),
     path("tasks/delete/<pk>", TaskDeleteView.as_view(), name="task-delete"),
 ]
