@@ -26,10 +26,13 @@ from rest_framework.generics import (
 from accounts.models import User
 
 
-class ProjectListView(FilterByUserMixin, ListAPIView):
+class ProjectListView(ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     user_field = "owner"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
 
 
 class ProjectCreateView(CreateAPIView):
