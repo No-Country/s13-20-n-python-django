@@ -34,34 +34,20 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
-# Application definition
-
-# Applications core of Django
-BASE_APPS = [
+INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-]
-
-# Local applications
-LOCAL_APPS = [
-    "accounts",
-    "tasks",
-]
-
-# Third persons applications
-THIRD_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_spectacular",
     "corsheaders",
+    "accounts",
+    "tasks",
 ]
-
-INSTALLED_APPS = BASE_APPS + THIRD_APPS + LOCAL_APPS
 
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
