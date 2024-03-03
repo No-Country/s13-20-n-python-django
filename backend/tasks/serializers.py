@@ -26,7 +26,7 @@ class TaskSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         queryset=User.objects.all(), slug_field="username", required=False
     )
-    list_task = serializers.PrimaryKeyRelatedField(queryset=List.objects.all())
+    list = serializers.PrimaryKeyRelatedField(queryset=List.objects.all())
     assigned_user = serializers.SlugRelatedField(
         queryset=User.objects.all(), slug_field="username", required=False
     )
@@ -42,7 +42,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "description",
             "priority",
             "assigned_user",
-            "list_task",
+            "list",
             "id",
         ]
         read_only_fields = ["id"]
@@ -108,7 +108,7 @@ class BoardSerializer(serializers.ModelSerializer):
 
 
 class ListSerializer(serializers.ModelSerializer):
-    tasks = TaskSerializer(many=True, read_only=True)
+    list_task = TaskSerializer(many=True, read_only=True)
     board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
     user = serializers.SlugRelatedField(
         queryset=User.objects.all(), slug_field="username", required=False
@@ -116,7 +116,7 @@ class ListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = List
-        fields = ["title", "board", "user", "tasks", "id"]
+        fields = ["title", "board", "user", "list_task", "id"]
         read_only_fields = ["id"]
         # ordering = ["order"] # si se añade orden a las listas
 
