@@ -24,9 +24,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
-        queryset=User.objects.all(), slug_field="username"
+        queryset=User.objects.all(), slug_field="username", required=False
     )
     list_task = serializers.PrimaryKeyRelatedField(queryset=List.objects.all())
+    assigned_user = serializers.SlugRelatedField(
+        queryset=User.objects.all(), slug_field="username", required=False
+    )
     # file = FileSerializer(source="task_file", many=False)
     # comment = serializers.SerializerMetaclass(read_only=True)
 
@@ -80,7 +83,7 @@ class DetailProjectSerializer(serializers.ModelSerializer):
 
 class ProjectSerializer(serializers.ModelSerializer):
     owner = serializers.SlugRelatedField(
-        queryset=User.objects.all(), slug_field="username"
+        queryset=User.objects.all(), slug_field="username", required=False
     )
     member = serializers.SlugRelatedField(
         queryset=User.objects.all(), slug_field="username", many=True
@@ -97,7 +100,7 @@ class BoardSerializer(serializers.ModelSerializer):
     # La view se encarga del filtro por dueño con `self.request.user`. Asumimos que estamos trabajando con data limpia. Alternativamente podemos sobreescribir el __init__ y pasarle el objecto de la view al serializer para que se encargue de la logica.
     project = serializers.PrimaryKeyRelatedField(queryset=Project.objects.all())
     user = serializers.SlugRelatedField(
-        queryset=User.objects.all(), slug_field="username"
+        queryset=User.objects.all(), slug_field="username", required=False
     )
 
     class Meta:
@@ -109,7 +112,7 @@ class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
     board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
     user = serializers.SlugRelatedField(
-        queryset=User.objects.all(), slug_field="username"
+        queryset=User.objects.all(), slug_field="username", required=False
     )
 
     class Meta:
@@ -124,9 +127,7 @@ class DetailBoardSerializer(serializers.ModelSerializer):
     # La view se encarga del filtro por dueño con `self.request.user`. Asumimos que estamos trabajando con data limpia. Alternativamente podemos sobreescribir el __init__ y pasarle el objecto de la view al serializer para que se encargue de la logica.
     project = serializers.PrimaryKeyRelatedField(read_only=True)
     list_set = ListSerializer(many=True, read_only=True)
-    user = serializers.SlugRelatedField(
-        queryset=User.objects.all(), slug_field="username"
-    )
+    user = serializers.SlugRelatedField(slug_field="username", read_only=True)
 
     class Meta:
         model = Board
