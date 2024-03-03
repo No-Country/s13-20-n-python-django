@@ -1,24 +1,22 @@
 from rest_framework import permissions
 
 
-class IsOwnerOrReadOnly(permissions.BasePermission):
+class ProjectIsOwnerOrReadOnly(permissions.BasePermission):
     """
-    This permission checks if the request user is the owner of the object with `user_field`. Otherwise it only allows safe methods. `user_field` defaults to "user"
+    This permission checks if the request user is the owner of a Project object. Otherwise it only allows safe methods.
     """
-
-    user_field = "user"
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
             return True
 
         # Write permissions are only allowed to the owner of the blog.
-        return obj[self.user_field] == request.user
+        return obj.owner == request.user
 
 
 class BoardUserIsProjectOwnerOrReadOnly(permissions.BasePermission):
     """
-    This permission checks if the request user is the owner of the project. `user_field` defaults to "user"
+    This permission checks if the request user is the owner of the project.
     """
 
     user_field = "user"
@@ -33,10 +31,8 @@ class BoardUserIsProjectOwnerOrReadOnly(permissions.BasePermission):
 
 class ListUserIsProjectMemberOrReadOnly(permissions.BasePermission):
     """
-    This permission checks if the request user is a member of the of the project for lists. `user_field` defaults to "user"
+    This permission checks if the request user is a member of the of the project for lists.
     """
-
-    user_field = "user"
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
@@ -48,10 +44,8 @@ class ListUserIsProjectMemberOrReadOnly(permissions.BasePermission):
 
 class TaskUserIsProjectMemberOrReadOnly(permissions.BasePermission):
     """
-    This permission checks if the request user is a member of the of the project for tasks. `user_field` defaults to "user"
+    This permission checks if the request user is a member of the of the project for tasks.
     """
-
-    user_field = "user"
 
     def has_object_permission(self, request, view, obj):
         if request.method in permissions.SAFE_METHODS:
