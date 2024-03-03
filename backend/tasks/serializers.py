@@ -26,7 +26,7 @@ class TaskSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(
         queryset=User.objects.all(), slug_field="username"
     )
-
+    list_task = serializers.PrimaryKeyRelatedField(queryset=List.objects.all())
     # file = FileSerializer(source="task_file", many=False)
     # comment = serializers.SerializerMetaclass(read_only=True)
 
@@ -40,6 +40,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "expired_time",
             "priority",
             "assigned_user",
+            "list_task",
         ]
         ordering = ["order"]
 
