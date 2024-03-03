@@ -105,7 +105,7 @@ class BoardSerializer(serializers.ModelSerializer):
 
 class ListSerializer(serializers.ModelSerializer):
     tasks = TaskSerializer(many=True, read_only=True)
-    board = serializers.ReadOnlyField(source="board.name")
+    board = serializers.PrimaryKeyRelatedField(queryset=Board.objects.all())
     user = serializers.SlugRelatedField(
         queryset=User.objects.all(), slug_field="username"
     )
