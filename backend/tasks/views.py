@@ -1,9 +1,7 @@
 from rest_framework.permissions import IsAuthenticated
-
-from .mixins import FilterByUserMixin
 from .permissions import (
     BoardUserIsProjectOwnerOrReadOnly,
-    IsOwnerOrReadOnly,
+    ProjectIsOwnerOrReadOnly,
     ListUserIsProjectMemberOrReadOnly,
     TaskUserIsProjectMemberOrReadOnly,
 )
@@ -47,7 +45,7 @@ class ProjectCreateView(CreateAPIView):
 class ProjectDeleteView(DestroyAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, ProjectIsOwnerOrReadOnly]
     user_field = "owner"
 
 
@@ -59,7 +57,7 @@ class ProjectRetrieveView(RetrieveAPIView):
 class ProjectUpdateView(UpdateAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
-    permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated, ProjectIsOwnerOrReadOnly]
     user_field = "owner"
 
 
