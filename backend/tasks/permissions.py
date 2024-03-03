@@ -39,7 +39,10 @@ class ListUserIsProjectMemberOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the blog.
-        return obj.board.project.member == request.user
+        return (
+            obj.board.project.member == request.user
+            or obj.board.project.owner == request.user
+        )
 
 
 class TaskUserIsProjectMemberOrReadOnly(permissions.BasePermission):
@@ -52,4 +55,7 @@ class TaskUserIsProjectMemberOrReadOnly(permissions.BasePermission):
             return True
 
         # Write permissions are only allowed to the owner of the blog.
-        return obj.list.board.project.member == request.user
+        return (
+            obj.list.board.project.member == request.user
+            or obj.list.board.project.owner == request.user
+        )
