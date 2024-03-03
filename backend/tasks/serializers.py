@@ -41,7 +41,9 @@ class TaskSerializer(serializers.ModelSerializer):
             "priority",
             "assigned_user",
             "list_task",
+            "id",
         ]
+        read_only_fields = ["id"]
         ordering = ["order"]
 
     # para los comentarios es mejor usar otro serializer en otro endpoint
@@ -112,7 +114,8 @@ class ListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = List
-        fields = ["title", "board", "user", "tasks"]
+        fields = ["title", "board", "user", "tasks", "id"]
+        read_only_fields = ["id"]
         # ordering = ["order"] # si se añade orden a las listas
 
 
