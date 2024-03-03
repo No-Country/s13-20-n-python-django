@@ -59,7 +59,6 @@ class Task(models.Model):
     name = models.CharField(max_length=255, blank=True)
     description = models.TextField(max_length=255, blank=True)
     created_time = models.DateTimeField(auto_now_add=True)
-    expired_time = models.DateTimeField()
     priority = models.IntegerField(choices=Priority.choices, default=1)
 
     def __str__(self):

@@ -40,7 +40,6 @@ class TaskSerializer(serializers.ModelSerializer):
             "order",
             "name",
             "description",
-            "expired_time",
             "priority",
             "assigned_user",
             "list_task",
