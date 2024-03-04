@@ -1,4 +1,5 @@
 from rest_framework.permissions import IsAuthenticated
+from django.db.models import Q
 from .permissions import (
     BoardUserIsProjectOwnerOrReadOnly,
     ProjectIsOwnerOrReadOnly,
@@ -28,9 +29,11 @@ class ProjectListView(ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     user_field = "owner"
-
+    
     def get_queryset(self):
-        return super().get_queryset().filter(owner=self.request.user)
+        return super().get_queryset().filter(
+            Q(owner=self.request.user) | Q(member=self.request.user)
+        )
 
 
 class ProjectCreateView(CreateAPIView):
@@ -52,6 +55,7 @@ class ProjectDeleteView(DestroyAPIView):
 class ProjectRetrieveView(RetrieveAPIView):
     queryset = Project.objects.all()
     serializer_class = DetailProjectSerializer
+ 
 
 
 class ProjectUpdateView(UpdateAPIView):
