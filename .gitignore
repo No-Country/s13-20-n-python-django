@@ -10,12 +10,15 @@ db.sqlite3-journal
 media
 # Environments
 .env
-.venv
+
+venv
 /backend/tasks/migrations
 /backend/tasks/__pycache__
 /backend/accounts/migrations
 /backend/accounts/__pycache__
-/backend/.env
+ 
+/backend/env/
+/backend/venv/
 /backend/core/__pycache__
 /backend/db.sqlite3
 
@@ -23,3 +26,4 @@ media
 /backend/abstracts/__pycache__
 /backend/accounts/api/__pycache__
 /backend/accounts/migrations/__pycache__
+/backend/accounts/migrations/0001_initial.py
