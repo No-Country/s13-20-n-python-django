@@ -7,8 +7,8 @@ const extendedProjectApiSlice = apiSlice.injectEndpoints({
       query: () => "tasks/projects",
     }),
     getProject: builder.query({
-      query: (ProjectId) => ({
-        url: `tasks/projects/${ProjectId}/`,
+      query: (projectId) => ({
+        url: `tasks/projects/${projectId}/`,
       }),
     }),
     createNewProject: builder.mutation({
