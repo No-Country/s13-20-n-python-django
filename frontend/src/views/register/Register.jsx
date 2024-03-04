@@ -62,18 +62,18 @@ const Register = () => {
       });
   }
   return (
-
     <>
       <form className="flex w-full" onSubmit={handleSubmit}>
         <div className="w-full flex flex-col items-center justify-center">
           <h1 className="text-3xl text-primary font-semibold">Register</h1>
 
           <div className="flex flex-row align-top gap-6 w-11/12 max-w-[700px] px-8 py-6 rounded-3xl border-0 border-gray-100">
-
             <div className="flex flex-col mt-4 w-1/2">
               {/* Email */}
               <div className="flex flex-col">
-                <label htmlFor="email" className="text-primary font-medium">Email</label>
+                <label htmlFor="email" className="text-primary font-medium">
+                  Email
+                </label>
                 <input
                   name="email"
                   type="email"
@@ -86,7 +86,9 @@ const Register = () => {
               </div>
               {/* Password */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="password" className="text-primary font-medium">Password</label>
+                <label htmlFor="password" className="text-primary font-medium">
+                  Password
+                </label>
                 <input
                   name="password"
                   value={password}
@@ -100,7 +102,9 @@ const Register = () => {
               </div>
               {/* First name */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="firstName" className="text-primary font-medium">First Name</label>
+                <label htmlFor="firstName" className="text-primary font-medium">
+                  First Name
+                </label>
                 <input
                   name="first-name"
                   type="text"
@@ -115,7 +119,12 @@ const Register = () => {
             <div className="flex flex-col mt-4 w-1/2">
               {/* Last name */}
               <div className="flex flex-col">
-                <label htmlFor="second-name" className="text-primary font-medium">Last Name</label>
+                <label
+                  htmlFor="second-name"
+                  className="text-primary font-medium"
+                >
+                  Last Name
+                </label>
                 <input
                   name="second-name"
                   type="text"
@@ -128,7 +137,9 @@ const Register = () => {
               </div>
               {/* Username */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="username" className="text-primary font-medium">Username</label>
+                <label htmlFor="username" className="text-primary font-medium">
+                  Username
+                </label>
                 <input
                   name="username"
                   type="text"
@@ -141,7 +152,9 @@ const Register = () => {
               </div>
               {/* Image URL */}
               <div className="flex flex-col mt-3">
-                <label htmlFor="image-url" className="text-primary font-medium">Image URL</label>
+                <label htmlFor="image-url" className="text-primary font-medium">
+                  Image URL
+                </label>
                 <input
                   name="image-url"
                   type="url"

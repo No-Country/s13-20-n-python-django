@@ -43,7 +43,9 @@ const Login = () => {
         <form className="flex w-full" onSubmit={handleSubmit}>
           <div className="w-full flex items-center justify-center lg:w-1/2">
             <div className="w-11/12 max-w-[700px] px-8 py-6 rounded-3xl border-0 border-gray-100">
-              <h1 className="text-3xl text-primary font-semibold">Welcome Back!</h1>
+              <h1 className="text-3xl text-primary font-semibold">
+                Welcome Back!
+              </h1>
               <p className="font-medium text-lg text-secondary">
                 Please enter you details.
               </p>
@@ -103,7 +105,6 @@ const Login = () => {
           <div className="hidden relative w-1/2 lg:flex items-center justify-center">
             <Welcome />
           </div>
-
         </form>
       )}
     </>

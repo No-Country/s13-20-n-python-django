@@ -2,9 +2,11 @@ import React from "react";
 import Welcome from "../../components/Welcome";
 
 const Home = () => {
-  return <>
-    <Welcome />
-  </>;
+  return (
+    <>
+      <Welcome />
+    </>
+  );
 };
 
 export default Home;
