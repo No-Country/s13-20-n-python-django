@@ -1,12 +1,16 @@
 import React from "react";
 import CardItem from "./CardItem";
+import taskData from '../data/task.json'
 
-function ListItem() {
+function ListItem({list}) {
+
+  const {name} = list
+
   return (
     <div className="w-72 max-h-full flex flex-col rounded-md border-2">
       {/* list header */}
       <div className="flex items-center justify-between px-3 py-2">
-        <h3 className="text-sm font-semibold ">List name</h3>
+        <h3 className="text-sm font-semibold ">{name}</h3>
         {/* list menu button */}
         <button className="hover:bg-gray-300 w-8 h-8 rounded-md grid place-content-center dropdown">
           <svg
@@ -47,14 +51,9 @@ function ListItem() {
       <div className="pb-3 flex flex-col overflow-hidden">
         <div className="px-3 flex-1 overflow-y-auto">
           <ul className="space-y-3">
-            <CardItem />
-            <CardItem />
-            <CardItem />
-            <CardItem />
-            <CardItem />
-            <CardItem />
-            <CardItem />
-            <CardItem />
+            {taskData.map((task, index) => (
+              <CardItem key={index} task={task} />
+            ))}
             <CardItem />
           </ul>
         </div>

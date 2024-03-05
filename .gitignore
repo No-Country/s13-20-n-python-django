@@ -21,7 +21,6 @@ venv
 /backend/venv/
 /backend/core/__pycache__
 /backend/db.sqlite3
-/backend/venv/
 
 /backend/abstracts/__pycache__
 /backend/accounts/api/__pycache__

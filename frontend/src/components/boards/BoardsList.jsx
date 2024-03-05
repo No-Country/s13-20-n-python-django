@@ -1,4 +1,5 @@
-import React from "react";
+import boardData from '../../data/boards.json'
+import BoardItem from "./BoardItem";
 
 function BoardsList() {
   return (
@@ -7,10 +8,9 @@ function BoardsList() {
       {/* board list */}
       <div className="">
         <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-6 py-6">
-          <BoardItem />
-          <BoardItem />
-          <BoardItem />
-          <BoardItem />
+          {boardData.map((board, index) => (
+            <BoardItem key={index} board={board} />
+          ))}
         </div>
       </div>
     </div>

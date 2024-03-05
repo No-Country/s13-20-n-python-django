@@ -1,0 +1,26 @@
+[
+    {
+        "name": "Test Board 1",
+        "project": 1,
+        "user": "admin",
+        "description": "This is a test board"
+    },
+    {
+        "name": "Test Board 2",
+        "project": 1,
+        "user": "admin",
+        "description": "This is another test board"
+    },
+    {
+        "name": "Test Board 3",
+        "project": 1,
+        "user": "admin",
+        "description": "This is another test board"
+    },
+    {
+        "name": "Test Board 4",
+        "project": 2,
+        "user": "admin",
+        "description": "This is another test board"
+    }
+]
