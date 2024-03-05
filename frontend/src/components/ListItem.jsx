@@ -1,6 +1,6 @@
-import React from "react";
 import CardItem from "./CardItem";
 import taskData from '../data/task.json'
+import PropTypes from 'prop-types'
 
 function ListItem({list}) {
 
@@ -65,6 +65,19 @@ function ListItem({list}) {
       </div>
     </div>
   );
+}
+
+ListItem.propTypes = { list: PropTypes.shape({
+  user:  PropTypes.string.isRequired,
+  order: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  priority: PropTypes.number.isRequired,
+  assigned_user: PropTypes.string.isRequired,
+  list: PropTypes.number.isRequired,
+  id: PropTypes.number.isRequired,
+}).isRequired
+
 }
 
 export default ListItem;
