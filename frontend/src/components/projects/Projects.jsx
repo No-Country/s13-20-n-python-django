@@ -3,8 +3,8 @@ import Project from "./Project";
 // import { useGetProjectsQuery } from "../../services/projectSlice";
 
 function Projects() {
-  // const { data, isLoading, isError } = useGetProjectsQuery();
-  // console.log(data, isError);
+  // const { data } = useGetProjectsQuery();
+  // console.log("Data:" + JSON.stringify(data));
 
   return (
     <div className='p-4 w-full overflow-auto'>

@@ -1,13 +1,13 @@
-import React from "react";
 
-function CardItem({task}) {
 
-  const {description} = task
+function CardItem() {
+
+
   return (
     <div className="shadow rounded-md border-b border-gray-300 hover:bg-gray-50">
       <li className="group relative p-3">
         <a href="#" className="text-sm font-medium">
-          {description}
+          
         </a>
         <button className="hidden absolute top-1 right-1 w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
           <svg

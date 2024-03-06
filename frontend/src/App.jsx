@@ -8,7 +8,7 @@ import Boards from "./views/boards/Boards";
 import Account from "./views/account/Account";
 import Milestones from "./views/milestones/Milestones";
 import Milestone from "./views/milestone/Milestone";
-import Project from "./views/project/Project";
+// import Project from "./views/project/Project";
 import Login from "./views/login/Login";
 import Register from "./views/register/Register";
 

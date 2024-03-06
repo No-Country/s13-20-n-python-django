@@ -1,15 +1,16 @@
 import placeholder from "../../assets/placeholder.png";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
 function BoardItem({board}) {
-  // console.log("Board:" , board);
-  // const navigate = useNavigate();
+  
+  const navigate = useNavigate();
+  const { id } = board
 
   return (
     <div 
       className="card w-full md:w-56 bg-base-100 shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
-      // onClick={() => navigate(`/projects/boards/${project.id}/`)}
+      onClick={() => navigate(`/projects/boards/${id}/`)}
       >
       <figure>
         <img
@@ -28,7 +29,8 @@ function BoardItem({board}) {
 
 BoardItem.propTypes = { board: PropTypes.shape({
       name: PropTypes.string.isRequired,
-      description: PropTypes.string
+      description: PropTypes.string,
+      id: PropTypes.number,
   }).isRequired
 };
 

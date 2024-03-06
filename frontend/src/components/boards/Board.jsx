@@ -2,10 +2,9 @@ import ListItem from "../ListItem";
 import listData from '../../data/list.json'
 import PropTypes from 'prop-types'
 
-function Board({ project }) {
+function Board() {
 
-  const { name } = project
-
+  
   return (
     <main className="flex-1 overflow-hidden">
 

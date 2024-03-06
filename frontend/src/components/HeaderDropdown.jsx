@@ -1,4 +1,3 @@
-import React from "react";
 
 function HeaderDropdown({ setOpenMenu }) {
   return (
@@ -21,7 +20,7 @@ function HeaderDropdown({ setOpenMenu }) {
             <p className="text-lg text-primary font-bold">Boards</p>
           </div>
           <div className="flex items-baseline space-x-2 px-5 py-4 cursor-pointer">
-            <p className="text-lg text-primary font-bold">Templates</p>
+            <p className="text-lg text-primary font-bold">Users</p>
           </div>
 
           <div
