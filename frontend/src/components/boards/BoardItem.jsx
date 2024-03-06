@@ -6,12 +6,12 @@ function BoardItem({ board }) {
   
   const navigate = useNavigate();
 
-  const { name, description } = board
+  const { id, name, description } = board
 
   return (
     <div 
       className="card w-full md:w-56 bg-base-100 shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
-      onClick={() => navigate("/projects/boards/1/")}
+      onClick={() => navigate(`/projects/boards/${id}/`)}
       >
       <figure>
         <img
@@ -29,9 +29,9 @@ function BoardItem({ board }) {
 }
 
 BoardItem.propTypes = { board: PropTypes.shape({
+      id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string,
-      project: PropTypes.number.isRequired,
   }).isRequired
 };
 

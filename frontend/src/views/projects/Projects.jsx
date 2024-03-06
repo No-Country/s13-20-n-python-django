@@ -1,4 +1,3 @@
-import React from "react";
 import ProjectsComp from "../../components/projects/Projects";
 import Sidebar from "../../components/layout/Sidebar";
 

@@ -5,42 +5,20 @@
         "member": [
             "grunsho"
         ],
+        "project_board": [
+            {
+                "name": "Test Board 1",
+                "id": 1
+            },
+            {
+                "name": "Test Board 2",
+                "id": 2
+            },
+            {
+                "name": "Test Board 3",
+                "id": 3
+            }
+        ],
         "id": 1
-    },
-    {
-        "name": "Test Project 2",
-        "owner": "admin",
-        "member": [
-            "admin",
-            "grunsho"
-        ],
-        "id": 2
-    },
-    {
-        "name": "Test Project 2",
-        "owner": "admin",
-        "member": [
-            "admin",
-            "grunsho"
-        ],
-        "id": 2
-    },
-    {
-        "name": "Test Project 3",
-        "owner": "admin",
-        "member": [
-            "admin",
-            "grunsho"
-        ],
-        "id": 3
-    },
-    {
-        "name": "Test Project 3",
-        "owner": "admin",
-        "member": [
-            "admin",
-            "grunsho"
-        ],
-        "id": 3
     }
 ]

@@ -1,26 +1,46 @@
 [
     {
-        "name": "Test Board 1",
-        "project": 1,
-        "user": "admin",
-        "description": "This is a test board"
+        "name": "Test Project 1",
+        "owner": "admin",
+        "member": [
+            "grunsho"
+        ],
+        "id": 1
     },
     {
-        "name": "Test Board 2",
-        "project": 1,
-        "user": "admin",
-        "description": "This is another test board"
+        "name": "Test Project 2",
+        "owner": "admin",
+        "member": [
+            "admin",
+            "grunsho"
+        ],
+        "id": 2
     },
     {
-        "name": "Test Board 3",
-        "project": 1,
-        "user": "admin",
-        "description": "This is another test board"
+        "name": "Test Project 2",
+        "owner": "admin",
+        "member": [
+            "admin",
+            "grunsho"
+        ],
+        "id": 2
     },
     {
-        "name": "Test Board 4",
-        "project": 2,
-        "user": "admin",
-        "description": "This is another test board"
+        "name": "Test Project 3",
+        "owner": "admin",
+        "member": [
+            "admin",
+            "grunsho"
+        ],
+        "id": 3
+    },
+    {
+        "name": "Test Project 3",
+        "owner": "admin",
+        "member": [
+            "admin",
+            "grunsho"
+        ],
+        "id": 3
     }
 ]

@@ -43,10 +43,10 @@ function App() {
           path: "projects/:projectId",
           element: <Project />,
         },
-        {
-          path: "projects/boards/",
-          element: <Boards />,
-        },
+        // {
+        //   path: "projects/boards/",
+        //   element: <Boards />,
+        // },
         {
           path: "projects/boards/:boardId",
           element: <Board />,

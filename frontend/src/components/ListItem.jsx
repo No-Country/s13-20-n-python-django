@@ -51,8 +51,8 @@ function ListItem({list}) {
       <div className="pb-3 flex flex-col overflow-hidden">
         <div className="px-3 flex-1 overflow-y-auto">
           <ul className="space-y-3">
-            {taskData.map((task, index) => (
-              <CardItem key={index} task={task} />
+            {taskData.map((task, id) => (
+              <CardItem key={id} task={task} />
             ))}
             <CardItem />
           </ul>

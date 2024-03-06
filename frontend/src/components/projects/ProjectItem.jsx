@@ -2,14 +2,17 @@ import placeholder from "../../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
-function ProjectItem({ project }) {
+function ProjectItem({ project, board }) {
 
   const navigate = useNavigate();
-  const { name, imageUrl, id } = project
+
+  const { name, imageUrl } = project
+  const { board_id } = board
+
   return (
     <div
       className="card w-full md:w-56 bg-base-100 shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
-      onClick={() => navigate(`/projects/boards/${id}`)}
+      onClick={() => navigate(`/projects/boards/${board_id}`)}
     >
       <figure>
         <img
@@ -25,10 +28,13 @@ function ProjectItem({ project }) {
   );
 }
 
-ProjectItem.propTypes = { project: PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  imageUrl: PropTypes.string,
-  id: PropTypes.number.isRequired,
-}).isRequired}
+ProjectItem.propTypes = {
+  project: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string,
+    id: PropTypes.number.isRequired,
+  }).isRequired,
+  
+}
 
 export default ProjectItem;
