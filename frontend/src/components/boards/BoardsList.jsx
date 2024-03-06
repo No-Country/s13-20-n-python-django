@@ -1,4 +1,4 @@
-import boardData from '../../data/boards.json'
+import boardData from '../../data/projects.json'
 import BoardItem from "./BoardItem";
 import PropTypes from 'prop-types'
 

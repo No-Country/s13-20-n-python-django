@@ -9,8 +9,8 @@ function Projects() {
       {/* project list */}
       <div className="">
         <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-6 py-6">
-          {projectData.map((project, index) => (
-            <ProjectItem key={index} project={project} board={project} />
+          {projectData.map((project, id) => (
+            <ProjectItem key={id} project={project} board={project} />
         ))}
         </div>
       </div>
