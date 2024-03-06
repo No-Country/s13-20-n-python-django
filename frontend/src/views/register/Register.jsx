@@ -2,9 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useCreateTokenMutation } from "../../services/tokenSlice";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useCreateNewUserMutation } from "../../services/accountSlice";
 import { setCredentials } from "../../features/auth/authSlice";
+import { useEffect } from "react";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -53,7 +54,7 @@ const Register = () => {
           .unwrap()
           .then((tokenData) => {
             setCredentials(tokenData);
-            // useNavigate here
+            navigate("/projects");
           });
         console.log("token created");
       })
@@ -61,105 +62,110 @@ const Register = () => {
         console.log(error);
       });
   }
+
+  useEffect(() => {
+    if (isSuccessToken && isSuccessUser) {
+      navigate("/projects");
+    }
+  }, [isSuccessToken, isSuccessUser]);
   return (
     <>
-      <form className="flex w-full" onSubmit={handleSubmit}>
-        <div className="w-full flex flex-col items-center justify-center">
-          <h1 className="text-3xl text-primary font-semibold">Register</h1>
+      <form className='flex w-full' onSubmit={handleSubmit}>
+        <div className='w-full flex flex-col items-center justify-center'>
+          <h1 className='text-3xl text-primary font-semibold'>Register</h1>
 
-          <div className="flex flex-row align-top gap-6 w-11/12 max-w-[700px] px-8 py-6 rounded-3xl border-0 border-gray-100">
-            <div className="flex flex-col mt-4 w-1/2">
+          <div className='flex flex-row align-top gap-6 w-11/12 max-w-[700px] px-8 py-6 rounded-3xl border-0 border-gray-100'>
+            <div className='flex flex-col mt-4 w-1/2'>
               {/* Email */}
-              <div className="flex flex-col">
-                <label htmlFor="email" className="text-primary font-medium">
+              <div className='flex flex-col'>
+                <label htmlFor='email' className='text-primary font-medium'>
                   Email
                 </label>
                 <input
-                  name="email"
-                  type="email"
+                  name='email'
+                  type='email'
                   value={email}
                   required
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
-                  placeholder="Enter your email"
+                  className='w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent'
+                  placeholder='Enter your email'
                 />
               </div>
               {/* Password */}
-              <div className="flex flex-col mt-3">
-                <label htmlFor="password" className="text-primary font-medium">
+              <div className='flex flex-col mt-3'>
+                <label htmlFor='password' className='text-primary font-medium'>
                   Password
                 </label>
                 <input
-                  name="password"
+                  name='password'
                   value={password}
                   minLength={14}
                   required
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
-                  placeholder="Enter a password"
+                  className='w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent'
+                  placeholder='Enter a password'
                   type={"password"}
                 />
               </div>
               {/* First name */}
-              <div className="flex flex-col mt-3">
-                <label htmlFor="firstName" className="text-primary font-medium">
+              <div className='flex flex-col mt-3'>
+                <label htmlFor='firstName' className='text-primary font-medium'>
                   First Name
                 </label>
                 <input
-                  name="first-name"
-                  type="text"
-                  placeholder="First Name"
-                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
+                  name='first-name'
+                  type='text'
+                  placeholder='First Name'
+                  className='w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent'
                   value={firstName}
                   // minLength={14}
                   onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
             </div>
-            <div className="flex flex-col mt-4 w-1/2">
+            <div className='flex flex-col mt-4 w-1/2'>
               {/* Last name */}
-              <div className="flex flex-col">
+              <div className='flex flex-col'>
                 <label
-                  htmlFor="second-name"
-                  className="text-primary font-medium"
-                >
+                  htmlFor='second-name'
+                  className='text-primary font-medium'>
                   Last Name
                 </label>
                 <input
-                  name="second-name"
-                  type="text"
-                  placeholder="Last Name"
-                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
+                  name='second-name'
+                  type='text'
+                  placeholder='Last Name'
+                  className='w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent'
                   value={secondName}
                   // minLength={14}
                   onChange={(e) => setSecondName(e.target.value)}
                 />
               </div>
               {/* Username */}
-              <div className="flex flex-col mt-3">
-                <label htmlFor="username" className="text-primary font-medium">
+              <div className='flex flex-col mt-3'>
+                <label htmlFor='username' className='text-primary font-medium'>
                   Username
                 </label>
                 <input
-                  name="username"
-                  type="text"
-                  placeholder="Username"
-                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
+                  name='username'
+                  type='text'
+                  placeholder='Username'
+                  className='w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent'
                   value={username}
                   // minLength={14}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               {/* Image URL */}
-              <div className="flex flex-col mt-3">
-                <label htmlFor="image-url" className="text-primary font-medium">
+              <div className='flex flex-col mt-3'>
+                <label htmlFor='image-url' className='text-primary font-medium'>
                   Image URL
                 </label>
                 <input
-                  name="image-url"
-                  type="url"
-                  placeholder="URL for profile image"
-                  className="w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent"
+                  name='image-url'
+                  type='url'
+                  placeholder='URL for profile image'
+                  className='w-full border-2 border-primary rounded-xl p-2 mt-1 bg-transparent'
                   value={imageUrl}
                   // minLength={14}
                   onChange={(e) => setImageUrl(e.target.value)}
@@ -170,7 +176,7 @@ const Register = () => {
           {(isErrorToken || isErrorUser) && (
             <div>There was an error. Try again.</div>
           )}
-          <button type="submit" className="btn btn-primary">
+          <button type='submit' className='btn btn-primary'>
             Submit
           </button>
         </div>
