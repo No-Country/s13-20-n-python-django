@@ -36,12 +36,12 @@ function App() {
           element: <Register />,
         },
         {
-          path: "projects/",
-          element: <Projects />,
-        },
-        {
           path: "projects/:projectId",
           element: <Project />,
+        },
+        {
+          path: "projects/",
+          element: <Projects />,
         },
         // {
         //   path: "projects/boards/",
