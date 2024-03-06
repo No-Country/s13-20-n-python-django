@@ -36,17 +36,12 @@ function App() {
           element: <Register />,
         },
         {
+          path: "projects/:projectId",
+          element: <Boards />,
+        },
+        {
           path: "projects/",
           element: <Projects />,
-        },
-        {
-          path: "projects/:projectId",
-          element: <Project />,
-        },
-        
-        {
-          path: "projects/boards/",
-          element: <Boards />,
         },
         {
           path: "projects/boards/:boardId",
@@ -54,12 +49,16 @@ function App() {
           // we might want children here for tasks, lists and comments or handle it in the Board component
         },
         {
-          path: "projects/milestones/",
-          element: <Milestones />,
+          path: "projects/boards/",
+          element: <Boards />,
         },
         {
           path: "projects/milestones/:MilestoneId",
           element: <Milestone />,
+        },
+        {
+          path: "projects/milestones/",
+          element: <Milestones />,
         },
       ],
     },

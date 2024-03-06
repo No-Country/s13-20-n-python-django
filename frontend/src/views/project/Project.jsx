@@ -1,12 +1,13 @@
-import React from "react";
 import Sidebar from '../../components/layout/Sidebar.jsx';
-import Boards from '../../components/boards/BoardsList.jsx';
+import ProjectDetails from '../../components/projects/Project.jsx';
+
+
 
 const Project = () => {
   return(
     <>
       <Sidebar />
-      <Project />
+      <ProjectDetails />
     </>
   )
 };

@@ -5,7 +5,6 @@ import { PropTypes } from "prop-types";
 function ProjectItem({ project }) {
 
   const navigate = useNavigate();
-
   const { name, imageUrl, id } = project
 
   return (
