@@ -2,6 +2,7 @@
 *.log
 *.pot
 *.pyc
+migrations/
 __pycache__/
 local_settings.py
 db.sqlite3
@@ -11,6 +12,7 @@ media
 .env
 
 venv
+/backend/tasks/migrations
 /backend/tasks/__pycache__
 /backend/accounts/migrations
 /backend/accounts/__pycache__
