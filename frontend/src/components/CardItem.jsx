@@ -1,3 +1,4 @@
+import { FaTasks } from "react-icons/fa";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
@@ -30,7 +31,8 @@ function CardItem({ task }) {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-4 h-4">
+                className="w-4 h-4"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -40,7 +42,8 @@ function CardItem({ task }) {
             </button>
             <ul
               tabIndex={0}
-              className="dropdown-content z-[10] menu p-2 shadow bg-base-100 rounded-box w-52">
+              className="dropdown-content z-[10] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
               <li>
                 <a onClick={() => openModal(task)}>View card</a>
               </li>
@@ -58,18 +61,24 @@ function CardItem({ task }) {
           id={`view_card_modal_${task.id}`}
           className="modal"
           open
-          onClick={closeModal}>
+          onClick={closeModal}
+        >
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button
                 onClick={closeModal}
-                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-lg">{task.name}</h3>
+            <h3 className="font-bold text-lg">
+                <FaTasks /> {task.name}
+            </h3>
             <p className="py-4">{task.description}</p>
+            <p className="py-4">Priority: {task.priority}</p>
+            <p className="py-4">Assigned to: {task.assigned_user}</p>
           </div>
         </dialog>
       )}

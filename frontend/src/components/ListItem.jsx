@@ -27,7 +27,6 @@ function ListItem({ list }) {
   }
   return (
     <div className="w-72 max-h-full flex flex-col rounded-md border-2">
-      
       {/* list header */}
       <div className="flex items-center justify-between px-3 py-2 list-handle">
         <h3 className="text-sm font-semibold ">{list.title}</h3>
@@ -39,7 +38,8 @@ function ListItem({ list }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -53,7 +53,8 @@ function ListItem({ list }) {
               <a
                 onClick={() =>
                   document.getElementById(`add-${listId}`).showModal()
-                }>
+                }
+              >
                 Add card
               </a>
             </li>
@@ -84,7 +85,8 @@ function ListItem({ list }) {
                 onClick={() =>
                   document.getElementById(`delete-${listId}`).showModal()
                 }
-                className="text-red-500">
+                className="text-red-500"
+              >
                 Remove list
               </a>
             </li>
@@ -106,9 +108,8 @@ function ListItem({ list }) {
           +
           <span
             className="ml-1"
-            onClick={() =>
-              document.getElementById(`add-${listId}`).showModal()
-            }>
+            onClick={() => document.getElementById(`add-${listId}`).showModal()}
+          >
             Add card
           </span>
         </button>
@@ -117,7 +118,8 @@ function ListItem({ list }) {
       {/* Modals */}
       <dialog
         id={`add-${listId}`}
-        className="modal modal-bottom sm:modal-middle">
+        className="modal modal-bottom sm:modal-middle"
+      >
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">
             Add a new task (or press ESC to exit)
@@ -125,27 +127,36 @@ function ListItem({ list }) {
           <input
             type="text"
             placeholder="Type name here"
-            className="input input-bordered input-lg w-full"
+            className="input input-bordered w-full mb-3"
             value={cardTitle}
             onChange={(event) => {
               setCardTitle(event.target.value);
             }}
           />
+          <label className="ms-1">
+            Select priority
+          </label>
           <input
-            type="number"
-            placeholder="Type priorty"
-            className="input input-bordered input-lg w-full"
+            type="range"
+            min={1}
+            max="4"
+            className="range mt-3"
+            step="1"
             value={priority}
             onChange={(event) => {
               setPriority(event.target.value);
             }}
-            max={4}
-            min={1}
           />
+          <div className="w-full flex justify-between text-xs px-2 mb-3">
+            <span>NOT IMPORTANT</span>
+            <span>DELEGATE</span>
+            <span>IMPORTANT</span>
+            <span>URGENT</span>
+          </div>
           <input
             type="text"
-            placeholder="Type description here"
-            className="input input-bordered input-lg w-full"
+            placeholder="Add a description here"
+            className="input input-bordered w-full h-24"
             value={description}
             onChange={(event) => {
               setDescription(event.target.value);
