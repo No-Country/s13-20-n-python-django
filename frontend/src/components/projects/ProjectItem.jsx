@@ -13,19 +13,55 @@ function getRandomColor() {
 
 function ProjectItem({ project }) {
   const navigate = useNavigate();
-  const { name, imageUrl, id } = project;
+  const { name, id } = project;
 
   return (
-    <div
-      className="card w-full image-full md:w-56 bg-base-100 shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
-      onClick={() => navigate(`/projects/${id}`)}
-    >
+    <div className="card w-full md:w-56 bg-base-100 inline-flex shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
       <div
-        className="w-full md:w-56 h-36 rounded-box"
+        className="w-full group relative md:w-56 h-36 rounded-lg"
         style={{ backgroundColor: getRandomColor() }}
-      ></div>
-      <div className="card-body p-3">
-        <h2 className="card-title">{name}</h2>
+      >
+        <div className="card-body p-3">
+          <div className="dropdown dropdown-end absolute top-1 right-1">
+            <div
+              tabIndex={0}
+              role="button"
+              className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z"
+                />
+              </svg>
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a>Rename project</a>
+              </li>
+              <li>
+                <a>Delete project</a>
+              </li>
+            </ul>
+          </div>
+          <h2
+            className="card-title"
+            onClick={() => navigate(`/projects/${id}`)}
+          >
+            {name}
+          </h2>
+        </div>
       </div>
     </div>
   );
