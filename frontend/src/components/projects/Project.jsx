@@ -1,5 +1,6 @@
 import { PropTypes } from "prop-types";
 import ProjectItem from "./ProjectItem";
+import AddProject from "./AddProject";
 
 function Project({ project }) {
 	if (!project) {
