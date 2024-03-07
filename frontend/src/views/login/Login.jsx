@@ -6,7 +6,6 @@ import { useState } from "react";
 import { useCreateTokenMutation } from "../../services/tokenSlice";
 import { setCredentials } from "../../features/auth/authSlice";
 import { useDispatch } from "react-redux";
-import { redirect } from "react-router-dom";
 import Welcome from "../../components/Welcome";
 
 const Login = () => {
