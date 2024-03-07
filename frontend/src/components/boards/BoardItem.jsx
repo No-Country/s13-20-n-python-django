@@ -21,14 +21,16 @@ function BoardItem({ board }) {
           <div
             tabIndex={0}
             role="button"
-            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
+            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4">
+              className="w-4 h-4"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -38,26 +40,59 @@ function BoardItem({ board }) {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-primary">
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-primary"
+          >
             <li>
               <a>Rename board</a>
             </li>
-            <li>
-              <a
-                onClick={() => {
-                  deleteBoard(id);
-                }}>
-                Delete board
-              </a>
+            <li
+              onClick={() =>
+                document.getElementById("confirm_delete_modal").showModal()
+              }
+            >
+              <a>Delete board</a>
             </li>
           </ul>
         </div>
         <h2
           className="card-title line-clamp-1"
-          onClick={() => navigate(`/projects/boards/${id}/`)}>
+          onClick={() => navigate(`/projects/boards/${id}/`)}
+        >
           {name}
         </h2>
       </div>
+
+      {/* Modals */}
+      {/* Confirm delete */}
+      <dialog
+        id="confirm_delete_modal"
+        className="modal modal-bottom sm:modal-middle"
+      >
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Confirm</h3>
+          <p className="py-4">
+            Are you sure you want to delete the board? This action can not be
+            undone. <br />
+            Press ESC key or click the X to close
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+              <button
+                className="btn btn-error"
+                onClick={() => {
+                  deleteBoard(id);
+                }}
+              >
+                Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }
