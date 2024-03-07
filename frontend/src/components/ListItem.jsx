@@ -19,10 +19,9 @@ function ListItem({ list }) {
 
   const [createNewTask, { data, isError, isLoading }] =
     useCreateNewTaskMutation();
-  
-  // const [deleteTask] = useDeleteTaskMutation();
 
-  const [deleteList] = useDeleteListMutation();
+  const [deleteList, { listData, listIsError, listIsLoading }] =
+    useDeleteListMutation();
 
   function handleAddCard(event) {
     event.preventDefault();
@@ -34,15 +33,10 @@ function ListItem({ list }) {
     setDescription("");
   }
 
-  // function handleDeleteCard(event) {
-  //   event.preventDefault();
-  //   deleteTask();
-  //   document.getElementById(`delete-${listId}`).close();
-  // }
-
   function handleDeleteList(event) {
     event.preventDefault();
-    deleteList({ list: listId });
+    console.log(listId);
+    deleteList(listId);
     document.getElementById(`delete-${listId}`).close();
   }
 
@@ -59,8 +53,7 @@ function ListItem({ list }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
-          >
+            className="w-6 h-6">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -74,8 +67,7 @@ function ListItem({ list }) {
               <a
                 onClick={() =>
                   document.getElementById(`add-${listId}`).showModal()
-                }
-              >
+                }>
                 Add card
               </a>
             </li>
@@ -106,8 +98,7 @@ function ListItem({ list }) {
                 onClick={() =>
                   document.getElementById(`delete-${listId}`).showModal()
                 }
-                className="text-red-500"
-              >
+                className="text-red-500">
                 Remove list
               </a>
             </li>
@@ -127,8 +118,7 @@ function ListItem({ list }) {
       <div className="px-3 pb-3 mt-3">
         <button
           className="flex items-center p-2 text-sm font-medium hover:text-black hover:bg-gray-300 w-full rounded-md"
-          onClick={() => document.getElementById(`add-${listId}`).showModal()}
-        >
+          onClick={() => document.getElementById(`add-${listId}`).showModal()}>
           +<span className="ml-1">Add card</span>
         </button>
       </div>
@@ -137,8 +127,7 @@ function ListItem({ list }) {
       {/* Add card */}
       <dialog
         id={`add-${listId}`}
-        className="modal modal-bottom sm:modal-middle"
-      >
+        className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">
             Add a new task (or press ESC to exit)
@@ -187,30 +176,6 @@ function ListItem({ list }) {
               </button>
               <button className="btn btn-primary" onClick={handleAddCard}>
                 Add
-              </button>
-            </form>
-          </div>
-        </div>
-      </dialog>
-
-      {/* Delete card */}
-      <dialog id={`delete-${listId}`} className="modal">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg">Delete card</h3>
-          <p className="py-4">
-            Are you sure you want to delete this card? Press ESC key or close
-            this window to cancel.
-          </p>
-          <div className="modal-action">
-            <form method="dialog">
-              {/* if there is a button in form, it will close the modal */}
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
-              <button className="btn btn-error"
-              //  onClick={handleDeleteCard}
-              >
-                Delete
               </button>
             </form>
           </div>
