@@ -35,7 +35,6 @@ function ListItem({ list }) {
 
   function handleDeleteList(event) {
     event.preventDefault();
-    console.log(listId);
     deleteList(listId);
     document.getElementById(`delete-${listId}`).close();
   }
