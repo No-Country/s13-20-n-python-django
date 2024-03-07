@@ -14,6 +14,7 @@ const BoardSorter = ({ data }) => {
       ref={parent}
       className="inline-flex h-full items-start px-4 pb-4 space-x-4">
       {lists.map((list) => {
+        // console.log(list);
         return (
           <ListItem key={list.id} list={list} id={list.id} data-id={list.id} />
         );

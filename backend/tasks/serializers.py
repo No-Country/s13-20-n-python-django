@@ -131,7 +131,8 @@ class DetailBoardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Board
-        fields = ["name", "project", "user", "description", "list_set"]
+        fields = ["name", "project", "user", "description", "list_set", "id"]
+        read_only_fields = ["id"]
 
 
 # Los serializer no se encargan del filtrado. Eso es trabajo de los querysets. Si los querysets usan al objeto del usuario es mejor filtrar en el front.

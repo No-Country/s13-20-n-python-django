@@ -2,13 +2,29 @@ import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import CardItem from "./CardItem";
 import PropTypes from "prop-types";
 import { animations } from "@formkit/drag-and-drop";
+import { useState } from "react";
+import { useCreateNewTaskMutation } from "../services/taskSlice";
+import { useNavigate } from "react-router-dom";
 
 function ListItem({ list }) {
+  const [cardTitle, setCardTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("");
+  const [listId, setListId] = useState(list.id);
   const [parent, tasks] = useDragAndDrop(list.list_task, {
     group: "lists",
     plugins: [animations()],
   });
-
+  const [createNewTask, { data, isError, isLoading }] =
+    useCreateNewTaskMutation();
+  function handleAddCard(event) {
+    event.preventDefault();
+    console.log(listId, cardTitle, description, priority);
+    createNewTask({ list: listId, name: cardTitle, description, priority });
+    setCardTitle("");
+    setPriority("");
+    setDescription("");
+  }
   return (
     <div className="w-72 max-h-full flex flex-col rounded-md border-2">
       
@@ -36,7 +52,7 @@ function ListItem({ list }) {
             <li>
               <a
                 onClick={() =>
-                  document.getElementById("add_card_modal").showModal()
+                  document.getElementById(`add-${listId}`).showModal()
                 }>
                 Add card
               </a>
@@ -66,7 +82,7 @@ function ListItem({ list }) {
             <li>
               <a
                 onClick={() =>
-                  document.getElementById("delete_card_modal").showModal()
+                  document.getElementById(`delete-${listId}`).showModal()
                 }
                 className="text-red-500">
                 Remove list
@@ -91,7 +107,7 @@ function ListItem({ list }) {
           <span
             className="ml-1"
             onClick={() =>
-              document.getElementById("add_card_modal").showModal()
+              document.getElementById(`add-${listId}`).showModal()
             }>
             Add card
           </span>
@@ -100,7 +116,7 @@ function ListItem({ list }) {
 
       {/* Modals */}
       <dialog
-        id="add_card_modal"
+        id={`add-${listId}`}
         className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">
@@ -108,8 +124,32 @@ function ListItem({ list }) {
           </h3>
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="Type name here"
             className="input input-bordered input-lg w-full"
+            value={cardTitle}
+            onChange={(event) => {
+              setCardTitle(event.target.value);
+            }}
+          />
+          <input
+            type="number"
+            placeholder="Type priorty"
+            className="input input-bordered input-lg w-full"
+            value={priority}
+            onChange={(event) => {
+              setPriority(event.target.value);
+            }}
+            max={4}
+            min={1}
+          />
+          <input
+            type="text"
+            placeholder="Type description here"
+            className="input input-bordered input-lg w-full"
+            value={description}
+            onChange={(event) => {
+              setDescription(event.target.value);
+            }}
           />
           <div className="modal-action">
             <form method="dialog">
@@ -117,13 +157,15 @@ function ListItem({ list }) {
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
-              <button className="btn">Add</button>
+              <button className="btn" onClick={handleAddCard}>
+                Add
+              </button>
             </form>
           </div>
         </div>
       </dialog>
 
-      <dialog id="delete_card_modal" className="modal">
+      <dialog id={`delete-${listId}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Delete list</h3>
           <p className="py-4">
@@ -149,6 +191,8 @@ ListItem.propTypes = {
   list: PropTypes.shape({
     title: PropTypes.string.isRequired,
     list_task: PropTypes.arrayOf(PropTypes.object).isRequired,
+    id: PropTypes.number,
+    board: PropTypes.number,
   }).isRequired,
 };
 
