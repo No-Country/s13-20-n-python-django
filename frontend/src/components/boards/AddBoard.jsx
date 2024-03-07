@@ -14,6 +14,7 @@ const AddBoard = ({ projectId }) => {
     createNewBoard({ name, description, project: projectId });
     setName("");
     setDescription("");
+    document.getElementById("add_board_modal").close();
   }
   return (
     <>

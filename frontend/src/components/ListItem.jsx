@@ -116,6 +116,7 @@ function ListItem({ list }) {
       </div>
 
       {/* Modals */}
+      {/* Add list */}
       <dialog
         id={`add-${listId}`}
         className="modal modal-bottom sm:modal-middle"
@@ -133,9 +134,7 @@ function ListItem({ list }) {
               setCardTitle(event.target.value);
             }}
           />
-          <label className="ms-1">
-            Select priority
-          </label>
+          <label className="ms-1">Select priority</label>
           <input
             type="range"
             min={1}
@@ -156,7 +155,7 @@ function ListItem({ list }) {
           <input
             type="text"
             placeholder="Add a description here"
-            className="input input-bordered w-full h-24"
+            className="input input-bordered w-full h-24 placeholder:-translate-y-6"
             value={description}
             onChange={(event) => {
               setDescription(event.target.value);
@@ -168,7 +167,7 @@ function ListItem({ list }) {
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
-              <button className="btn" onClick={handleAddCard}>
+              <button className="btn btn-primary" onClick={handleAddCard}>
                 Add
               </button>
             </form>
@@ -176,7 +175,9 @@ function ListItem({ list }) {
         </div>
       </dialog>
 
-      <dialog id={`delete-${listId}`} className="modal">
+      {/* Delete list */}
+      <dialog 
+      id={`delete-${listId}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Delete list</h3>
           <p className="py-4">
@@ -189,7 +190,7 @@ function ListItem({ list }) {
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
-              <button className="btn">Close</button>
+              <button className="btn btn-primary">Close</button>
             </form>
           </div>
         </div>

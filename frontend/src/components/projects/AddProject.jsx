@@ -3,14 +3,17 @@ import { useState } from "react";
 import { useCreateNewProjectMutation } from "../../services/projectSlice";
 
 const AddProject = () => {
+
   const [name, setName] = useState("");
   const [createNewProject, { data, isLoading, isError }] =
     useCreateNewProjectMutation();
+
   function handleAddProject(e) {
     e.preventDefault();
     console.log(name);
     createNewProject({ name, member: [] });
     setName("");
+    document.getElementById("add_project_modal").close()
   }
 
   return (

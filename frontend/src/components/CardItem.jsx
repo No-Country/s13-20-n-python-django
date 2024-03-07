@@ -1,9 +1,13 @@
 import { FaTasks } from "react-icons/fa";
+import { IoMdList } from "react-icons/io";
+import { MdPriorityHigh } from "react-icons/md";
+import { RxActivityLog } from "react-icons/rx";
+import { FaUser } from "react-icons/fa";
+import avatar from "../assets/profile.png";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
 function CardItem({ task }) {
-  // console.log(task);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -13,6 +17,21 @@ function CardItem({ task }) {
 
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const priorityText = (priority) => {
+    switch (priority) {
+      case 1:
+        return "Not important";
+      case 2:
+        return "Delegate";
+      case 3:
+        return "Important";
+      case 4:
+        return "Urgent";
+      default:
+        return "No priority assigned";
+    }
   };
 
   return (
@@ -63,7 +82,10 @@ function CardItem({ task }) {
           open
           onClick={closeModal}
         >
-          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="modal-box bg-base-300"
+            onClick={(e) => e.stopPropagation()}
+          >
             <form method="dialog">
               {/* if there is a button in form, it will close the modal */}
               <button
@@ -73,12 +95,39 @@ function CardItem({ task }) {
                 ✕
               </button>
             </form>
-            <h3 className="font-bold text-lg">
-                <FaTasks /> {task.name}
+            <h3 className="flex flex-row items-center pt-0 pb-4 gap-2 font-bold text-lg">
+              <FaTasks /> {task.name}
             </h3>
-            <p className="py-4">{task.description}</p>
-            <p className="py-4">Priority: {task.priority}</p>
-            <p className="py-4">Assigned to: {task.assigned_user}</p>
+            <p className="flex flex-row items-center gap-2 font-bold py-4">
+              <IoMdList />
+              Description
+            </p>
+            <p className="ps-2 ms-8 py-2 text-sm rounded">{task.description}</p>
+            <p className="flex flex-row items-center gap-2 py-4">
+              <MdPriorityHigh />
+              <span className="font-bold">Priority: </span>
+              {priorityText(task.priority)}
+            </p>
+            <p className="flex flex-row items-center gap-2 py-4">
+              <FaUser />
+              <span className="font-bold">Assigned to: </span>
+              {task.assigned_user}
+            </p>
+            <p className="flex flex-row items-center gap-2 font-bold py-4">
+              <RxActivityLog />
+              Activity
+            </p>
+            <div className="flex flex-row join">
+              <img className="w-8 h-8 rounded-full mr-2 " src={avatar} />
+              <input
+                type="text"
+                placeholder="Write a comment"
+                className="input input-bordered rounded-r-none w-full input-sm"
+              />
+              <button className="btn btn-primary btn-sm join-item">
+                Add comment
+              </button>
+            </div>
           </div>
         </dialog>
       )}
@@ -90,8 +139,10 @@ CardItem.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }),
+    description: PropTypes.string,
+    priority: PropTypes.number,
+    assigned_user: PropTypes.string,
+  }).isRequired,
 };
 
 export default CardItem;

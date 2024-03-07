@@ -16,7 +16,7 @@ function BoardDetails() {
     return (
       <main className="flex-1 overflow-hidden">
         <div className="flex flex-col h-full">
-          <h1 className="text-2xl mt-4 font-bold">{data.name} Lists</h1>
+          <h1 className="text-2xl mt-4 ms-6 font-bold">{data.name} {" >"} Lists</h1>
           <div className="shrink-0 flex justify-between items-center p-4">
             <h1 className="text-2xl font-bold">{data.list_set.name}</h1>
           </div>
@@ -27,7 +27,6 @@ function BoardDetails() {
             ) : (
               <>
                 <BoardSorter data={data} />
-                
               </>
             )}
           </div>

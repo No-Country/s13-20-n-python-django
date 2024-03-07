@@ -6,7 +6,7 @@ function BoardItem({ board }) {
   const { id, name, description } = board;
 
   return (
-    <div className="group relative card w-full md:w-56 bg-base-100 image-full shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
+    <div className="group relative card w-full max-h-36 md:w-56 bg-base-100 image-full shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
       <figure>
         <img
           src={`https://picsum.photos/224/144?random=${id}`}
@@ -54,7 +54,6 @@ function BoardItem({ board }) {
         >
           {name}
         </h2>
-        <p>{description}</p>
       </div>
     </div>
   );
