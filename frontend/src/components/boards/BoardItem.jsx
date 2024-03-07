@@ -16,7 +16,7 @@ function BoardItem({ board }) {
           className="w-full md:w-56 h-36"
         />
       </figure>
-      <div className="card-body p-3">
+      <div className="card-body max-w-56 p-3">
         <div className="dropdown dropdown-end absolute top-1 right-1">
           <div
             tabIndex={0}
@@ -53,7 +53,7 @@ function BoardItem({ board }) {
           </ul>
         </div>
         <h2
-          className="card-title"
+          className="card-title line-clamp-1"
           onClick={() => navigate(`/projects/boards/${id}/`)}>
           {name}
         </h2>
