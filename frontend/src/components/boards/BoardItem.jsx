@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { useDeleteBoardMutation } from "../../services/boardSlice";
 
 function BoardItem({ board }) {
   const navigate = useNavigate();
   const { id, name, description } = board;
+  const [deleteBoard, { data, isLoading, isError }] = useDeleteBoardMutation();
 
   return (
     <div className="group relative card w-full max-h-36 md:w-56 bg-base-100 image-full shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
@@ -19,16 +21,14 @@ function BoardItem({ board }) {
           <div
             tabIndex={0}
             role="button"
-            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200"
-          >
+            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
-            >
+              className="w-4 h-4">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -38,20 +38,23 @@ function BoardItem({ board }) {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-primary"
-          >
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-primary">
             <li>
               <a>Rename board</a>
             </li>
             <li>
-              <a>Delete board</a>
+              <a
+                onClick={() => {
+                  deleteBoard(id);
+                }}>
+                Delete board
+              </a>
             </li>
           </ul>
         </div>
         <h2
           className="card-title"
-          onClick={() => navigate(`/projects/boards/${id}/`)}
-        >
+          onClick={() => navigate(`/projects/boards/${id}/`)}>
           {name}
         </h2>
       </div>
