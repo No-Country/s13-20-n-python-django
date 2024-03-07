@@ -1,23 +1,30 @@
-import boardData from '../../data/boards.json'
-import projectData from '../../data/projects.json'
 import { useLocation } from "react-router-dom";
+import { useGetProjectQuery } from "../../services/projectSlice";
 
 import BoardItem from "./BoardItem";
 
 function BoardsList() {
   const location = useLocation();
-  const project_id = parseInt(location.pathname.split('/')[2])
+  const project_id = parseInt(location.pathname.split("/")[2]);
+
+  const { data, isLoading, isError } = useGetProjectQuery(project_id);
+  // console.log(data, isLoading, isError);
 
   return (
-    <div className="p-4 w-full overflow-auto">
-      <h1 className="text-2xl font-bold">Boards</h1>
+    <div className='p-4 w-full overflow-auto'>
+      <h1 className='text-2xl font-bold'>Boards</h1>
       {/* board list */}
-      <div className="">
-        <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-6 py-6">
-        {boardData.filter(board => board.project === project_id)
-        .map((board, index) => (
-          <BoardItem key={index} board={board}/>
-        ))}
+      <div className=''>
+        <div className='flex flex-col items-center md:flex-row md:flex-wrap gap-6 py-6'>
+          {isLoading || isError ? (
+            <div>Loading...</div>
+          ) : !data.project_board.length < 1 ? (
+            data.project_board.map((board, index) => (
+              <BoardItem key={index} board={board} />
+            ))
+          ) : (
+            <div>No boards for this project</div>
+          )}
         </div>
       </div>
     </div>
