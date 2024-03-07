@@ -11,6 +11,7 @@ function ListItem({ list }) {
 
   return (
     <div className="w-72 max-h-full flex flex-col rounded-md border-2">
+      
       {/* list header */}
       <div className="flex items-center justify-between px-3 py-2 list-handle">
         <h3 className="text-sm font-semibold ">{list.title}</h3>

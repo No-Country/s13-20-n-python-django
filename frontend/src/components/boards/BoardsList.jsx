@@ -11,23 +11,24 @@ function BoardsList() {
   const { data, isLoading, isError } = useGetProjectQuery(projectId);
 
   return (
-    <div className='p-4 w-full overflow-auto'>
-      <h1 className='text-2xl font-bold'>Boards</h1>
-      {/* board list */}
-      <div className=''>
-        <div className='flex flex-col items-center md:flex-row md:flex-wrap gap-6 py-6'>
-          {isLoading || isError ? (
-            <div>Loading...</div>
-          ) : !data.project_board.length < 1 ? (
-            data.project_board.map((board) => (
-              <BoardItem key={board.id} board={board} />
-            ))
-          ) : (
-            <div>No boards for this project</div>
-          )}
-          <AddBoard projectId={projectId} />
-        </div>
-      </div>
+    <div className="p-4 w-full overflow-auto">
+      {isLoading || isError ? (
+        <div>Loading...</div>
+      ) : !data.project_board.length < 1 ? (
+        <>
+          <h1 className="text-2xl font-bold">{data.name} Boards</h1>
+          <div className="">
+            <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-6 py-6">
+              {data.project_board.map((board) => (
+                <BoardItem key={board.id} board={board} />
+              ))}
+            </div>
+          </div>
+        </>
+      ) : (
+        <div>No boards for this project</div>
+      )}
+      <AddBoard projectId={projectId} />
     </div>
   );
 }
