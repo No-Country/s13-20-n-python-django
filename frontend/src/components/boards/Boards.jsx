@@ -1,4 +1,5 @@
 import boardData from '../../data/boards.json'
+import AddBoard from './AddBoard';
 
 import BoardItem from "./BoardItem";
 
@@ -13,6 +14,7 @@ function BoardsList() {
           {boardData.map((board, index) => (
               <BoardItem key={index} board={board} />
             ))}
+          <AddBoard />
         </div>
       </div>
     </div>
