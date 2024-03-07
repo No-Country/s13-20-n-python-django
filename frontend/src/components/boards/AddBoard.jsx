@@ -12,6 +12,8 @@ const AddBoard = ({ projectId }) => {
     e.preventDefault();
     console.log(name, description, projectId);
     createNewBoard({ name, description, project: projectId });
+    setName("");
+    setDescription("");
   }
   return (
     <>
