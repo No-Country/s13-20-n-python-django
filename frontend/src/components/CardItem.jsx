@@ -1,19 +1,26 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import ViewCardModal from "./ViewCardModal";
+import { useState } from "react";
 
 function CardItem({ task }) {
-  const [isModalOpen, setModalOpen] = useEffect(false);
+  console.log(task);
 
-  const handleOpenModal = () => {
-    setModalOpen(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
   };
 
   return (
     <div className="shadow rounded-md border-b border-gray-300 hover:bg-gray-50">
       <div className="inline-flex h-full w-full items-start ps-4 pb-4 space-x-4">
         <li key={task.id} className="group w-full relative p-3">
-          <a className="text-sm font-medium cursor-pointer">{task.name}</a>
+          <a onClick={openModal} className="text-sm font-medium cursor-pointer">
+            {task.name}
+          </a>
 
           <div className="dropdown dropdown-left absolute top-1 right-1">
             <button className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
@@ -37,7 +44,7 @@ function CardItem({ task }) {
               className="dropdown-content z-[10] menu p-2 shadow bg-base-100 rounded-box w-52"
             >
               <li>
-                <a onClick={handleOpenModal}>View card</a>
+                <a onClick={() => openModal(task)}>View card</a>
               </li>
               <li>
                 <a>Remove card</a>
@@ -48,7 +55,28 @@ function CardItem({ task }) {
       </div>
 
       {/* Modals */}
-      <ViewCardModal isOpen={isModalOpen} />
+      {isModalOpen && (
+        <dialog
+          id={`view_card_modal_${task.id}`}
+          className="modal"
+          open
+          onClick={closeModal}
+        >
+          <div className="modal-box" onClick={(e) => e.stopPropagation()}>
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button
+                onClick={closeModal}
+                className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+              >
+                ✕
+              </button>
+            </form>
+                <h3 className="font-bold text-lg">{task.name}</h3>
+                <p className="py-4">{task.description}</p>
+          </div>
+        </dialog>
+      )}
     </div>
   );
 }
@@ -57,6 +85,7 @@ CardItem.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
   }),
 };
 
