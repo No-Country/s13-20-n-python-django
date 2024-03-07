@@ -6,9 +6,9 @@ import AddBoard from "./AddBoard";
 
 function BoardsList() {
   const location = useLocation();
-  const project_id = parseInt(location.pathname.split("/")[2]);
+  const projectId = parseInt(location.pathname.split("/")[2]);
 
-  const { data, isLoading, isError } = useGetProjectQuery(project_id);
+  const { data, isLoading, isError } = useGetProjectQuery(projectId);
 
   return (
     <div className='p-4 w-full overflow-auto'>
@@ -25,7 +25,7 @@ function BoardsList() {
           ) : (
             <div>No boards for this project</div>
           )}
-          <AddBoard />
+          <AddBoard projectId={projectId} />
         </div>
       </div>
     </div>
