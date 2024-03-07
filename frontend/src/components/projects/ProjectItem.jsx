@@ -17,12 +17,12 @@ function ProjectItem({ project }) {
 
   return (
     <div
-      className="card w-full md:w-56 bg-base-100 shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
+      className="card w-full image-full md:w-56 bg-base-100 shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
       onClick={() => navigate(`/projects/${id}`)}
     >
       <div
-        className="w-full md:w-56 h-36"
-        style={{"backgroundColor": getRandomColor()}}
+        className="w-full md:w-56 h-36 rounded-box"
+        style={{ backgroundColor: getRandomColor() }}
       ></div>
       <div className="card-body p-3">
         <h2 className="card-title">{name}</h2>

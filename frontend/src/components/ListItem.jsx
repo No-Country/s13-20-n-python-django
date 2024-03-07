@@ -145,8 +145,8 @@ function ListItem({ list }) {
 
 ListItem.propTypes = {
   list: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    list_set: PropTypes.arrayOf(PropTypes.object).isRequired,
+    title: PropTypes.string.isRequired,
+    list_task: PropTypes.arrayOf(PropTypes.object).isRequired,
   }).isRequired,
 };
 
