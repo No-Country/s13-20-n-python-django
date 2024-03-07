@@ -9,7 +9,6 @@ function BoardsList() {
   const project_id = parseInt(location.pathname.split("/")[2]);
 
   const { data, isLoading, isError } = useGetProjectQuery(project_id);
-  // console.log(data, isLoading, isError);
 
   return (
     <div className='p-4 w-full overflow-auto'>
@@ -20,12 +19,13 @@ function BoardsList() {
           {isLoading || isError ? (
             <div>Loading...</div>
           ) : !data.project_board.length < 1 ? (
-            data.project_board.map((board, index) => (
-              <BoardItem key={index} board={board} />
+            data.project_board.map((board) => (
+              <BoardItem key={board.id} board={board} />
             ))
           ) : (
             <div>No boards for this project</div>
           )}
+          <AddBoard />
         </div>
       </div>
     </div>

@@ -15,7 +15,6 @@ function Projects() {
             <div>Loading...</div>
           ) : (
             data.map((project) => {
-              // console.log("project:", project); // Log projectData to check if it's loaded correctly
               return <Project key={project.id} project={project} />;
             })
           )}

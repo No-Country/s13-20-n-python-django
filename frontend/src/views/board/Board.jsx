@@ -1,4 +1,5 @@
-import BoardList from '../../components/boards/BoardsList'
+import ListItem from '../../components/ListItem';
+import BoardDetails from '../../components/boards/BoardDetails';
 import Sidebar from "../../components/layout/Sidebar";
 
 const Board = () => {
@@ -6,7 +7,7 @@ const Board = () => {
   return(
     <>
       <Sidebar />
-      <BoardList />
+      <BoardDetails />
     </>
   );
 };

@@ -2,23 +2,28 @@ import placeholder from "../../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
 
-function ProjectItem({ project }) {
+function getRandomColor() {
+  var letters = "0123456789ABCDEF";
+  var color = "#";
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
 
+function ProjectItem({ project }) {
   const navigate = useNavigate();
-  const { name, imageUrl, id } = project
+  const { name, imageUrl, id } = project;
 
   return (
     <div
       className="card w-full md:w-56 bg-base-100 shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer"
       onClick={() => navigate(`/projects/${id}`)}
     >
-      <figure>
-        <img
-          src={imageUrl || placeholder}
-          alt="board image"
-          className="w-full md:w-56 h-36"
-        />
-      </figure>
+      <div
+        className="w-full md:w-56 h-36"
+        style={{"backgroundColor": getRandomColor()}}
+      ></div>
       <div className="card-body p-3">
         <h2 className="card-title">{name}</h2>
       </div>
@@ -32,7 +37,6 @@ ProjectItem.propTypes = {
     imageUrl: PropTypes.string,
     id: PropTypes.number.isRequired,
   }).isRequired,
-  
-}
+};
 
 export default ProjectItem;
