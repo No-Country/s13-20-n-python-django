@@ -1,17 +1,22 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import ViewCardModal from "./ViewCardModal";
 
-function CardItem({task}) {
-  console.log(task);
-  // const taskData = Object.entries(task)
+function CardItem({ task }) {
+  const [isModalOpen, setModalOpen] = useEffect(false);
+
+  const handleOpenModal = () => {
+    setModalOpen(true);
+  };
 
   return (
     <div className="shadow rounded-md border-b border-gray-300 hover:bg-gray-50">
-      <div className="inline-flex h-full items-start px-4 pb-4 space-x-4">
-          <li key={task.id} className="group relative p-3">
-            <a href="#" className="text-sm font-medium">
-              {task.name}
-            </a>
-            <button className="hidden absolute top-1 right-1 w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
+      <div className="inline-flex h-full w-full items-start ps-4 pb-4 space-x-4">
+        <li key={task.id} className="group w-full relative p-3">
+          <a className="text-sm font-medium cursor-pointer">{task.name}</a>
+
+          <div className="dropdown dropdown-left absolute top-1 right-1">
+            <button className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -27,8 +32,23 @@ function CardItem({task}) {
                 />
               </svg>
             </button>
-          </li>
+            <ul
+              tabIndex={0}
+              className="dropdown-content z-[10] menu p-2 shadow bg-base-100 rounded-box w-52"
+            >
+              <li>
+                <a onClick={handleOpenModal}>View card</a>
+              </li>
+              <li>
+                <a>Remove card</a>
+              </li>
+            </ul>
+          </div>
+        </li>
       </div>
+
+      {/* Modals */}
+      <ViewCardModal isOpen={isModalOpen} />
     </div>
   );
 }
@@ -37,7 +57,6 @@ CardItem.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-
   }),
 };
 

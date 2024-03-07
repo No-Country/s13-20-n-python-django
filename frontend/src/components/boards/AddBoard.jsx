@@ -1,6 +1,12 @@
 import plus from "../../assets/plus-symbol.jpg";
+import { useCreateNewBoardMutation } from "../../services/boardSlice";
 
 const AddBoard = () => {
+
+  const handleSubmit = (e) => {
+    
+  }
+    
   return (
     <>
       <div className="card w-full md:w-56 bg-base-100 image-full shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
@@ -22,20 +28,27 @@ const AddBoard = () => {
       >
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">Add new board</h3>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered input-primary w-full"
-          />
-          <div className="modal-action">
-            <form method="dialog">
+          <form method="dialog" onSubmit={handleSubmit()}>
+            <input
+              
+              type="text"
+              placeholder="Type board name here (e.g. 'TODO')"
+              className="input input-bordered input-primary w-full mb-3"
+            />
+            <input
+              
+              type="text"
+              placeholder="Add a description"
+              className="input input-bordered input-primary w-full h-20"
+            />
+            <div className="modal-action">
               {/* if there is a button in form, it will close the modal */}
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
               <button className="btn btn-primary">Add board</button>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </dialog>
     </>
