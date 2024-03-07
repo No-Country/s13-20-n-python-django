@@ -1,10 +1,13 @@
 import plus from "../../assets/plus-symbol.jpg";
 import { useState } from "react";
 import { useCreateNewBoardMutation } from "../../services/boardSlice";
+import PropTypes from 'prop-types';
 
 const AddBoard = ({ projectId }) => {
+
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
+
   const [createNewBoard, { data, isLoading, isError }] =
     useCreateNewBoardMutation();
 
@@ -67,5 +70,13 @@ const AddBoard = ({ projectId }) => {
     </>
   );
 };
+
+AddBoard.propTypes = {
+  projectId: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string,
+    priority: PropTypes.number.isRequired,
+  }).isRequired
+}
 
 export default AddBoard;
