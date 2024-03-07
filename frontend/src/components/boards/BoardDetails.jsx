@@ -1,9 +1,6 @@
-import ListItem from "../ListItem";
 import PropTypes from "prop-types";
 import { useGetBoardQuery } from "../../services/boardSlice";
 import { useLocation } from "react-router-dom";
-import { useDragAndDrop } from "@formkit/drag-and-drop/react";
-import { animations } from "@formkit/drag-and-drop";
 import BoardSorter from "./BoardSorter";
 
 function BoardDetails() {
