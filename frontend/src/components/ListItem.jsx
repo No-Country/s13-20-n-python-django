@@ -1,12 +1,18 @@
+import { useDragAndDrop } from "@formkit/drag-and-drop/react";
 import CardItem from "./CardItem";
 import PropTypes from "prop-types";
+import { animations } from "@formkit/drag-and-drop";
 
 function ListItem({ list }) {
-  
+  const [parent, tasks] = useDragAndDrop(list.list_task, {
+    group: "lists",
+    plugins: [animations()],
+  });
+
   return (
     <div className="w-72 max-h-full flex flex-col rounded-md border-2">
       {/* list header */}
-      <div className="flex items-center justify-between px-3 py-2">
+      <div className="flex items-center justify-between px-3 py-2 list-handle">
         <h3 className="text-sm font-semibold ">{list.title}</h3>
         {/* list menu button */}
         <button className="hover:bg-gray-300 w-8 h-8 rounded-md grid place-content-center dropdown">
@@ -16,8 +22,7 @@ function ListItem({ list }) {
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
-          >
+            className="w-6 h-6">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -31,8 +36,7 @@ function ListItem({ list }) {
               <a
                 onClick={() =>
                   document.getElementById("add_card_modal").showModal()
-                }
-              >
+                }>
                 Add card
               </a>
             </li>
@@ -63,8 +67,7 @@ function ListItem({ list }) {
                 onClick={() =>
                   document.getElementById("delete_card_modal").showModal()
                 }
-                className="text-red-500"
-              >
+                className="text-red-500">
                 Remove list
               </a>
             </li>
@@ -74,8 +77,8 @@ function ListItem({ list }) {
       {/* list content */}
       <div className="pb-3 flex flex-col overflow-hidden">
         <div className="px-3 flex-1 overflow-y-auto">
-          <ul className="space-y-3">
-            {list.list_task.map((task) => (
+          <ul ref={parent} className="space-y-3 py-3">
+            {tasks.map((task) => (
               <CardItem key={task.id} task={task} />
             ))}
           </ul>
@@ -88,8 +91,7 @@ function ListItem({ list }) {
             className="ml-1"
             onClick={() =>
               document.getElementById("add_card_modal").showModal()
-            }
-          >
+            }>
             Add card
           </span>
         </button>
@@ -98,8 +100,7 @@ function ListItem({ list }) {
       {/* Modals */}
       <dialog
         id="add_card_modal"
-        className="modal modal-bottom sm:modal-middle"
-      >
+        className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">
             Add a new task (or press ESC to exit)
