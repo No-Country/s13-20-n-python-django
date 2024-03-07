@@ -22,17 +22,18 @@ from rest_framework.generics import (
     RetrieveAPIView,
     UpdateAPIView,
 )
-from accounts.models import User
 
 
 class ProjectListView(ListAPIView):
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
     user_field = "owner"
-    
+
     def get_queryset(self):
-        return super().get_queryset().filter(
-            Q(owner=self.request.user) | Q(member=self.request.user)
+        return (
+            super()
+            .get_queryset()
+            .filter(Q(owner=self.request.user) | Q(member=self.request.user))
         )
 
 
@@ -55,7 +56,6 @@ class ProjectDeleteView(DestroyAPIView):
 class ProjectRetrieveView(RetrieveAPIView):
     queryset = Project.objects.all()
     serializer_class = DetailProjectSerializer
- 
 
 
 class ProjectUpdateView(UpdateAPIView):

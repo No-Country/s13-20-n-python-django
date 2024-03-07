@@ -1,8 +1,6 @@
-from django.db.models import query
 from rest_framework import serializers
 from .models import Project, List, Task, Comment, Board
 from accounts.models import User
-from django.contrib.auth import get_user_model
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -55,14 +53,12 @@ class TaskSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-# Used only for project
 class SummarizedBoardSerializer(serializers.ModelSerializer):
-    # project = serializers.StringRelatedField(many=True)
 
     class Meta:
         model = Board
-        fields = ["name", "id"]
-        read_only_fields = ["name", "name"]
+        fields = ["name", "description", "id"]
+        read_only_fields = ["name", "description", "id"]
 
 
 class DetailProjectSerializer(serializers.ModelSerializer):
