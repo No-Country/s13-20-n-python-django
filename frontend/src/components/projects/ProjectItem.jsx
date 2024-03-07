@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
+import { useDeleteProjectMutation } from "../../services/projectSlice";
 
 function ProjectItem({ project }) {
   const navigate = useNavigate();
   const { name, id } = project;
+  const [deleteProject, { data, isLoading, isError }] =
+    useDeleteProjectMutation();
 
   return (
     <div className="group relative card w-full max-h-36 md:w-56 bg-base-100 image-full shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
@@ -19,16 +22,14 @@ function ProjectItem({ project }) {
           <div
             tabIndex={0}
             role="button"
-            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200"
-          >
+            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
-            >
+              className="w-4 h-4">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -38,12 +39,14 @@ function ProjectItem({ project }) {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
             <li>
               <a>Rename project</a>
             </li>
-            <li>
+            <li
+              onClick={() => {
+                deleteProject(id);
+              }}>
               <a>Delete project</a>
             </li>
           </ul>
