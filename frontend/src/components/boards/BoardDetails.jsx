@@ -8,8 +8,6 @@ function BoardDetails() {
   const projectId = parseInt(location.pathname.split("/")[3]);
   const { data, isError, isLoading } = useGetBoardQuery(projectId);
 
-  console.log(data, isError, isLoading);
-
   if (isLoading) {
     return <div>Loading...</div>;
   } else {

@@ -1,15 +1,5 @@
-import placeholder from "../../assets/placeholder.png";
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-
-function getRandomColor() {
-  var letters = "0123456789ABCDEF";
-  var color = "#";
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 function ProjectItem({ project }) {
   const navigate = useNavigate();

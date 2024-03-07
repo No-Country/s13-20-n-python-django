@@ -4,27 +4,48 @@ import PropTypes from "prop-types";
 import { animations } from "@formkit/drag-and-drop";
 import { useState } from "react";
 import { useCreateNewTaskMutation } from "../services/taskSlice";
-import { useNavigate } from "react-router-dom";
+import { useDeleteListMutation } from "../services/listSlice";
 
 function ListItem({ list }) {
   const [cardTitle, setCardTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("");
   const [listId, setListId] = useState(list.id);
+
   const [parent, tasks] = useDragAndDrop(list.list_task, {
     group: "lists",
     plugins: [animations()],
   });
+
   const [createNewTask, { data, isError, isLoading }] =
     useCreateNewTaskMutation();
+  
+  // const [deleteTask] = useDeleteTaskMutation();
+
+  const [deleteList] = useDeleteListMutation();
+
   function handleAddCard(event) {
     event.preventDefault();
     console.log(listId, cardTitle, description, priority);
     createNewTask({ list: listId, name: cardTitle, description, priority });
+    document.getElementById(`add-${listId}`).close();
     setCardTitle("");
     setPriority("");
     setDescription("");
   }
+
+  // function handleDeleteCard(event) {
+  //   event.preventDefault();
+  //   deleteTask();
+  //   document.getElementById(`delete-${listId}`).close();
+  // }
+
+  function handleDeleteList(event) {
+    event.preventDefault();
+    deleteList({ list: listId });
+    document.getElementById(`delete-${listId}`).close();
+  }
+
   return (
     <div className="w-72 max-h-full flex flex-col rounded-md border-2">
       {/* list header */}
@@ -104,19 +125,16 @@ function ListItem({ list }) {
         </div>
       </div>
       <div className="px-3 pb-3 mt-3">
-        <button className="flex items-center p-2 text-sm font-medium hover:text-black hover:bg-gray-300 w-full rounded-md">
-          +
-          <span
-            className="ml-1"
-            onClick={() => document.getElementById(`add-${listId}`).showModal()}
-          >
-            Add card
-          </span>
+        <button
+          className="flex items-center p-2 text-sm font-medium hover:text-black hover:bg-gray-300 w-full rounded-md"
+          onClick={() => document.getElementById(`add-${listId}`).showModal()}
+        >
+          +<span className="ml-1">Add card</span>
         </button>
       </div>
 
       {/* Modals */}
-      {/* Add list */}
+      {/* Add card */}
       <dialog
         id={`add-${listId}`}
         className="modal modal-bottom sm:modal-middle"
@@ -175,9 +193,32 @@ function ListItem({ list }) {
         </div>
       </dialog>
 
+      {/* Delete card */}
+      <dialog id={`delete-${listId}`} className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg">Delete card</h3>
+          <p className="py-4">
+            Are you sure you want to delete this card? Press ESC key or close
+            this window to cancel.
+          </p>
+          <div className="modal-action">
+            <form method="dialog">
+              {/* if there is a button in form, it will close the modal */}
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+              <button className="btn btn-error"
+              //  onClick={handleDeleteCard}
+              >
+                Delete
+              </button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+
       {/* Delete list */}
-      <dialog 
-      id={`delete-${listId}`} className="modal">
+      <dialog id={`delete-${listId}`} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Delete list</h3>
           <p className="py-4">
@@ -190,7 +231,9 @@ function ListItem({ list }) {
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
-              <button className="btn btn-primary">Close</button>
+              <button className="btn btn-error" onClick={handleDeleteList}>
+                Delete
+              </button>
             </form>
           </div>
         </div>
