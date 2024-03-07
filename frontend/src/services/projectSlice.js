@@ -5,13 +5,13 @@ const extendedProjectApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProjects: builder.query({
       query: () => "tasks/projects",
-      providesTags: ["Projects"],
+      providesTags: ["projects"],
     }),
     getProject: builder.query({
       query: (projectId) => ({
         url: `tasks/projects/${projectId}/`,
-        providesTags: ["project"],
       }),
+      providesTags: ["project"],
     }),
     createNewProject: builder.mutation({
       query: (projectData) => ({
@@ -19,7 +19,7 @@ const extendedProjectApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         body: projectData,
       }),
-      providesTags: ["Projects"],
+      providesTags: ["projects"],
     }),
     updateProject: builder.mutation({
       query: (projectData) => ({
@@ -27,14 +27,14 @@ const extendedProjectApiSlice = apiSlice.injectEndpoints({
         method: "PUT",
         body: projectData,
       }),
-      providesTags: ["Projects"],
+      providesTags: ["projects"],
     }),
     deleteProject: builder.mutation({
       query: (projectId) => ({
         url: `tasks/projects/${projectId}/`,
         method: "DELETE",
       }),
-      providesTags: ["Projects"],
+      providesTags: ["projects"],
     }),
   }),
 });
