@@ -2,11 +2,16 @@ import ListItem from "../ListItem";
 import PropTypes from "prop-types";
 import { useGetBoardQuery } from "../../services/boardSlice";
 import { useLocation } from "react-router-dom";
+import { useDragAndDrop } from "@formkit/drag-and-drop/react";
+import { animations } from "@formkit/drag-and-drop";
+import BoardSorter from "./BoardSorter";
 
 function BoardDetails() {
   const location = useLocation();
-  const project_id = parseInt(location.pathname.split("/")[3]);
-  const { data, isError, isLoading } = useGetBoardQuery(project_id);
+  const projectId = parseInt(location.pathname.split("/")[3]);
+  const { data, isError, isLoading } = useGetBoardQuery(projectId);
+
+  console.log(data, isError, isLoading);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -22,11 +27,7 @@ function BoardDetails() {
             {isLoading || isError ? (
               <div>Loading...</div>
             ) : (
-              <div className="inline-flex h-full items-start px-4 pb-4 space-x-4">
-                {data.list_set.map((list) => {
-                  return <ListItem key={list.id} list={list} />;
-                })}
-              </div>
+              <BoardSorter data={data} />
             )}
 
             <div className="w-72">
