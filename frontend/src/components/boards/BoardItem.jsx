@@ -139,6 +139,7 @@ BoardItem.propTypes = {
     description: PropTypes.string,
     id: PropTypes.number,
   }).isRequired,
+  projectId: PropTypes.number.isRequired,
 };
 
 export default BoardItem;

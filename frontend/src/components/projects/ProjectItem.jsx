@@ -8,6 +8,7 @@ import { useState } from "react";
 
 function ProjectItem({ project }) {
   const navigate = useNavigate();
+
   const { name, id } = project;
   const [projectName, setProjectName] = useState(name);
 
@@ -16,6 +17,7 @@ function ProjectItem({ project }) {
 
   const [updateProject, { updateData, updateIsLoading, updateIsError }] =
     useUpdateProjectMutation();
+
   function handleUpdateProject(event) {
     event.preventDefault();
     updateProject({ ...project, name: projectName });
@@ -36,14 +38,16 @@ function ProjectItem({ project }) {
           <div
             tabIndex={0}
             role="button"
-            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
+            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4">
+              className="w-4 h-4"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -53,17 +57,20 @@ function ProjectItem({ project }) {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+          >
             <li
               onClick={() =>
                 document.getElementById(`rename-${id}`).showModal()
-              }>
+              }
+            >
               <a>Rename project</a>
             </li>
             <li
               onClick={() =>
                 document.getElementById(`delete-${id}`).showModal()
-              }>
+              }
+            >
               <a>Delete project</a>
             </li>
           </ul>
@@ -77,7 +84,8 @@ function ProjectItem({ project }) {
       {/* Confirm delete */}
       <dialog
         id={`delete-${id}`}
-        className="modal modal-bottom sm:modal-middle">
+        className="modal modal-bottom sm:modal-middle"
+      >
         <div className="modal-box">
           <h3 className="font-bold text-lg">Confirm</h3>
           <p className="py-4">
@@ -95,7 +103,8 @@ function ProjectItem({ project }) {
                 className="btn btn-error"
                 onClick={() => {
                   deleteProject(id);
-                }}>
+                }}
+              >
                 Delete
               </button>
             </form>
@@ -106,7 +115,8 @@ function ProjectItem({ project }) {
       {/* Rename project */}
       <dialog
         id={`rename-${id}`}
-        className="modal modal-bottom sm:modal-middle">
+        className="modal modal-bottom sm:modal-middle"
+      >
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">Rename project</h3>
           <form method="dialog">
