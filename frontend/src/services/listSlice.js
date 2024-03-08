@@ -10,7 +10,7 @@ const extendedProjectApiSlice = apiSlice.injectEndpoints({
     }),
     createNewList: builder.mutation({
       query: (listData) => ({
-        url: "tasks/lists/create",
+        url: "tasks/lists/create/",
         method: "POST",
         body: listData,
       }),
