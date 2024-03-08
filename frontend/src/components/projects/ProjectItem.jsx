@@ -1,10 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import { PropTypes } from "prop-types";
-import { useDeleteProjectMutation } from "../../services/projectSlice";
+import {
+  useDeleteProjectMutation,
+  useUpdateProjectMutation,
+} from "../../services/projectSlice";
 
 function ProjectItem({ project }) {
   const navigate = useNavigate();
   const { name, id } = project;
+
   const [deleteProject, { data, isLoading, isError }] =
     useDeleteProjectMutation();
 
@@ -43,12 +47,16 @@ function ProjectItem({ project }) {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
           >
-            <li>
+            <li
+              onClick={() =>
+                document.getElementById(`rename-${id}`).showModal()
+              }
+            >
               <a>Rename project</a>
             </li>
             <li
               onClick={() =>
-                document.getElementById("confirm_delete_modal").showModal()
+                document.getElementById(`delete-${id}`).showModal()
               }
             >
               <a>Delete project</a>
@@ -63,7 +71,7 @@ function ProjectItem({ project }) {
       {/* Modals */}
       {/* Confirm delete */}
       <dialog
-        id="confirm_delete_modal"
+        id={`delete-${id}`}
         className="modal modal-bottom sm:modal-middle"
       >
         <div className="modal-box">
@@ -89,6 +97,36 @@ function ProjectItem({ project }) {
               </button>
             </form>
           </div>
+        </div>
+      </dialog>
+
+      {/* Rename project */}
+      <dialog
+        id={`rename-${id}`}
+        className="modal modal-bottom sm:modal-middle"
+      >
+        <div className="modal-box">
+          <h3 className="font-bold text-lg mb-4">Rename project</h3>
+          <form method="dialog">
+            <input
+              type="text"
+              placeholder="Type project name here"
+              className="input input-bordered input-primary w-full"
+              value={name}
+              // onChange={(event) => setName(event.target.value)}
+            />
+            {/* if there is a button in form, it will close the modal */}
+            <div className="modal-action">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+              <button className="btn btn-primary" 
+              // onClick={handleRenameProject}
+              >
+                Rename project
+              </button>
+            </div>
+          </form>
         </div>
       </dialog>
     </div>

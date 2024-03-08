@@ -42,12 +42,16 @@ function BoardItem({ board }) {
             tabIndex={0}
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 text-primary"
           >
-            <li>
+            <li
+              onClick={() =>
+                document.getElementById(`rename-${id}`).showModal()
+              }
+            >
               <a>Rename board</a>
             </li>
             <li
               onClick={() =>
-                document.getElementById("confirm_delete_modal").showModal()
+                document.getElementById(`delete-${id}`).showModal()
               }
             >
               <a>Delete board</a>
@@ -65,7 +69,7 @@ function BoardItem({ board }) {
       {/* Modals */}
       {/* Confirm delete */}
       <dialog
-        id="confirm_delete_modal"
+        id={`delete-${id}`}
         className="modal modal-bottom sm:modal-middle"
       >
         <div className="modal-box">
@@ -91,6 +95,37 @@ function BoardItem({ board }) {
               </button>
             </form>
           </div>
+        </div>
+      </dialog>
+
+      {/* Rename board */}
+      <dialog
+        id={`rename-${id}`}
+        className="modal modal-bottom sm:modal-middle"
+      >
+        <div className="modal-box">
+          <h3 className="font-bold text-lg mb-4">Rename board</h3>
+          <form method="dialog">
+            <input
+              type="text"
+              placeholder="Type project name here"
+              className="input input-bordered input-primary w-full"
+              value={name}
+              // onChange={(event) => setName(event.target.value)}
+            />
+            {/* if there is a button in form, it will close the modal */}
+            <div className="modal-action">
+              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
+                ✕
+              </button>
+              <button
+                className="btn btn-primary"
+                // onClick={handleRenameBoard}
+              >
+                Rename board
+              </button>
+            </div>
+          </form>
         </div>
       </dialog>
     </div>

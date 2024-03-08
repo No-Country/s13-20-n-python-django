@@ -32,6 +32,7 @@ const AddProject = () => {
       </div>
 
       {/* Modal */}
+      {/* Add project */}
       <dialog
         id="add_project_modal"
         className="modal modal-bottom sm:modal-middle">
