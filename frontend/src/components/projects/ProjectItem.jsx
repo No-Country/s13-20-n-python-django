@@ -4,13 +4,23 @@ import {
   useDeleteProjectMutation,
   useUpdateProjectMutation,
 } from "../../services/projectSlice";
+import { useState } from "react";
 
 function ProjectItem({ project }) {
   const navigate = useNavigate();
   const { name, id } = project;
+  const [projectName, setProjectName] = useState(name);
 
   const [deleteProject, { data, isLoading, isError }] =
     useDeleteProjectMutation();
+
+  const [updateProject, { updateData, updateIsLoading, updateIsError }] =
+    useUpdateProjectMutation();
+  function handleUpdateProject(event) {
+    event.preventDefault();
+    updateProject({ ...project, name: projectName });
+    document.getElementById(`rename-${id}`).close();
+  }
 
   return (
     <div className="group relative card w-full max-h-36 md:w-56 bg-base-100 image-full shadow-xl hover:scale-105 transition duration-300 ease-in-out cursor-pointer">
@@ -26,16 +36,14 @@ function ProjectItem({ project }) {
           <div
             tabIndex={0}
             role="button"
-            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200"
-          >
+            className="hidden w-8 h-8 group-hover:grid place-content-center rounded-md hover:text-black hover:bg-gray-200">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
-              className="w-4 h-4"
-            >
+              className="w-4 h-4">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -45,20 +53,17 @@ function ProjectItem({ project }) {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
-          >
+            className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
             <li
               onClick={() =>
                 document.getElementById(`rename-${id}`).showModal()
-              }
-            >
+              }>
               <a>Rename project</a>
             </li>
             <li
               onClick={() =>
                 document.getElementById(`delete-${id}`).showModal()
-              }
-            >
+              }>
               <a>Delete project</a>
             </li>
           </ul>
@@ -72,8 +77,7 @@ function ProjectItem({ project }) {
       {/* Confirm delete */}
       <dialog
         id={`delete-${id}`}
-        className="modal modal-bottom sm:modal-middle"
-      >
+        className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Confirm</h3>
           <p className="py-4">
@@ -91,8 +95,7 @@ function ProjectItem({ project }) {
                 className="btn btn-error"
                 onClick={() => {
                   deleteProject(id);
-                }}
-              >
+                }}>
                 Delete
               </button>
             </form>
@@ -103,8 +106,7 @@ function ProjectItem({ project }) {
       {/* Rename project */}
       <dialog
         id={`rename-${id}`}
-        className="modal modal-bottom sm:modal-middle"
-      >
+        className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <h3 className="font-bold text-lg mb-4">Rename project</h3>
           <form method="dialog">
@@ -112,17 +114,15 @@ function ProjectItem({ project }) {
               type="text"
               placeholder="Type project name here"
               className="input input-bordered input-primary w-full"
-              value={name}
-              // onChange={(event) => setName(event.target.value)}
+              value={projectName}
+              onChange={(event) => setProjectName(event.target.value)}
             />
             {/* if there is a button in form, it will close the modal */}
             <div className="modal-action">
               <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
                 ✕
               </button>
-              <button className="btn btn-primary" 
-              // onClick={handleRenameProject}
-              >
+              <button className="btn btn-primary" onClick={handleUpdateProject}>
                 Rename project
               </button>
             </div>

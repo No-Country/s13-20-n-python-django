@@ -16,11 +16,13 @@ function BoardsList() {
         <div>Loading...</div>
       ) : !data.project_board.length < 1 ? (
         <>
-          <h1 className="text-2xl font-bold">{data.name} {" >"} Boards</h1>
+          <h1 className="text-2xl font-bold">
+            {data.name} {" >"} Boards
+          </h1>
           <div className="">
             <div className="flex flex-col items-center md:flex-row md:flex-wrap gap-6 py-6">
               {data.project_board.map((board) => (
-                <BoardItem key={board.id} board={board} />
+                <BoardItem key={board.id} board={board} projectId={projectId} />
               ))}
             </div>
           </div>
