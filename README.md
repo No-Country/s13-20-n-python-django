@@ -37,6 +37,7 @@ Experience the power of Tabula and revolutionize the way you work together. Try 
 - To use venv in your project, in your terminal, run the following command (make sure you are inside the _backend_ folder): `python<version> -m venv <virtual-environment-name>`
 
 - Activate the virtual environment
+
   - On Windows: `/<virtual-environment-name>/Scripts/activate.bat` for cmd and `/<virtual-environment-name>/Scripts/Activate.ps1` for PowerShell.
   - On Unix: `source env/bin/activate`
 
@@ -59,7 +60,6 @@ You should be able to see the Django server in `http://localhost:8000`
 - Start the development server: `npm start`
 
 The npm server will be located at `http://localhost:5173`
-
 
 ## Built with 🛠️
 
