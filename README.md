@@ -65,18 +65,18 @@ The npm server will be located at `http://localhost:5173`
 
 ## Our team
 
-| Name | Role | Github |
-|---|---|---|
-| Andrés Timaure | Quality Assurance |  [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AndresTimaure21) |
-| Gustavo Aguirre | Backend | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gjaguirre) |
-| Álvaro Manterola | Fullstack | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/grunsho) |
-| Hernán Casasola | Backend | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GuidoMaxier) |
-| Javier Brizuela | Backend | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JavierBrizuela) |
-| Víctor León | Backend | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kohler98) |
-| Nahuel Arrieta | Backend | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nahuel-a) |
-| Santiago Cabral | Fullstack | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/suspiciousRaccoon) |
-| Thamairy González | Quality Assurance | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ThamairyGonzalez) |
-| Óscar Araujo | Team Leader | ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white) |
+| Name              | Role              | Github                                                                                                                                               |
+| ----------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Andrés Timaure    | Quality Assurance | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/AndresTimaure21)   |
+| Gustavo Aguirre   | Backend           | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gjaguirre)         |
+| Álvaro Manterola  | Fullstack         | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/grunsho)           |
+| Hernán Casasola   | Backend           | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/GuidoMaxier)       |
+| Javier Brizuela   | Backend           | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/JavierBrizuela)    |
+| Víctor León       | Backend           | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Kohler98)          |
+| Nahuel Arrieta    | Backend           | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Nahuel-a)          |
+| Santiago Cabral   | Fullstack         | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/suspiciousRaccoon) |
+| Thamairy González | Quality Assurance | [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ThamairyGonzalez)  |
+| Óscar Araujo      | Team Leader       | ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)                                         |
 
 ## Built with 🛠️
 
